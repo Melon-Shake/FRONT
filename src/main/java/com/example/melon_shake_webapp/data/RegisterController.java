@@ -10,7 +10,7 @@ public class RegisterController {
             @RequestParam(name="password", required=true) String password,
             @RequestParam(name="name", required=true) String name,
             @RequestParam(name="gender", required=false) String gender
-            @RequestParam(name="age", required=false) int age,
+            @RequestParam(name="birthdate", required=false) String birthdate,
             @RequestParam(name="mbti", required=false) String mbti,
             @RequestParam(name="favorite_tracks", required=false) String favorite_tracks,
             @RequestParam(name="favorite_artists", required=false) String favorite_artists,
