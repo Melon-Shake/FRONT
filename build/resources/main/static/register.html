@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 화면 샘플 - Bootstrap</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <style>
+        body {
+            min-height: 100vh;
+
+            background: -webkit-gradient(linear, left bottom, right top, from(#40a798), to(#a4d8ce));
+            background: -webkit-linear-gradient(bottom left, #40a798 100%, #a4d8ce 50%);
+            background: -moz-linear-gradient(bottom left, #40a798 100%, #a4d8ce 50%);
+            background: -o-linear-gradient(bottom left, #40a798 100%, #a4d8ce 50%);
+            background: linear-gradient(to top right, #40a798 100%, #a4d8ce 50%);
+        }
+
+        .input-form {
+            max-width: 680px;
+
+            margin-top: 80px;
+            padding: 32px;
+
+            background: #fff;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+
+            .btn-primary {
+                --bs-btn-color: #fff;
+                --bs-btn-bg: #40a798;
+                --bs-btn-border-color: #40a798;
+                --bs-btn-hover-color: #fff;
+                --bs-btn-hover-bg: #3a9688;
+                --bs-btn-hover-border-color: #3a9688;
+                --bs-btn-focus-shadow-rgb: 49, 132, 253;
+                --bs-btn-active-color: #fff;
+                --bs-btn-active-bg: #50d0bd;
+                --bs-btn-active-border-color: #50d0bd;
+                --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+                --bs-btn-disabled-color: #fff;
+                --bs-btn-disabled-bg: #0d6efd;
+                --bs-btn-disabled-border-color: #0d6efd;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="input-form-backgroud row">
+        <div class="input-form col-md-12 mx-auto">
+            <h4 class="mb-3">회원가입</h4>
+            <form class="validation-form" novalidate>
+                <div class="mb-3">
+                    <label for="email">이메일(로그인 시 ID로 사용됩니다.)</label>
+                    <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+                    <div class="invalid-feedback">
+                        이메일을 입력해주세요.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="password">비밀번호</label>
+                    <input type="password" class="form-control" id="password" required>
+                    <div class="invalid-feedback">
+                        비밀번호를 입력해주세요.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="nickname">별명</label>
+                    <input type="text" class="form-control" id="nickname" placeholder="" value="" required>
+                    <div class="invalid-feedback">
+                        별명을 입력해주세요.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="gender">성별</label>
+                    <select class="form-select" id="gender" aria-label="Select Gender" required>
+                        <option selected value="">성별을 선택하세요</option>
+                        <option value="M">남자</option>
+                        <option value="F">여자</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="birth_date">생년월일</label>
+                    <input type="date" class="form-control" id="birth_date" required>
+                    <div class="invalid-feedback">
+                        생년월일을 입력해주세요.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="favorite_track">좋아하는 노래</label>
+                    <input type="text" class="form-control" id="favorite_track" required>
+                    <div class="invalid-feedback">
+                        좋아하는 노래를 입력해주세요.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="favorite_artist">좋아하는 가수</label>
+                    <input type="text" class="form-control" id="favorite_artist" required>
+                    <div class="invalid-feedback">
+                        좋아하는 가수를 입력해주세요.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="MBTI">MBTI</label>
+                    <select class="form-select" id="MBTI" aria-label="Select MBTI" required>MBTI
+                        <option selected value="">MBTI를 선택하세요</option>
+                        <option value="ESFJ">ESFJ</option>
+                        <option value="ESFP">ESFP</option>
+                        <option value="ESTJ">ESTJ</option>
+                        <option value="ESTP">ESTP</option>
+                        <option value="ENFJ">ENFJ</option>
+                        <option value="ENFP">ENFP</option>
+                        <option value="ENTJ">ENTJ</option>
+                        <option value="ENTP">ENTP</option>
+                        <option value="ISFJ">ISFJ</option>
+                        <option value="ISFP">ISFP</option>
+                        <option value="ISTJ">ISTJ</option>
+                        <option value="ISTP">ISTP</option>
+                        <option value="INFJ">INFJ</option>
+                        <option value="INFP">INFP</option>
+                        <option value="INTJ">INTJ</option>
+                        <option value="INTP">INTP</option>
+                    </select>
+                </div>
+                <hr class="mb-4">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="aggrement" required>
+                    <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
+                </div>
+                <div row>
+                    <div class="mb-4"></div>
+                    <button id="gotoRoot" class="btn btn-primary btn-lg btn-block" type="button">뒤로 가기</button>
+                    <script>
+                        // 버튼 클릭 시 루트 디렉토리로 이동하는 함수
+                        document.getElementById("gotoRoot").addEventListener("click", function() {
+                            window.location.href = "/";
+                        });
+                    </script>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">가입 완료</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    window.addEventListener('load', () => {
+        const forms = document.getElementsByClassName('validation-form');
+
+        Array.prototype.filter.call(forms, (form) => {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+</script>
+</body>
+
+</html>
