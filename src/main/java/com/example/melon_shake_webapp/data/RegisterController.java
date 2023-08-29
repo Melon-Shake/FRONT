@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class RegisterController {
-    @getMapping("/register")
+    @PostMapping("/register")
     public String register(
             @RequestParam(name="email", required=true) String email,
             @RequestParam(name="password", required=true) String password,
