@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원가입 화면 샘플 - Bootstrap</title>
+    <title>회원가입</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.css">
@@ -60,60 +60,60 @@
     <div class="input-form-backgroud row">
         <div class="input-form col-md-12 mx-auto">
             <h4 class="mb-3">회원가입</h4>
-            <form class="validation-form" novalidate>
+            <form action="/register/new_register" method="post" class="validation-form" novalidate>
                 <div class="mb-3">
                     <label for="email">이메일(로그인 시 ID로 사용됩니다.)</label>
-                    <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+                    <input name="email" type="email" class="form-control" id="email" placeholder="you@example.com" required>
                     <div class="invalid-feedback">
                         이메일을 입력해주세요.
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="password">비밀번호</label>
-                    <input type="password" class="form-control" id="password" required>
+                    <input name="password" type="password" class="form-control" id="password" required>
                     <div class="invalid-feedback">
                         비밀번호를 입력해주세요.
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="nickname">별명</label>
-                    <input type="text" class="form-control" id="nickname" placeholder="" value="" required>
+                    <label for="name">별명</label>
+                    <input name="name" type="text" class="form-control" id="name" placeholder="" value="" required>
                     <div class="invalid-feedback">
                         별명을 입력해주세요.
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="gender">성별</label>
-                    <select class="form-select" id="gender" aria-label="Select Gender" required>
+                    <select name="gender" class="form-select" id="gender" aria-label="Select Gender" required>
                         <option selected value="">성별을 선택하세요</option>
                         <option value="M">남자</option>
                         <option value="F">여자</option>
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="birth_date">생년월일</label>
-                    <input type="date" class="form-control" id="birth_date" required>
+                    <label for="birthdate">생년월일</label>
+                    <input name="birthdate" type="date" class="form-control" id="birthdate" required>
                     <div class="invalid-feedback">
                         생년월일을 입력해주세요.
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="favorite_track">좋아하는 노래</label>
-                    <input type="text" class="form-control" id="favorite_track" required>
+                    <label for="favorite_tracks">좋아하는 노래</label>
+                    <input name="favorite_tracks" type="text" class="form-control" id="favorite_tracks" required>
                     <div class="invalid-feedback">
                         좋아하는 노래를 입력해주세요.
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="favorite_artist">좋아하는 가수</label>
-                    <input type="text" class="form-control" id="favorite_artist" required>
+                    <label for="favorite_artists">좋아하는 가수</label>
+                    <input name="favorite_artists" type="text" class="form-control" id="favorite_artists" required>
                     <div class="invalid-feedback">
                         좋아하는 가수를 입력해주세요.
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="MBTI">MBTI</label>
-                    <select class="form-select" id="MBTI" aria-label="Select MBTI" required>MBTI
+                    <label for="mbti">MBTI</label>
+                    <select name = "mbti"class="form-select" id="MBTI" aria-label="Select mbti" required >MBTI
                         <option selected value="">MBTI를 선택하세요</option>
                         <option value="ESFJ">ESFJ</option>
                         <option value="ESFP">ESFP</option>

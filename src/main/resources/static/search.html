@@ -1,10 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검색</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
-<h1>Hello,world!</h1>
+<!--<th th:text="${searchResult.key}"></th>-->
+    <table>
+        <tr>
+            <th th:text="곡"></th>
+            <th th:text="앨범"></th>
+            <th th:text="가수"></th>
+
+        </tr>
+        <tr>
+            <tr th:each="entry : ${searchResult}">
+            <th th:text="${entry.value[0][0]}"></th>
+            <th th:text="${entry.value[1][0]}"></th>
+            <th th:text="${entry.value[2]}"></th>
+            </tr>
+        </tr>
+        </tbody>
+    </table>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
