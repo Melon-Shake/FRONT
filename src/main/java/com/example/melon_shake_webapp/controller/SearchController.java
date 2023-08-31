@@ -1,6 +1,5 @@
-package com.example.melon_shake_webapp.page;
+package com.example.melon_shake_webapp.controller;
 
-import com.example.melon_shake_webapp.data.RegistrationData;
 import com.example.melon_shake_webapp.data.SearchData;
 import com.example.melon_shake_webapp.data.SearchDataEmail;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -18,15 +17,12 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
-public class Search {
+public class SearchController {
     private final HttpClient client = HttpClient.newHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -67,7 +63,7 @@ public class Search {
 
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://192.168.70.41:8000/search/"))
+                .uri(URI.create("http://192.168.70.41:8000/search/track/"))
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .header("Content-Type", "application/json")
                 .build();
@@ -82,12 +78,11 @@ public class Search {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
             System.out.println(response);
             System.out.println(response.body());
-            Map<String, List<List<String>>> map = objectMapper.readValue(response.body(),new TypeReference<Map<String, List<List<String>>>>() {});
+            Map<String, List<List<String>>> searchResult = objectMapper.readValue(response.body(),new TypeReference<Map<String, List<List<String>>>>() {});
 
-            model.addAttribute("searchResult",map);
+            model.addAttribute("searchResult",searchResult);
 
 
-            System.out.println(map.get("tracks0").get(2));
             // 예외가 발생하지 않은 경우 이후의 로직을 작성
         } catch (IOException | InterruptedException e) {
             // 예외 처리 로직

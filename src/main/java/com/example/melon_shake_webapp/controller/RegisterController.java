@@ -1,4 +1,4 @@
-package com.example.melon_shake_webapp.page;
+package com.example.melon_shake_webapp.controller;
 
 import com.example.melon_shake_webapp.data.RegistrationData;
 import com.fasterxml.jackson.databind.ObjectMapper;
