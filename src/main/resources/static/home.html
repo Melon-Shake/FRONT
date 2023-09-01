@@ -33,6 +33,18 @@
             --bs-btn-disabled-bg: #0d6efd;
             --bs-btn-disabled-border-color: #0d6efd;
         }
+        .fixed-column-rank {
+            width: 50px;
+        }
+        .fixed-column-track{
+            width: 150px;
+        }
+        .fixed-column-artist{
+            width: 100px;
+        }
+        .table {
+            width:400px;
+        }
 
     </style>
 </head>
@@ -91,13 +103,13 @@
         </row>
         <row>
         <div class="row">
-            <div class="col-7">
+            <div class="col-5">
                 <div class="container-lg mt-3 table-container">
                 <table class="table table-bordered table-success table-striped">
                     <tr>
-                        <th th:text="랭킹"></th>
-                        <th th:text="곡"></th>
-                        <th th:text="가수"></th>
+                        <th th:class="fixed-column-rank" th:text="랭킹"></th>
+                        <th th:class="fixed-column-track" th:text="곡"></th>
+                        <th th:class="fixed-column-artist" th:text="가수"></th>
                         <th th:text="앨범"></th>
                     </tr>
                     <tr>
