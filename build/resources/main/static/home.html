@@ -8,6 +8,16 @@
 
     <link rel="stylesheet" href="css/bootstrap.css">
     <style>
+        .table-container {
+            max-height: 300px;/* 테이블의 최대 높이 설정 */
+            overflow-y: scroll; /* 세로 스크롤 적용 */
+        }
+        th {
+            position: sticky; /* 테이블 헤더를 고정 */
+            top: 0;
+            z-index: 1; /* 다른 내용 위에 표시 */
+        }
+
     </style>
 </head>
 <body>
@@ -25,13 +35,19 @@
         <div class="col-md-6 offset-md-3">
             <img src="logo/transparent1.png">
         </div>
-        <div class="col-md-6 offset-md-3">
+        <div class="row offset-md-3">
             <form action="/search/in-process" method="post">
-                <div class="input-group-append">
-                    <label for="searchInput"></label>
-                    <input type="text" class="form-control" placeholder="검색어를 입력하세요" id="searchInput" name="searchInput">
-                    <button class="btn btn-primary" type="submit" id="gotoSearch">검색</button>
-                    <!--                    <p th:text="${searchInput}"> 변수 </p>-->
+                <div class="row align-items-end">
+                    <div class="col-5">
+<!--                        <div class="input-group-append">-->
+                            <label for="searchInput"></label>
+                            <input width="10px"type="text" class="form-control" placeholder="검색어를 입력하세요" id="searchInput" name="searchInput">
+<!--                            <button class="btn btn-primary" type="submit" id="gotoSearch">검색</button>-->
+<!--                        </div>-->
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary" type="submit" id="gotoSearch">검색</button>
+                    </div>
                 </div>
             </form>
 <!--            <div class="input-group mb-3">-->
@@ -59,29 +75,26 @@
         </row>
         <row>
         <div class="row">
-            <div class="col-2">
-                <div class="container-lg mt-3">
+            <div class="col-7">
+                <div class="container-lg mt-3 table-container">
                 <table class="table table-bordered table-success table-striped">
                     <tr>
                         <th th:text="랭킹"></th>
                         <th th:text="곡"></th>
                         <th th:text="가수"></th>
-                        <th th:text="앨범 커버"></th>
+                        <th th:text="앨범"></th>
                     </tr>
                     <tr>
                     <tr th:each="track,i : ${track_ranking_chart}">
     <!--                    <tr th:each=""-->
-                        <th th:text="${i.index+1}"></th>
-                        <th th:text="${track.value[0]}"></th>
-                        <th th:text="${track.value[1]}"></th>
-                        <th><img th:src="${track.value[2]}" width="64px"></th>
+                        <td th:text="${i.index+1}"></td>
+                        <td th:text="${track.value[0]}"></td>
+                        <td th:text="${track.value[1]}"></td>
+                        <td><img th:src="${track.value[2]}" width="64px"></td>
                     </tr>
                     </tr>
                 </table>
                 </div>
-            </div>
-            <div class="col-3">
-
             </div>
             <div class="col-3">
                 <div class="container-lg mt-3">
@@ -96,10 +109,6 @@
                         </tr>
                     </table>
                 </div>
-
-            </div>
-            <div class="col-3">
-
 
             </div>
         </div>

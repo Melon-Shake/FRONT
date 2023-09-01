@@ -41,7 +41,7 @@ public class HomeController {
                 .build();
         HttpRequest request2 = HttpRequest.newBuilder()
 //                .uri(URI.create("http://192.168.70.65:9799/chart/melon_chart/"))
-                .uri(URI.create("http://192.168.70.61:8000/daily_search_ranking/"))
+                .uri(URI.create("http://192.168.70.41:8000/daily_search_ranking/"))
                 .POST(HttpRequest.BodyPublishers.ofString(""))
                 .build();
 
