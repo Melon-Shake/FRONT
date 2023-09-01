@@ -17,6 +17,34 @@
             top: 0;
             z-index: 1; /* 다른 내용 위에 표시 */
         }
+        .btn-primary {
+            --bs-btn-color: #fff;
+            --bs-btn-bg: #40a798;
+            --bs-btn-border-color: #40a798;
+            --bs-btn-hover-color: #fff;
+            --bs-btn-hover-bg: #3a9688;
+            --bs-btn-hover-border-color: #3a9688;
+            --bs-btn-focus-shadow-rgb: 49, 132, 253;
+            --bs-btn-active-color: #fff;
+            --bs-btn-active-bg: #50d0bd;
+            --bs-btn-active-border-color: #50d0bd;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+            --bs-btn-disabled-color: #fff;
+            --bs-btn-disabled-bg: #0d6efd;
+            --bs-btn-disabled-border-color: #0d6efd;
+        }
+        .fixed-column-rank {
+            width: 50px;
+        }
+        .fixed-column-track{
+            width: 150px;
+        }
+        .fixed-column-artist{
+            width: 100px;
+        }
+        .table {
+            width:400px;
+        }
 
     </style>
 </head>
@@ -75,13 +103,13 @@
         </row>
         <row>
         <div class="row">
-            <div class="col-7">
+            <div class="col-5">
                 <div class="container-lg mt-3 table-container">
                 <table class="table table-bordered table-success table-striped">
                     <tr>
-                        <th th:text="랭킹"></th>
-                        <th th:text="곡"></th>
-                        <th th:text="가수"></th>
+                        <th th:class="fixed-column-rank" th:text="랭킹"></th>
+                        <th th:class="fixed-column-track" th:text="곡"></th>
+                        <th th:class="fixed-column-artist" th:text="가수"></th>
                         <th th:text="앨범"></th>
                     </tr>
                     <tr>
