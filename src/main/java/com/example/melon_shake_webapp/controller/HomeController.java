@@ -35,8 +35,8 @@ public class HomeController {
     public String home_page(Model model){
 
         HttpRequest request = HttpRequest.newBuilder()
-//                .uri(URI.create("http://192.168.70.41:8000/chart/melon_chart/"))
-                .uri(URI.create("http://192.168.70.60:8000/chart/melon_chart/"))
+                .uri(URI.create("http://192.168.70.41:8000/chart/melon_chart/"))
+//                .uri(URI.create("http://192.168.70.60:8000/chart/melon_chart/"))
                 .POST(HttpRequest.BodyPublishers.ofString(""))
                 .build();
         HttpRequest request2 = HttpRequest.newBuilder()
