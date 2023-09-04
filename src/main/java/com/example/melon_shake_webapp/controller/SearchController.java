@@ -39,6 +39,7 @@ public class SearchController {
 
     @PostMapping("/search/in-process")
     public String show_search(@RequestParam("searchInput") String searchInput, Model model){
+        long start_time = System.currentTimeMillis();
 
         model.addAttribute("searchInput",searchInput);
 
@@ -61,14 +62,17 @@ public class SearchController {
             return "error";
         }
 
-
+        long end_time = System.currentTimeMillis();
+        System.out.println(end_time - start_time);
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://192.168.70.41:8000/search/track/"))
+//                .uri(URI.create("http://192.168.70.41:8000/search/track/"))
+                .uri(URI.create("http://192.168.70.60:8000/search/track/"))
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .header("Content-Type", "application/json")
                 .build();
         HttpRequest request2 = HttpRequest.newBuilder()
-                .uri(URI.create("http://192.168.70.41:8000/get_keyword_data/"))
+//                .uri(URI.create("http://192.168.70.41:8000/get_keyword_data/"))
+                .uri(URI.create("http://192.168.70.60:8000/get_keyword_data/"))
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody2))
                 .header("Content-Type", "application/json")
                 .build();
@@ -77,11 +81,12 @@ public class SearchController {
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
             System.out.println(response);
-            System.out.println(response.body());
+//            System.out.println(response.body());
             Map<String, List<List<String>>> searchResult = objectMapper.readValue(response.body(),new TypeReference<Map<String, List<List<String>>>>() {});
 
             model.addAttribute("searchResult",searchResult);
-
+            long end2_time = System.currentTimeMillis();
+            System.out.println(end2_time - start_time);
 
             // 예외가 발생하지 않은 경우 이후의 로직을 작성
         } catch (IOException | InterruptedException e) {

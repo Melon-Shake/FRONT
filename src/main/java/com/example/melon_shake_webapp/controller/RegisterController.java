@@ -62,7 +62,8 @@ public class RegisterController {
         }
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://192.168.70.41:8000/get_user_data/"))
+//                .uri(URI.create("http://192.168.70.41:8000/get_user_data/"))
+                .uri(URI.create("http://192.168.70.60:8000/get_user_data/"))
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .header("Content-Type", "application/json")
                 .build();
@@ -70,7 +71,7 @@ public class RegisterController {
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
             System.out.println(response);
-            System.out.println(response.body());
+//            System.out.println(response.body());
             // 예외가 발생하지 않은 경우 이후의 로직을 작성
         } catch (IOException | InterruptedException e) {
             // 예외 처리 로직
