@@ -86,13 +86,13 @@
 
         </div>
         <row>
-            <form>
+            <form action="/login" method="post">
                 <div class="d-flex justify-content-end mt-3">
                 <div class="login_input">
                     <input id="login_id" type="email" class="form-control" placeholder="ID를 입력하세요">
                     <input id="login_pw" type="passwordx" class="form-control" placeholder="비밀번호를 입력하세요">
-            </div>
-        </div>
+                </div>
+                </div>
             </form>
         <div class="d-flex justify-content-end mt-3">
             <div class="btn-group">
@@ -119,6 +119,10 @@
                         <td th:text="${track.value[0]}"></td>
                         <td th:text="${track.value[1]}"></td>
                         <td><img th:src="${track.value[2]}" width="64px"></td>
+                    <script>
+
+
+                    </script>
                     </tr>
                     </tr>
                 </table>

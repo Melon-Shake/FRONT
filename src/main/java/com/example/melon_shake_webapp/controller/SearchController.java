@@ -65,14 +65,14 @@ public class SearchController {
         long end_time = System.currentTimeMillis();
         System.out.println(end_time - start_time);
         HttpRequest request = HttpRequest.newBuilder()
-//                .uri(URI.create("http://192.168.70.41:8000/search/track/"))
-                .uri(URI.create("http://192.168.70.60:8000/search/track/"))
+                .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/search/track/"))
+//                .uri(URI.create("http://192.168.70.60:8000/search/track/"))
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .header("Content-Type", "application/json")
                 .build();
         HttpRequest request2 = HttpRequest.newBuilder()
-//                .uri(URI.create("http://192.168.70.41:8000/get_keyword_data/"))
-                .uri(URI.create("http://192.168.70.60:8000/get_keyword_data/"))
+                .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/get_keyword_data/"))
+//                .uri(URI.create("http://192.168.70.60:8000/get_keyword_data/"))
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody2))
                 .header("Content-Type", "application/json")
                 .build();
@@ -83,7 +83,6 @@ public class SearchController {
             System.out.println(response);
 //            System.out.println(response.body());
             Map<String, List<List<String>>> searchResult = objectMapper.readValue(response.body(),new TypeReference<Map<String, List<List<String>>>>() {});
-
             model.addAttribute("searchResult",searchResult);
             long end2_time = System.currentTimeMillis();
             System.out.println(end2_time - start_time);
@@ -107,5 +106,6 @@ public class SearchController {
 
         return "search";
     }
+
 
 }

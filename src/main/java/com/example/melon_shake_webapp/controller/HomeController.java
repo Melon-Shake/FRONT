@@ -35,13 +35,13 @@ public class HomeController {
     public String home_page(Model model){
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://192.168.70.41:8000/chart/melon_chart/"))
+                .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/chart/melon_chart/"))
 //                .uri(URI.create("http://192.168.70.60:8000/chart/melon_chart/"))
                 .POST(HttpRequest.BodyPublishers.ofString(""))
                 .build();
         HttpRequest request2 = HttpRequest.newBuilder()
-                .uri(URI.create("http://192.168.70.60:8000/daily_search_ranking/"))
-//                .uri(URI.create("http://192.168.70.41:8000/daily_search_ranking/"))
+//                .uri(URI.create("http://192.168.70.60:8000/daily_search_ranking/"))
+                .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/daily_search_ranking/"))
                 .POST(HttpRequest.BodyPublishers.ofString(""))
                 .build();
 
@@ -51,6 +51,7 @@ public class HomeController {
             Map<String,List<String>> track_ranking_chart = objectMapper.readValue(response.body(),new TypeReference<Map<String,List<String>>>() {});
 //            System.out.println(track_ranking_chart);
             model.addAttribute("track_ranking_chart",track_ranking_chart);
+//            System.out.println(track_ranking_chart);
             // 예외가 발생하지 않은 경우 이후의 로직을 작성
         } catch (IOException | InterruptedException e) {
             // 예외 처리 로직
