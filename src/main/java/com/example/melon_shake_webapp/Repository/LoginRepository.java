@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface LoginRepository extends JpaRepository<LoginData,Integer> {
-    @Query("select password from user where is")
+    @Query("select password from user where email is dd")
+
 }
