@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.3'
 	id 'io.spring.dependency-management' version '1.1.3'
+	id 'com.github.node-gradle.node' version '3.2.1'
 }
 
 group = 'com.melon-shake'
@@ -19,6 +20,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	gradlePluginPortal()
 }
 
 dependencies {
@@ -29,50 +31,26 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
+//	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.postgresql:postgresql'
+	implementation group: 'org.postgresql', name: 'postgresql', version: '42.5.1' // 추가
+	runtimeOnly 'org.postgresql:postgresql'
 }
 node {
-	/**
-	 * 특정 Node.js 버전을 다운로드 및 설치 할 지 여부
-	 * true: 다운로드 및 설치
-	 * false: 전역으로 설치된 Node.js 사용함.
-	 */
 	download = true
-
-	/**
-	 * download가 true일 경우에만 사용
-	 * version에 명시한 버전으로 Node.js 다운로드 및 설치
-	 * workDir에 설치됨
-	 */
 	version = '18.12.1'
-
-	/**
-	 * 사용할 npm 버전을 지정하면 npmWorkDir에 설치됨
-	 * npm 버전을 지정하지 않으면 Node.js에 번들로 제공되는 npm 버전으로 사용됨
-	 */
 	npmVersion = '9.2.0'
-
-	/**
-	 * npmInstall 작업에 의해 실행되는 npm 명령
-	 * 기본적으로 설치되지만 ci로 변경할 수 있음
-	 */
 	npmInstallCommand = 'install'
-
-	/**
-	 * svelte 프로젝트 디렉토리 위치
-	 * package.json 파일과 node_modules 디렉토리가 있는 곳
-	 * "저는 프로젝트 Root 아래 svelte 프로젝트를 생성하였으므로 아래와 같이 주소를 작성해주었습니다."
-	 */
 	nodeProjectDir = file("${project.projectDir}/frontend")
 }
 
-/**
- * vue-project를 build하기 위한 설정
- * - vue-project의 기존 빌드 결과물을 제거하기 위한 task
- */
 task deleteSvelteBuildFiles(type: Delete) {
-	delete "src/main/resources/static/dist", "${project.projectDir}/svelte/node_modules"
+	delete "src/main/resources/static/build", "${project.projectDir}/svelte/node_modules"
+}
+task npmBuild(type: NpmTask, dependsOn: ['deleteSvelteBuildFiles', 'npmInstall']) {
+	args = ["run", "build"]
 }
 
 processResources.dependsOn 'npmBuild'

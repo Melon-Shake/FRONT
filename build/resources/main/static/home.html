@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:width="http://xmlns.jcp.org/xml/ns/persistence/orm">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,17 +9,36 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <style>
         .table-container {
-            max-height: 300px;/* 테이블의 최대 높이 설정 */
+            max-height: 800px;/* 테이블의 최대 높이 설정 */
             overflow-y: scroll; /* 세로 스크롤 적용 */
+            overflow-x: hidden;
+            border-radius: 20px;
+        }
+        .table-container::-webkit-scrollbar {
+            width: 10px;
+        }
+        .table-container::-webkit-scrollbar-thumb {
+            background-color: #00ffcc;
+            border-radius: 10px;
+            background-clip: padding-box;
+            border: 2px solid transparent;
+        }
+        .table-container::-webkit-scrollbar-track {
+            background-color: black;
+            border-radius: 10px;
+            box-shadow: inset 0px 0px 5px white;
         }
         th {
             position: sticky; /* 테이블 헤더를 고정 */
             top: 0;
             z-index: 1; /* 다른 내용 위에 표시 */
         }
+        body {
+            background: linear-gradient(to bottom, #00ffcc 0%, #009999 100%);
+        }
         .btn-primary {
             --bs-btn-color: #fff;
-            --bs-btn-bg: #40a798;
+            --bs-btn-bg: linear-gradient(to bottom, #00ffcc 0%, #009999 100%);
             --bs-btn-border-color: #40a798;
             --bs-btn-hover-color: #fff;
             --bs-btn-hover-bg: #3a9688;
@@ -42,79 +61,77 @@
         .fixed-column-artist{
             width: 100px;
         }
+        .fixed-column-album{
+            width:10px;
+        }
         .table {
             width:400px;
         }
-
+        .header_height {
+            max-height: 50px;
+        }
+        .center_pos {
+            text-align: center;
+        }
+        .start_pos {
+            text-align: start;
+        }
+        .search_height{
+            max-height: 40px;
+        }
+        .button_width{
+            width: 100px;
+        }
+        .colored_margin {
+            background-color: black;
+        }
+        .container {
+            display: flex;
+            flex-direction: column; /* 필요에 따라 row로 변경 가능 */
+            width: 100%;
+            height: 100vh;
+        }
+        .table{
+            --bs-table-bg: rgba(255,255,255,0.5);
+        }
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <!-- 네비게이션 바 내용 -->
+<nav class="d-flex navbar navbar-expand-xl bg-gradient bg-dark navbar-dark">
+        <div class="col center_pos justify-content-start">
+            <a href="/Home">
+                <img src="logo/transparent4.png">
+            </a>
+        </div>
+        <div class="col-6 search_pos justify-content-center">
+            <form class="d-flex" action="/search/in-process" method="post">
+                <label for="searchInput"></label>
+                <input type="text" class="form-control search_height" placeholder="검색어를 입력하세요" id="searchInput" name="searchInput">
+                <button class="ms-2 btn btn-primary button_width search_height"  type="submit" id="gotoSearch">검색</button>
+            </form>
+        </div>
+        <div class="col center_pos justify-content-end">
+            <button id="gotoLogin" class="btn btn-primary btn-sm me-3" type="submit">로그인</button>
+            <button id="gotoRegister" class="btn btn-primary btn-sm" type="button">회원가입</button>
+        </div>
+
 </nav>
-
-<div class="container mt-5">
-    <!-- 검색창 내용 -->
-</div>
-
-<div class="container mt-3">
+<div class="container">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <img src="logo/transparent1.png">
-        </div>
-        <div class="row offset-md-3">
-            <form action="/search/in-process" method="post">
-                <div class="row align-items-end">
-                    <div class="col-5">
-<!--                        <div class="input-group-append">-->
-                            <label for="searchInput"></label>
-                            <input width="10px"type="text" class="form-control" placeholder="검색어를 입력하세요" id="searchInput" name="searchInput">
-<!--                            <button class="btn btn-primary" type="submit" id="gotoSearch">검색</button>-->
-<!--                        </div>-->
-                    </div>
-                    <div class="col">
-                        <button class="btn btn-primary" type="submit" id="gotoSearch">검색</button>
-                    </div>
-                </div>
-            </form>
-<!--            <div class="input-group mb-3">-->
-<!--            </div>-->
-<!--            <div id="selectedTags" class="mt-3">-->
-<!--                &lt;!&ndash; 선택된 키워드가 표시될 공간 &ndash;&gt;-->
-<!--            </div>-->
-
-        </div>
-        <row>
-            <form action="/login" method="post">
-                <div class="d-flex justify-content-end mt-3">
-                <div class="login_input">
-                    <input id="login_id" type="email" class="form-control" placeholder="ID를 입력하세요">
-                    <input id="login_pw" type="passwordx" class="form-control" placeholder="비밀번호를 입력하세요">
-                </div>
-                </div>
-            </form>
-        <div class="d-flex justify-content-end mt-3">
-            <div class="btn-group">
-                <button class="btn btn-primary btn-sm" type="submit">로그인</button>
-                <button id="gotoRegister" class="btn btn-secondary btn-sm" type="button">회원가입</button>
-            </div>
-        </div>
-        </row>
         <row>
         <div class="row">
-            <div class="col-5">
+            <div class="col-4">
                 <div class="container-lg mt-3 table-container">
-                <table class="table table-bordered table-success table-striped">
-                    <tr>
+                <table class="table">
+                    <tr class="table-dark">
                         <th th:class="fixed-column-rank" th:text="랭킹"></th>
                         <th th:class="fixed-column-track" th:text="곡"></th>
                         <th th:class="fixed-column-artist" th:text="가수"></th>
-                        <th th:text="앨범"></th>
+                        <th th:class="fixed-column-album" th:text="앨범"></th>
                     </tr>
                     <tr>
                     <tr th:each="track,i : ${track_ranking_chart}">
-    <!--                    <tr th:each=""-->
                         <td th:text="${i.index+1}"></td>
                         <td th:text="${track.value[0]}"></td>
                         <td th:text="${track.value[1]}"></td>
@@ -128,10 +145,11 @@
                 </table>
                 </div>
             </div>
-            <div class="col-3">
-                <div class="container-lg mt-3">
-                    <table class="table table-bordered table-success table-striped">
-                        <tr>
+            <div class="col-4"></div>
+            <div class="col-1">
+                <div class="container table-container-lg mt-3">
+                    <table class="table">
+                        <tr class="table-dark">
                             <th th:text="랭킹"></th>
                             <th th:text="검색어"></th>
                         </tr>
@@ -153,17 +171,11 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-    // 검색창 관련 코드
-    // 버튼 클릭 시 검색 결과 화면으로 가는 함수
-    // document.getElementById("gotoSearch").addEventListener("click", function() {
-    //     // var keyword = document.getElementById("searchInput").value;
-    //     window.location.href = "/search";
-    // });
-
-
-    // 버튼 클릭 시 루트 디렉토리로 이동하는 함수
     document.getElementById("gotoRegister").addEventListener("click", function() {
         window.location.href = "/register";
+    });
+    document.getElementById("gotoLogin").addEventListener("click", function() {
+        window.location.href = "/login";
     });
 </script>
 </body>

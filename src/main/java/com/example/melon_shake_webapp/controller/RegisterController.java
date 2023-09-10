@@ -41,16 +41,6 @@ public class RegisterController {
             @RequestParam(name="favorite_artists", required=true) String favorite_artists,
             Model model) throws SQLException {
 
-        model.addAttribute("email", email);
-        model.addAttribute("password", password);
-        model.addAttribute("name", name);
-        model.addAttribute("gender", gender);
-        model.addAttribute("birthdate", birthdate);
-        model.addAttribute("mbti", mbti);
-        model.addAttribute("favorite_tracks", favorite_tracks);
-        model.addAttribute("favorite_artists", favorite_artists);
-        System.out.println("=====================================================");
-
         RegistrationData registrationData = new RegistrationData(email, password, name, gender, birthdate, mbti, favorite_tracks, favorite_artists);
         String jsonBody;
 
