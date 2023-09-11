@@ -38,7 +38,7 @@
         }
         .btn-primary {
             --bs-btn-color: #fff;
-            --bs-btn-bg: linear-gradient(to bottom, #00ffcc 0%, #009999 100%);
+            --bs-btn-bg: transparent;
             --bs-btn-border-color: #40a798;
             --bs-btn-hover-color: #fff;
             --bs-btn-hover-bg: #3a9688;
@@ -145,7 +145,18 @@
                 </table>
                 </div>
             </div>
-            <div class="col-4"></div>
+            <div class="col-4">
+                <div class="container-lg mt-3 table-container">
+                    <table class="table">
+                        <tr class="table-dark">
+                            <th th:class="fixed-column-rank" th:text="랭킹"></th>
+                            <th th:class="fixed-column-track" th:text="곡"></th>
+                            <th th:class="fixed-column-artist" th:text="가수"></th>
+                            <th th:class="fixed-column-album" th:text="앨범"></th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
             <div class="col-1">
                 <div class="container table-container-lg mt-3">
                     <table class="table">
