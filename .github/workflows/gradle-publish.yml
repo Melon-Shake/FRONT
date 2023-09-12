@@ -53,10 +53,10 @@ jobs:
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
+        name: .jar
         tag_name: ${{ steps.tag.outputs.release_tag }}
         files: |
-          ./build/libs/**  # 빌드된 JAR 파일 경로
-          ./src/main/resources/**
+          ./build/libs  # 빌드된 JAR 파일 경로
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
