@@ -51,12 +51,12 @@ jobs:
       
     - name: Create Release
       id: create_release
-      uses: actions/upload-artifact@v2
+      uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         files: |
-          ./build/libs/*.jar  # 빌드된 JAR 파일 경로
-          ./src/main/resources/static
+          ./build/libs/**  # 빌드된 JAR 파일 경로
+          ./src/main/resources/**
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
