@@ -36,7 +36,7 @@ jobs:
         settings-path: ${{ github.workspace }} # location for the settings.xml file
 
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v3
+      uses: gradle/gradle-build-action@v2
       with:
         gradle-version: 8.2.1
     - name: Confirming Directory
@@ -51,7 +51,7 @@ jobs:
       
     - name: Create Release
       id: create_release
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v2
       with:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         files: |
