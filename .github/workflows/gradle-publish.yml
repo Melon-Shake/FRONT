@@ -42,6 +42,7 @@ jobs:
     - name: Confirming Directory
       run: |
           ls -al
+          pwd
           
     - name: Make Gradlew Excutable
       run: chmod +x ./gradlew
