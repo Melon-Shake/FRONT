@@ -53,7 +53,7 @@ dependencies {
 //	args = ["run", "build"]
 //}
 
-processResources.dependsOn 'npmBuild'
+//processResources.dependsOn 'npmBuild'
 
 
 tasks.named('test') {
