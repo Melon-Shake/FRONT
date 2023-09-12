@@ -26,9 +26,9 @@ jobs:
       id : tag
       run: |
         echo "::set-output name=release_tag::UserBuild_$(date + "%Y-%m-%d_%H-%M")"
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v0.2.0
     - name: Set up JDK 17
-      uses: actions/setup-java@v1
+      uses: actions/setup-java@v0.2.0
       with:
         java-version: '17'
         distribution: 'temurin'
@@ -51,7 +51,7 @@ jobs:
       
     - name: Create Release
       id: create_release
-      uses: softprops/action-gh-release@v1
+      uses: actions/upload-artifact@v0.2.0
       with:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         files: |
