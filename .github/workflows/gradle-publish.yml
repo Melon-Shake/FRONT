@@ -9,7 +9,7 @@ name: Gradle Package
 
 on:
   push :
-    branches : [main]
+    branches : [main,test-release]
   release: 
     types: [created]
 
@@ -46,8 +46,8 @@ jobs:
       with:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         files: |
-          /build/libs/*.jar  # 빌드된 JAR 파일 경로
-          /src/main/resources/static
+          build/libs/*.jar  # 빌드된 JAR 파일 경로
+          src/main/resources/static
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
