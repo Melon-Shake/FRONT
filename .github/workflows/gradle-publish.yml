@@ -46,7 +46,7 @@ jobs:
       - name: Make Gradlew Excutable
         run: chmod +x ./gradlew
       - name: Excute Gradle Build
-        run: ./gradlew build
+        run: ./gradlew bootjar
 
       - name: release.zip 생성
         run: |
