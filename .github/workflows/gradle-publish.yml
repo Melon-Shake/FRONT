@@ -47,7 +47,7 @@ jobs:
     - name: Make Gradlew Excutable
       run: chmod +x ./gradlew
     - name: Excute Gradle Build
-      run: /home/runner/work/FRONT/FRONT/gradelw build
+      run: ./gradlew build
       
     - name: Create Release
       id: create_release
