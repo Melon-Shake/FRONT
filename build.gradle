@@ -2,7 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.3'
 	id 'io.spring.dependency-management' version '1.1.3'
-	id 'com.github.node-gradle.node' version '3.2.1'
+//	id 'com.github.node-gradle.node' version '3.2.1'
 }
 
 group = 'com.melon-shake'
@@ -20,7 +20,7 @@ configurations {
 
 repositories {
 	mavenCentral()
-	gradlePluginPortal()
+//	gradlePluginPortal()
 }
 
 dependencies {
