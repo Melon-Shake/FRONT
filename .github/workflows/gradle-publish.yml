@@ -39,10 +39,6 @@ jobs:
       uses: gradle/gradle-build-action@v2
       with:
         gradle-version: 8.2.1
-    - name: Confirming Directory
-      run: |
-          ls -al
-          pwd
           
     - name: Make Gradlew Excutable
       run: chmod +x ./gradlew
@@ -51,7 +47,10 @@ jobs:
 
     - name: release.zip 생성
       run: |
-        zip ./release.zip ./build/libs/*.jar ./src/main/resources/static
+        mkdir release
+        cp ./build/libs/*jar ./release/
+        cp -rf ./src/main/resources/static ./release/
+        zip release.zip -r ./release 
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
