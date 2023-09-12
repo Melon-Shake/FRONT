@@ -39,6 +39,11 @@ jobs:
       uses: gradle/gradle-build-action@v1
       with:
         gradle-version: 8.2.1
+    - name: Open Web Client Directory
+      run: |
+          ls -la
+          cd ./src/webclient
+          ls -la
     - name: Make Gradlew Excutable
       run: chmod +x ./gradlew
     - name: Excute Gradle Build
