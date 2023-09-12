@@ -39,7 +39,8 @@ jobs:
       uses: gradle/gradle-build-action@v1
       with:
         gradle-version: 8.2.1
-
+    - name: Make Gradlew Excutable
+      run: chmod +x ./gradlew
     - name: Excute Gradle Build
       run: ./gradelw build
       
