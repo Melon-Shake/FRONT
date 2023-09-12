@@ -55,8 +55,8 @@ jobs:
       with:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         files: |
-          /home/runner/work/FRONT/FRONT/build/libs/*.jar  # 빌드된 JAR 파일 경로
-          /home/runner/work/FRONT/FRONT/src/main/resources/static
+          ./build/libs/*.jar  # 빌드된 JAR 파일 경로
+          ./src/main/resources/static
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
