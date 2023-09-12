@@ -94,6 +94,19 @@
         .table{
             --bs-table-bg: rgba(255,255,255,0.5);
         }
+        a {
+           text-decoration: none;
+            color: #40a798;
+            margin-left:10px;
+        }
+        a:hover {
+            color: #50d0bd;
+            text-decoration: underline;
+
+        }
+        a:active {
+            color: #00ffcc;
+        }
     </style>
 </head>
 <body>
@@ -101,7 +114,7 @@
 <nav class="d-flex navbar navbar-expand-xl bg-gradient bg-dark navbar-dark">
         <div class="col center_pos justify-content-start">
             <a href="/Home">
-                <img src="logo/transparent4.png">
+                <img src="/logo/transparent4.png">
             </a>
         </div>
         <div class="col-6 search_pos justify-content-center">
@@ -112,8 +125,10 @@
             </form>
         </div>
         <div class="col center_pos justify-content-end">
-            <button id="gotoLogin" class="btn btn-primary btn-sm me-3" type="submit">로그인</button>
-            <button id="gotoRegister" class="btn btn-primary btn-sm" type="button">회원가입</button>
+<!--            <button id="gotoLogin" class="btn btn-primary btn-sm me-3" type="submit">로그인</button>-->
+<!--            <button id="gotoRegister" class="btn btn-primary btn-sm" type="button">회원가입</button>-->
+            <a href="/login" class="fw-bold">로그인</a>
+            <a href="/register" class="fw-bold">회원가입</a>
         </div>
 
 </nav>
@@ -182,12 +197,12 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-    document.getElementById("gotoRegister").addEventListener("click", function() {
-        window.location.href = "/register";
-    });
-    document.getElementById("gotoLogin").addEventListener("click", function() {
-        window.location.href = "/login";
-    });
+    // document.getElementById("gotoRegister").addEventListener("click", function() {
+    //     window.location.href = "/register";
+    // });
+    // document.getElementById("gotoLogin").addEventListener("click", function() {
+    //     window.location.href = "/login";
+    // });
 </script>
 </body>
 </html>
