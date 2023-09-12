@@ -38,20 +38,20 @@ dependencies {
 	implementation group: 'org.postgresql', name: 'postgresql', version: '42.5.1' // 추가
 	runtimeOnly 'org.postgresql:postgresql'
 }
-node {
-	download = true
-	version = '18.12.1'
-	npmVersion = '9.2.0'
-	npmInstallCommand = 'install'
-	nodeProjectDir = file("${project.projectDir}/frontend")
-}
-
-task deleteSvelteBuildFiles(type: Delete) {
-	delete "src/main/resources/static/build", "${project.projectDir}/svelte/node_modules"
-}
-task npmBuild(type: NpmTask, dependsOn: ['deleteSvelteBuildFiles', 'npmInstall']) {
-	args = ["run", "build"]
-}
+//node {
+//	download = true
+//	version = '18.12.1'
+//	npmVersion = '9.2.0'
+//	npmInstallCommand = 'install'
+//	nodeProjectDir = file("${project.projectDir}/frontend")
+//}
+//
+//task deleteSvelteBuildFiles(type: Delete) {
+//	delete "src/main/resources/static/build", "${project.projectDir}/svelte/node_modules"
+//}
+//task npmBuild(type: NpmTask, dependsOn: ['deleteSvelteBuildFiles', 'npmInstall']) {
+//	args = ["run", "build"]
+//}
 
 processResources.dependsOn 'npmBuild'
 
