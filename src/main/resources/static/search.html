@@ -13,23 +13,12 @@
         body {
             background: linear-gradient(to bottom, #00ffcc 0%, #009999 100%);
         }
-        .input-form {
-            max-width: 680px;
-
-            margin-top: 80px;
-            padding: 32px;
-
-            background: #fff;
-            -webkit-border-radius: 10px;
-            -moz-border-radius: 10px;
-            border-radius: 10px;
-            -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-            -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-            box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+        .table {
+            --bs-table-bg: rgba(255, 255, 255, 0);
         }
         .btn-primary {
             --bs-btn-color: #fff;
-            --bs-btn-bg: #40a798;
+            --bs-btn-bg: transparent;
             --bs-btn-border-color: #40a798;
             --bs-btn-hover-color: #fff;
             --bs-btn-hover-bg: #3a9688;
@@ -40,17 +29,53 @@
             --bs-btn-active-border-color: #50d0bd;
             --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
             --bs-btn-disabled-color: #fff;
-            --bs-btn-disabled-bg: #0d6efd;
-            --bs-btn-disabled-border-color: #0d6efd;
         }
 
+        .btn-primary:hover{
+            background: linear-gradient(to bottom, #40a798 0%, #009999 100%);
+        }
+        .btn-primary:active {
+            background: linear-gradient(to bottom, #50d0bd 0%, #40a798 100%);
+        }
         .center_pos {
             text-align: center;
         }
+        .search_height{
+            max-height: 40px;
+        }
+        .button_width{
+            width: 100px;
+        }
+        a {
+            text-decoration: none;
+            color: #40a798;
+            margin-left:10px;
+        }
+        a:hover {
+            color: #50d0bd;
+            text-decoration: underline;
+
+        }
+        a:active {
+            color: #00ffcc;
+        }
+        p{
+            color: #50d0bd;
+        }
+        .bt-bg-gradient{
+            background: linear-gradient(to bottom,#555555 0%,#393939 100%);
+        }
+        .bt-bg-gradient:hover{
+            background: linear-gradient(to bottom, #797979 0%, #555555 100%);
+        }
+        .bt-bg-gradient:active {
+            background: linear-gradient(to bottom, #9c9c9c 0%, #797979 100%);
+        }
+
     </style>
 </head>
 <body>
-<nav class="d-flex navbar navbar-expand-xl bg-gradient bg-dark navbar-dark">
+<nav class="d-flex navbar navbar-expand-xl bg-gradient bg-dark navbar-dark" style="height: 70px">
     <div class="col center_pos justify-content-start">
         <a href="/Home">
             <img src="/logo/transparent4.png">
@@ -63,9 +88,15 @@
             <button class="ms-2 btn btn-primary button_width search_height"  type="submit" id="gotoSearch">검색</button>
         </form>
     </div>
-    <div class="col center_pos justify-content-end">
-        <button id="gotoLogin" class="btn btn-primary btn-sm me-3" type="submit">로그인</button>
-        <button id="gotoRegister" class="btn btn-primary btn-sm" type="button">회원가입</button>
+    <div style="width:350px" class="center_pos center">
+        <div th:if="${userName}">
+            <p class="fw-bolder" style="margin-top: 3px; margin-bottom: 3px">어서오세요 <span th:text="${userName}"></span>님!</p>
+            <a href="#" onClick="logout()" class="fw-bold" style="margin-top: 3px; margin-bottom: 3px">로그아웃</a>
+        </div>
+        <div style="margin-bottom: 5px" th:unless="${userName}">
+            <a href="/login" class="fw-bold">로그인</a>
+            <a href="/register" class="fw-bold">회원가입</a>
+        </div>
     </div>
 
 </nav>
@@ -73,7 +104,7 @@
 
     <div row>
         <div class="mb-4 col-1"></div>
-        <button id="gotoRoot" class="btn btn-primary btn-dark" type="button">뒤로 가기</button>
+        <button id="gotoRoot" style="color: white; margin-bottom: 10px;" class="btn bt-bg-gradient" type="button">뒤로 가기</button>
         <script>
             // 버튼 클릭 시 루트 디렉토리로 이동하는 함수
             document.getElementById("gotoRoot").addEventListener("click", function() {
@@ -81,26 +112,37 @@
             });
         </script>
     </div>
-    <div class="row mt-2">
-<!--<th th:text="${searchResult.key}"></th>-->
-    <table class="table table-dark table-striped table-bordered table">
-        <tr>
-            <th th:text="곡"></th>
-            <th th:text="앨범"></th>
-            <th th:text="가수"></th>
+    <div class="row mt-2" style="width: 600px;">
+        <div th:if="${searchResult}">
+            <table class="table table-container" style="background: transparent">
+                <tr>
+                    <th th:text="곡"></th>
+                    <th th:text="앨범"></th>
+                    <th th:text="가수"></th>
 
-        </tr>
-            <tr th:each="result : ${searchResult}">
-                <th th:text="${result.value[0][0]}"></th>
-                <th th:text="${result.value[1][0]}"></th>
-                <th th:text="${result.value[2]}"></th>
-            </tr>
-    </table>
+                </tr>
+                <tr th:each="result : ${searchResult}">
+                    <th th:text="${result.value[0][0]}"></th>
+                    <th th:text="${result.value[1][0]}"></th>
+                    <th th:text="${result.value[2]}"></th>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function logout(){
+        let f = document.createElement('form');
+        f.setAttribute('method', 'post');
+        f.setAttribute('action', '/logout');
+        document.body.appendChild(f);
+        f.submit();
+    }
+
+</script>
 </body>
 </html>
 

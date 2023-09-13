@@ -9,13 +9,15 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <style>
         .table-container {
-            max-height: 800px;/* 테이블의 최대 높이 설정 */
+            max-height: 730px;/* 테이블의 최대 높이 설정 */
             overflow-y: scroll; /* 세로 스크롤 적용 */
             overflow-x: hidden;
             border-radius: 20px;
         }
+
         .table-container::-webkit-scrollbar {
             width: 10px;
+            height: 100%;
         }
         .table-container::-webkit-scrollbar-thumb {
             background-color: #00ffcc;
@@ -49,8 +51,12 @@
             --bs-btn-active-border-color: #50d0bd;
             --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
             --bs-btn-disabled-color: #fff;
-            --bs-btn-disabled-bg: #0d6efd;
-            --bs-btn-disabled-border-color: #0d6efd;
+        }
+        .btn-primary:hover{
+            background: linear-gradient(to bottom, #40a798 0%, #009999 100%);
+        }
+        .btn-primary:active {
+            background: linear-gradient(to bottom, #50d0bd 0%, #40a798 100%);
         }
         .fixed-column-rank {
             width: 50px;
@@ -94,14 +100,30 @@
         .table{
             --bs-table-bg: rgba(255,255,255,0.5);
         }
+        a {
+           text-decoration: none;
+            color: #40a798;
+            margin-left:10px;
+        }
+        a:hover {
+            color: #50d0bd;
+            text-decoration: underline;
+
+        }
+        a:active {
+            color: #00ffcc;
+        }
+        p{
+            color: #50d0bd;
+        }
     </style>
 </head>
 <body>
 
-<nav class="d-flex navbar navbar-expand-xl bg-gradient bg-dark navbar-dark">
+<nav class="d-flex navbar navbar-expand-xl bg-gradient bg-dark navbar-dark" style="height: 70px;">
         <div class="col center_pos justify-content-start">
             <a href="/Home">
-                <img src="logo/transparent4.png">
+                <img src="/logo/transparent4.png">
             </a>
         </div>
         <div class="col-6 search_pos justify-content-center">
@@ -111,9 +133,15 @@
                 <button class="ms-2 btn btn-primary button_width search_height"  type="submit" id="gotoSearch">검색</button>
             </form>
         </div>
-        <div class="col center_pos justify-content-end">
-            <button id="gotoLogin" class="btn btn-primary btn-sm me-3" type="submit">로그인</button>
-            <button id="gotoRegister" class="btn btn-primary btn-sm" type="button">회원가입</button>
+        <div style="width:350px" class="center_pos center">
+            <div th:if="${userName}">
+                <p class="fw-bolder" style="margin-top: 3px; margin-bottom: 3px">어서오세요 <span th:text="${userName}"></span>님!</p>
+                <a href="#" onClick="logout()" class="fw-bold" style="margin-top: 3px; margin-bottom: 3px">로그아웃</a>
+            </div>
+            <div style="margin-bottom: 5px" th:unless="${userName}">
+                <a href="/login" class="fw-bold">로그인</a>
+                <a href="/register" class="fw-bold">회원가입</a>
+            </div>
         </div>
 
 </nav>
@@ -121,8 +149,8 @@
     <div class="row">
         <row>
         <div class="row">
-            <div class="col-4">
-                <div class="container-lg mt-3 table-container">
+            <div style="width:420px;">
+                <div class="container-lg mt-3 table-container" style="width:420px;">
                 <table class="table">
                     <tr class="table-dark">
                         <th th:class="fixed-column-rank" th:text="랭킹"></th>
@@ -145,8 +173,8 @@
                 </table>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="container-lg mt-3 table-container">
+            <div style="width:420px;">
+                <div class="container-lg mt-3 table-container" style="width:420px;">
                     <table class="table">
                         <tr class="table-dark">
                             <th th:class="fixed-column-rank" th:text="랭킹"></th>
@@ -154,12 +182,22 @@
                             <th th:class="fixed-column-artist" th:text="가수"></th>
                             <th th:class="fixed-column-album" th:text="앨범"></th>
                         </tr>
+                        <tr>
+                        <tr th:each="track,i : ${track_ranking_chart}">
+                            <td th:text="${i.index+1}"></td>
+                            <td th:text="${track.value[0]}"></td>
+                            <td th:text="${track.value[1]}"></td>
+                            <td><img th:src="${track.value[2]}" width="64px"></td>
+                            <script>
+                            </script>
+                        </tr>
+                        </tr>
                     </table>
                 </div>
             </div>
-            <div class="col-1">
-                <div class="container table-container-lg mt-3">
-                    <table class="table">
+            <div style="width:250px">
+                <div class="container table-container mt-3 ms-lg-5" style="height:600px;">
+                    <table class="table" style="width:250px">
                         <tr class="table-dark">
                             <th th:text="랭킹"></th>
                             <th th:text="검색어"></th>
@@ -175,19 +213,25 @@
         </div>
         </row>
     </div>
-
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-    document.getElementById("gotoRegister").addEventListener("click", function() {
-        window.location.href = "/register";
-    });
-    document.getElementById("gotoLogin").addEventListener("click", function() {
-        window.location.href = "/login";
-    });
+    // document.getElementById("gotoRegister").addEventListener("click", function() {
+    //     window.location.href = "/register";
+    // });
+    // document.getElementById("gotoLogin").addEventListener("click", function() {
+    //     window.location.href = "/login";
+    // });
+    function logout(){
+        let f = document.createElement('form');
+        f.setAttribute('method', 'post');
+        f.setAttribute('action', '/logout');
+        document.body.appendChild(f);
+        f.submit();
+    }
 </script>
 </body>
 </html>

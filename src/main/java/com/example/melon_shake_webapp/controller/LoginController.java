@@ -4,9 +4,11 @@ import ch.qos.logback.core.pattern.color.BoldCyanCompositeConverter;
 import com.example.melon_shake_webapp.Repository.UserRepository;
 import com.example.melon_shake_webapp.data.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +36,8 @@ public class LoginController {
             @RequestParam(value = "userid", required = true) String userid,
             @RequestParam(value = "userpw", required = true) String userpw,
             HttpSession session,
-            RedirectAttributes redirectAttributes
+            RedirectAttributes redirectAttributes,
+            Model model
     ) throws SQLException {
         try {
             User user = userRepository.findByEmail(userid);
@@ -42,8 +45,11 @@ public class LoginController {
                 return "등록되지 않은 이메일입니다.";
             }
             else if (bCrypt.checkpw(userpw,user.getPassword())) {
-                session.setAttribute("user",user.getEmail());
-                System.out.println("로그인 되었습니다.");
+
+                session.setAttribute("userName",user.getName());
+                String userName = (String) session.getAttribute("userName");
+                model.addAttribute("userName",userName);
+                System.out.println("로그인되었습니다.");
             }
 //            System.out.println("============================================");
 //            System.out.println(user.getPassword());
@@ -55,6 +61,15 @@ public class LoginController {
         catch(Exception e){
             redirectAttributes.addFlashAttribute("message", "로그인 실패");
             return "error";
+        }
+
+        return "redirect:/Home";
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session){
+        if (session != null){
+            session.invalidate();
         }
 
         return "redirect:/Home";
