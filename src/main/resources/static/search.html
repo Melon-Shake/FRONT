@@ -44,6 +44,12 @@
             --bs-btn-disabled-border-color: #0d6efd;
         }
 
+        .btn-primary:hover{
+            background: linear-gradient(to bottom, #40a798 0%, #009999 100%);
+        }
+        .btn-primary:active {
+            background: linear-gradient(to bottom, #50d0bd 0%, #40a798 100%);
+        }
         .center_pos {
             text-align: center;
         }
@@ -69,6 +75,16 @@
         p{
             color: #50d0bd;
         }
+        .bt-bg-gradient{
+            background: linear-gradient(to bottom,#555555 0%,#393939 100%);
+        }
+        .bt-bg-gradient:hover{
+            background: linear-gradient(to bottom, #797979 0%, #555555 100%);
+        }
+        .bt-bg-gradient:active {
+            background: linear-gradient(to bottom, #9c9c9c 0%, #797979 100%);
+        }
+
     </style>
 </head>
 <body>
@@ -101,7 +117,7 @@
 
     <div row>
         <div class="mb-4 col-1"></div>
-        <button id="gotoRoot" class="btn btn-primary btn-dark" type="button">뒤로 가기</button>
+        <button id="gotoRoot" style="color: white; margin-bottom: 10px;" class="btn bt-bg-gradient" type="button">뒤로 가기</button>
         <script>
             // 버튼 클릭 시 루트 디렉토리로 이동하는 함수
             document.getElementById("gotoRoot").addEventListener("click", function() {
@@ -142,6 +158,7 @@
         document.body.appendChild(f);
         f.submit();
     }
+    
 </script>
 </body>
 </html>

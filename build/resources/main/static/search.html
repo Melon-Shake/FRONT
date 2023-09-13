@@ -47,19 +47,32 @@
         .center_pos {
             text-align: center;
         }
-        .navbar-expand-xl{
-            max-height: 50px;
-        }
         .search_height{
             max-height: 40px;
         }
         .button_width{
             width: 100px;
         }
+        a {
+            text-decoration: none;
+            color: #40a798;
+            margin-left:10px;
+        }
+        a:hover {
+            color: #50d0bd;
+            text-decoration: underline;
+
+        }
+        a:active {
+            color: #00ffcc;
+        }
+        p{
+            color: #50d0bd;
+        }
     </style>
 </head>
 <body>
-<nav class="d-flex navbar navbar-expand-xl bg-gradient bg-dark navbar-dark">
+<nav class="d-flex navbar navbar-expand-xl bg-gradient bg-dark navbar-dark" style="height: 70px">
     <div class="col center_pos justify-content-start">
         <a href="/Home">
             <img src="/logo/transparent4.png">
@@ -72,9 +85,15 @@
             <button class="ms-2 btn btn-primary button_width search_height"  type="submit" id="gotoSearch">검색</button>
         </form>
     </div>
-    <div class="col center_pos justify-content-end">
-        <button id="gotoLogin" class="btn btn-primary btn-sm me-3" type="submit">로그인</button>
-        <button id="gotoRegister" class="btn btn-primary btn-sm" type="button">회원가입</button>
+    <div style="width:350px" class="center_pos center">
+        <div th:if="${userName}">
+            <p class="fw-bolder" style="margin-top: 3px; margin-bottom: 3px">어서오세요 <span th:text="${userName}"></span>님!</p>
+            <a href="#" onClick="logout()" class="fw-bold" style="margin-top: 3px; margin-bottom: 3px">로그아웃</a>
+        </div>
+        <div style="margin-bottom: 5px" th:unless="${userName}">
+            <a href="/login" class="fw-bold">로그인</a>
+            <a href="/register" class="fw-bold">회원가입</a>
+        </div>
     </div>
 
 </nav>
@@ -92,24 +111,38 @@
     </div>
     <div class="row mt-2">
 <!--<th th:text="${searchResult.key}"></th>-->
-    <table class="table table-dark table-striped table-bordered table">
-        <tr>
-            <th th:text="곡"></th>
-            <th th:text="앨범"></th>
-            <th th:text="가수"></th>
+        <div th:if="${searchResult}">
+            <table class="table table-dark table-striped table-bordered table">
+                <tr>
+                    <th th:text="곡"></th>
+                    <th th:text="앨범"></th>
+                    <th th:text="가수"></th>
 
-        </tr>
-            <tr th:each="result : ${searchResult}">
-                <th th:text="${result.value[0][0]}"></th>
-                <th th:text="${result.value[1][0]}"></th>
-                <th th:text="${result.value[2]}"></th>
-            </tr>
-    </table>
+                </tr>
+                <tr th:each="result : ${searchResult}">
+                    <th th:text="${result.value[0][0]}"></th>
+                    <th th:text="${result.value[1][0]}"></th>
+                    <th th:text="${result.value[2]}"></th>
+                </tr>
+            </table>
+        </div>
+        <div th:unless="${searchResult}">
+            <p style="font-size: 100px">검색 결과가 없습니다.</p>
+        </div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function logout(){
+        let f = document.createElement('form');
+        f.setAttribute('method', 'post');
+        f.setAttribute('action', '/logout');
+        document.body.appendChild(f);
+        f.submit();
+    }
+</script>
 </body>
 </html>
 
