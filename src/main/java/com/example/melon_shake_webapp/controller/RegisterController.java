@@ -2,6 +2,7 @@ package com.example.melon_shake_webapp.controller;
 
 import com.example.melon_shake_webapp.data.RegistrationData;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,8 +40,9 @@ public class RegisterController {
             @RequestParam(name="mbti", required=true) String mbti,
             @RequestParam(name="favorite_tracks", required=true) String favorite_tracks,
             @RequestParam(name="favorite_artists", required=true) String favorite_artists,
-            Model model) throws SQLException {
-
+            Model model,
+            HttpSession session) throws SQLException {
+        model.addAttribute("userName",(String) session.getAttribute("userName")); // 세션 정보 전달
         RegistrationData registrationData = new RegistrationData(email, password, name, gender, birthdate, mbti, favorite_tracks, favorite_artists);
         String jsonBody;
 

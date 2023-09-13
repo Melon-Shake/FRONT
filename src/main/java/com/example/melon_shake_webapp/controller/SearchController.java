@@ -4,6 +4,7 @@ import com.example.melon_shake_webapp.data.SearchData;
 import com.example.melon_shake_webapp.data.SearchDataEmail;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,9 +39,9 @@ public class SearchController {
 
 
     @PostMapping("/search/in-process")
-    public String show_search(@RequestParam("searchInput") String searchInput, Model model){
-        long start_time = System.currentTimeMillis();
-
+    public String show_search(@RequestParam("searchInput") String searchInput, Model model, HttpSession session){
+//        long start_time = System.currentTimeMillis();
+        model.addAttribute("userName",(String) session.getAttribute("userName")); // 세션 정보 전달
         model.addAttribute("searchInput",searchInput);
 
         SearchData searchData = new SearchData(searchInput);
@@ -62,8 +63,8 @@ public class SearchController {
             return "error";
         }
 
-        long end_time = System.currentTimeMillis();
-        System.out.println(end_time - start_time);
+//        long end_time = System.currentTimeMillis();
+//        System.out.println(end_time - start_time);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/search/track/"))
 //                .uri(URI.create("http://192.168.70.60:8000/search/track/"))
@@ -84,8 +85,12 @@ public class SearchController {
 //            System.out.println(response.body());
             Map<String, List<List<String>>> searchResult = objectMapper.readValue(response.body(),new TypeReference<Map<String, List<List<String>>>>() {});
             model.addAttribute("searchResult",searchResult);
+            if (searchResult.isEmpty()){
+
+                return "searchError";
+            }
             long end2_time = System.currentTimeMillis();
-            System.out.println(end2_time - start_time);
+//            System.out.println(end2_time - start_time);
 
             // 예외가 발생하지 않은 경우 이후의 로직을 작성
         } catch (IOException | InterruptedException e) {
