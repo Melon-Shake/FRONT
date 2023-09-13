@@ -112,7 +112,7 @@
             });
         </script>
     </div>
-    <div class="row mt-2" style="width: 400px">
+    <div class="row mt-2" style="width: 600px;">
         <div th:if="${searchResult}">
             <table class="table table-container" style="background: transparent">
                 <tr>
@@ -121,15 +121,12 @@
                     <th th:text="가수"></th>
 
                 </tr>
-                <tr th:each="i,result : ${searchResult}">
+                <tr th:each="result : ${searchResult}">
                     <th th:text="${result.value[0][0]}"></th>
                     <th th:text="${result.value[1][0]}"></th>
                     <th th:text="${result.value[2]}"></th>
                 </tr>
             </table>
-        </div>
-        <div th:unless="${searchResult}">
-            <p style="font-size: 100px">검색 결과가 없습니다.</p>
         </div>
     </div>
 </div>

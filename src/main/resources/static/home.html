@@ -58,17 +58,14 @@
         .btn-primary:active {
             background: linear-gradient(to bottom, #50d0bd 0%, #40a798 100%);
         }
-        .fixed-column-rank {
-            width: 50px;
+        .bt-bg-gradient{
+            background: linear-gradient(to bottom,#555555 0%,#393939 100%);
         }
-        .fixed-column-track{
-            width: 150px;
+        .bt-bg-gradient:hover{
+            background: linear-gradient(to bottom, #797979 0%, #555555 100%);
         }
-        .fixed-column-artist{
-            width: 100px;
-        }
-        .fixed-column-album{
-            width:10px;
+        .bt-bg-gradient:active {
+            background: linear-gradient(to bottom, #9c9c9c 0%, #797979 100%);
         }
         .table {
             width:400px;
@@ -150,7 +147,7 @@
         <row>
         <div class="row">
             <div style="width:420px;">
-                <div class="container-lg mt-3 table-container" style="width:420px;">
+                <div class="container-lg table-container" style="width:420px; margin-top: 57px">
                 <table class="table">
                     <tr class="table-dark">
                         <th th:class="fixed-column-rank" th:text="랭킹"></th>
@@ -174,7 +171,13 @@
                 </div>
             </div>
             <div style="width:420px;">
-                <div class="container-lg mt-3 table-container" style="width:420px;">
+                <div class="btn-group" style="margin-left: 12px; margin-top: 20px">
+                    <button class="btn bt-bg-gradient" type="button" id="btn_1">Melon</button>
+                    <button class="btn bt-bg-gradient" type="button" id="btn_2">Genie</button>
+                    <button class="btn bt-bg-gradient" type="button" id="btn_3">Bugs</button>
+                    <button class="btn bt-bg-gradient" type="button" id="btn_4">Flo</button>
+                </div>
+                <div class="container-lg table-container" id="table1" style="width:420px;">
                     <table class="table">
                         <tr class="table-dark">
                             <th th:class="fixed-column-rank" th:text="랭킹"></th>
@@ -182,21 +185,65 @@
                             <th th:class="fixed-column-artist" th:text="가수"></th>
                             <th th:class="fixed-column-album" th:text="앨범"></th>
                         </tr>
-                        <tr>
                         <tr th:each="track,i : ${track_ranking_chart}">
                             <td th:text="${i.index+1}"></td>
                             <td th:text="${track.value[0]}"></td>
                             <td th:text="${track.value[1]}"></td>
                             <td><img th:src="${track.value[2]}" width="64px"></td>
-                            <script>
-                            </script>
                         </tr>
+                    </table>
+                </div>
+                <div class="container-lg table-container" id="table2" style="width:420px;">
+                    <table class="table">
+                        <tr class="table-dark">
+                            <th th:class="fixed-column-rank" th:text="랭킹"></th>
+                            <th th:class="fixed-column-track" th:text="곡"></th>
+                            <th th:class="fixed-column-artist" th:text="가수"></th>
+                            <th th:class="fixed-column-album" th:text="앨범"></th>
+                        </tr>
+                        <tr th:each="track,i : ${track_ranking_chart}">
+                            <td th:text="${i.index+1}"></td>
+                            <td th:text="${track.value[0]}"></td>
+                            <td th:text="${track.value[1]}"></td>
+                            <td><img th:src="${track.value[2]}" width="64px"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="container-lg table-container" id="table3" style="width:420px;">
+                    <table class="table">
+                        <tr class="table-dark">
+                            <th th:class="fixed-column-rank" th:text="랭킹"></th>
+                            <th th:class="fixed-column-track" th:text="곡"></th>
+                            <th th:class="fixed-column-artist" th:text="가수"></th>
+                            <th th:class="fixed-column-album" th:text="앨범"></th>
+                        </tr>
+                        <tr th:each="track,i : ${track_ranking_chart}">
+                            <td th:text="${i.index+1}"></td>
+                            <td th:text="${track.value[0]}"></td>
+                            <td th:text="${track.value[1]}"></td>
+                            <td><img th:src="${track.value[2]}" width="64px"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="container-lg table-container" id="table4" style="width:420px;">
+                    <table class="table">
+                        <tr class="table-dark">
+                            <th th:class="fixed-column-rank" th:text="랭킹"></th>
+                            <th th:class="fixed-column-track" th:text="곡"></th>
+                            <th th:class="fixed-column-artist" th:text="가수"></th>
+                            <th th:class="fixed-column-album" th:text="앨범"></th>
+                        </tr>
+                        <tr th:each="track,i : ${track_ranking_chart}">
+                            <td th:text="${i.index+1}"></td>
+                            <td th:text="${track.value[0]}"></td>
+                            <td th:text="${track.value[1]}"></td>
+                            <td><img th:src="${track.value[2]}" width="64px"></td>
                         </tr>
                     </table>
                 </div>
             </div>
             <div style="width:250px">
-                <div class="container table-container mt-3 ms-lg-5" style="height:600px;">
+                <div class="container table-container ms-lg-5" style="height:600px; margin-top: 57px">
                     <table class="table" style="width:250px">
                         <tr class="table-dark">
                             <th th:text="랭킹"></th>
@@ -232,6 +279,43 @@
         document.body.appendChild(f);
         f.submit();
     }
+    window.onload = function() {
+
+        $("#table1").show();
+        $("#table2").hide();
+        $("#table3").hide();
+        $("#table4").hide();
+    }
+    $(document).ready(function() {
+        $("#btn_1").click(function() {
+
+            $("#table1").show();
+            $("#table").hide();
+            $("#table3").hide();
+            $("#table4").hide();
+        })
+        $("#btn_2").click(function() {
+
+            $("#table1").hide();
+            $("#table2").show();
+            $("#table3").hide();
+            $("#table4").hide();
+        })
+        $("#btn_3").click(function() {
+
+            $("#table1").hide();
+            $("#table2").hide();
+            $("#table3").show();
+            $("#table4").hide();
+        })
+        $("#btn_4").click(function() {
+
+            $("#table1").hide();
+            $("#table2").hide();
+            $("#table3").hide();
+            $("#table4").show();
+        })
+    })
 </script>
 </body>
 </html>
