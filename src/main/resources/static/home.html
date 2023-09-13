@@ -9,13 +9,14 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <style>
         .table-container {
-            max-height: 800px;/* 테이블의 최대 높이 설정 */
+            max-height: 730px;/* 테이블의 최대 높이 설정 */
             overflow-y: scroll; /* 세로 스크롤 적용 */
             overflow-x: hidden;
             border-radius: 20px;
         }
         .table-container::-webkit-scrollbar {
             width: 10px;
+            height: 100%;
         }
         .table-container::-webkit-scrollbar-thumb {
             background-color: #00ffcc;
@@ -107,11 +108,14 @@
         a:active {
             color: #00ffcc;
         }
+        p{
+            color: #50d0bd;
+        }
     </style>
 </head>
 <body>
 
-<nav class="d-flex navbar navbar-expand-xl bg-gradient bg-dark navbar-dark">
+<nav class="d-flex navbar navbar-expand-xl bg-gradient bg-dark navbar-dark" style="height: 70px;">
         <div class="col center_pos justify-content-start">
             <a href="/Home">
                 <img src="/logo/transparent4.png">
@@ -124,11 +128,15 @@
                 <button class="ms-2 btn btn-primary button_width search_height"  type="submit" id="gotoSearch">검색</button>
             </form>
         </div>
-        <div class="col center_pos justify-content-end">
-<!--            <button id="gotoLogin" class="btn btn-primary btn-sm me-3" type="submit">로그인</button>-->
-<!--            <button id="gotoRegister" class="btn btn-primary btn-sm" type="button">회원가입</button>-->
-            <a href="/login" class="fw-bold">로그인</a>
-            <a href="/register" class="fw-bold">회원가입</a>
+        <div style="width:350px" class="center_pos center">
+            <div th:if="${userName}">
+                <p class="fw-bolder" style="margin-top: 3px; margin-bottom: 3px">어서오세요 <span th:text="${userName}"></span>님!</p>
+                <a href="#" onClick="logout()" class="fw-bold" style="margin-top: 3px; margin-bottom: 3px">로그아웃</a>
+            </div>
+            <div style="margin-bottom: 5px" th:unless="${userName}">
+                <a href="/login" class="fw-bold">로그인</a>
+                <a href="/register" class="fw-bold">회원가입</a>
+            </div>
         </div>
 
 </nav>
@@ -136,8 +144,8 @@
     <div class="row">
         <row>
         <div class="row">
-            <div class="col-4">
-                <div class="container-lg mt-3 table-container">
+            <div style="width:420px;">
+                <div class="container-lg mt-3 table-container" style="width:420px;">
                 <table class="table">
                     <tr class="table-dark">
                         <th th:class="fixed-column-rank" th:text="랭킹"></th>
@@ -160,8 +168,8 @@
                 </table>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="container-lg mt-3 table-container">
+            <div style="width:420px;">
+                <div class="container-lg mt-3 table-container" style="width:420px;">
                     <table class="table">
                         <tr class="table-dark">
                             <th th:class="fixed-column-rank" th:text="랭킹"></th>
@@ -169,12 +177,22 @@
                             <th th:class="fixed-column-artist" th:text="가수"></th>
                             <th th:class="fixed-column-album" th:text="앨범"></th>
                         </tr>
+                        <tr>
+                        <tr th:each="track,i : ${track_ranking_chart}">
+                            <td th:text="${i.index+1}"></td>
+                            <td th:text="${track.value[0]}"></td>
+                            <td th:text="${track.value[1]}"></td>
+                            <td><img th:src="${track.value[2]}" width="64px"></td>
+                            <script>
+                            </script>
+                        </tr>
+                        </tr>
                     </table>
                 </div>
             </div>
-            <div class="col-1">
-                <div class="container table-container-lg mt-3">
-                    <table class="table">
+            <div style="width:250px">
+                <div class="container table-container mt-3 ms-lg-5" style="height:600px;">
+                    <table class="table" style="width:250px">
                         <tr class="table-dark">
                             <th th:text="랭킹"></th>
                             <th th:text="검색어"></th>
@@ -190,7 +208,6 @@
         </div>
         </row>
     </div>
-
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -203,6 +220,13 @@
     // document.getElementById("gotoLogin").addEventListener("click", function() {
     //     window.location.href = "/login";
     // });
+    function logout(){
+        let f = document.createElement('form');
+        f.setAttribute('method', 'post');
+        f.setAttribute('action', '/logout');
+        document.body.appendChild(f);
+        f.submit();
+    }
 </script>
 </body>
 </html>

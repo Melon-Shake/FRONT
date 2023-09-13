@@ -7,7 +7,9 @@
 
 
     <link rel="stylesheet" href="/css/bootstrap.css">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbit&family=Sunflower:wght@500&display=swap" rel="stylesheet">
 
     <style>
         body {
@@ -95,45 +97,10 @@
             <a href="/register" class="fw-bold">회원가입</a>
         </div>
     </div>
-
 </nav>
-<div class="container mt-3">
-
-    <div row>
-        <div class="mb-4 col-1"></div>
-        <button id="gotoRoot" class="btn btn-primary btn-dark" type="button">뒤로 가기</button>
-        <script>
-            // 버튼 클릭 시 루트 디렉토리로 이동하는 함수
-            document.getElementById("gotoRoot").addEventListener("click", function() {
-                window.location.href = "/";
-            });
-        </script>
-    </div>
-    <div class="row mt-2">
-<!--<th th:text="${searchResult.key}"></th>-->
-        <div th:if="${searchResult}">
-            <table class="table table-dark table-striped table-bordered table">
-                <tr>
-                    <th th:text="곡"></th>
-                    <th th:text="앨범"></th>
-                    <th th:text="가수"></th>
-
-                </tr>
-                <tr th:each="result : ${searchResult}">
-                    <th th:text="${result.value[0][0]}"></th>
-                    <th th:text="${result.value[1][0]}"></th>
-                    <th th:text="${result.value[2]}"></th>
-                </tr>
-            </table>
-        </div>
-        <div th:unless="${searchResult}">
-            <p style="font-size: 100px">검색 결과가 없습니다.</p>
-        </div>
-    </div>
+<div style="height: 720px">
+<p style="font-size: 60px; font-family: 'Orbit', sans-serif; color: black"> 검색 결과가 없습니다.<br> 다시 검색해주세요.</p>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     function logout(){
         let f = document.createElement('form');
@@ -145,4 +112,3 @@
 </script>
 </body>
 </html>
-

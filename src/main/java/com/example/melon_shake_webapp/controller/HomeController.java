@@ -2,6 +2,7 @@ package com.example.melon_shake_webapp.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,8 @@ public class HomeController {
         return "redirect:/Home";
     }
     @GetMapping("/Home")
-    public String home_page(Model model){
+    public String home_page(Model model, HttpSession session){
+        model.addAttribute("userName",(String) session.getAttribute("userName")); // 세션 정보 전달
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/chart/melon_chart/"))
@@ -63,6 +65,7 @@ public class HomeController {
             HttpResponse<String> response2 = client.send(request2, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
             System.out.println(response2);
             Map<String,String> keyword_ranking_chart = objectMapper.readValue(response2.body(),new TypeReference<Map<String,String>>() {});
+//            System.out.println(keyword_ranking_chart);
 //            System.out.println(keyword_ranking_chart);
             model.addAttribute("keyword_ranking_chart",keyword_ranking_chart);
             // 예외가 발생하지 않은 경우 이후의 로직을 작성
