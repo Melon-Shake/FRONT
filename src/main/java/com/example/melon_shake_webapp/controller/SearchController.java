@@ -111,6 +111,9 @@ public class SearchController {
 
         return "search";
     }
-
+    @GetMapping("/svelte")
+    public String sveltePage(){
+        return "index.html";
+    }
 
 }

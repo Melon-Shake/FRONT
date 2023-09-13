@@ -13,19 +13,8 @@
         body {
             background: linear-gradient(to bottom, #00ffcc 0%, #009999 100%);
         }
-        .input-form {
-            max-width: 680px;
-
-            margin-top: 80px;
-            padding: 32px;
-
-            background: #fff;
-            -webkit-border-radius: 10px;
-            -moz-border-radius: 10px;
-            border-radius: 10px;
-            -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-            -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-            box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+        .table {
+            --bs-table-bg: rgba(255, 255, 255, 0);
         }
         .btn-primary {
             --bs-btn-color: #fff;
@@ -40,8 +29,6 @@
             --bs-btn-active-border-color: #50d0bd;
             --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
             --bs-btn-disabled-color: #fff;
-            --bs-btn-disabled-bg: #0d6efd;
-            --bs-btn-disabled-border-color: #0d6efd;
         }
 
         .btn-primary:hover{
@@ -125,10 +112,9 @@
             });
         </script>
     </div>
-    <div class="row mt-2">
-<!--<th th:text="${searchResult.key}"></th>-->
+    <div class="row mt-2" style="width: 600px;">
         <div th:if="${searchResult}">
-            <table class="table table-dark table-striped table-bordered table">
+            <table class="table table-container" style="background: transparent">
                 <tr>
                     <th th:text="곡"></th>
                     <th th:text="앨범"></th>
@@ -141,9 +127,6 @@
                     <th th:text="${result.value[2]}"></th>
                 </tr>
             </table>
-        </div>
-        <div th:unless="${searchResult}">
-            <p style="font-size: 100px">검색 결과가 없습니다.</p>
         </div>
     </div>
 </div>
@@ -158,7 +141,7 @@
         document.body.appendChild(f);
         f.submit();
     }
-    
+
 </script>
 </body>
 </html>

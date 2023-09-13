@@ -1,23 +1,23 @@
-<script lang="ts">
-    import { Button, Form, FormGroup, Input } from 'sveltestrap';
 
-    let validated = false;
+<script>
+    let responseData = null;
+
+    async function fetchData() {
+        try {
+            const response = await fetch('/api/data'); // 서버 API 엔드포인트
+            if (!response.ok) {
+                throw new Error('서버로부터 데이터를 가져오지 못했습니다.');
+            }
+            const data = await response.json(); // JSON으로 파싱
+            responseData = data; // responseData에 파싱된 데이터 할당
+        } catch (error) {
+            console.error('데이터 가져오기 오류:', error);
+        }
+    }
 </script>
-<Form {validated} on:submit={(e) => e.preventDefault()}>
-    <FormGroup>
-        <Input
-                feedback="This requires a value"
-                placeholder="This requires a value"
-                required
-        />
-    </FormGroup>
-    <FormGroup>
-        <Input
-                feedback="This requires an email"
-                placeholder="This requires an email"
-                required
-                type="email"
-        />
-    </FormGroup>
-    <Button type="submit" on:click={() => (validated = true)}>Fake Submit</Button>
-</Form>
+
+<button on:click={fetchData}>데이터 가져오기</button>
+
+{#if responseData}
+    <p>서버로부터 받은 데이터: {responseData}</p>
+{/if}
