@@ -144,8 +144,6 @@
 </nav>
 <div class="container">
     <div class="row">
-        <row>
-        <div class="row">
             <div style="width:420px;">
                 <div class="container-lg table-container" style="width:420px; margin-top: 57px">
                 <table class="table">
@@ -155,7 +153,7 @@
                         <th th:class="fixed-column-artist" th:text="가수"></th>
                         <th th:class="fixed-column-album" th:text="앨범"></th>
                     </tr>
-                    <tr>
+
                     <tr th:each="track,i : ${track_ranking_chart}">
                         <td th:text="${i.index+1}"></td>
                         <td th:text="${track.value[0]}"></td>
@@ -165,7 +163,6 @@
 
 
                     </script>
-                    </tr>
                     </tr>
                 </table>
                 </div>
@@ -258,9 +255,7 @@
 
             </div>
         </div>
-        </row>
     </div>
-</div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>

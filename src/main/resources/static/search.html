@@ -112,21 +112,27 @@
             });
         </script>
     </div>
-    <div class="row mt-2" style="width: 600px;">
+    <div class="container">
+        <div class="row">
+    <div class="col-5 mt-2" style="width: 500px;">
         <div th:if="${searchResult}">
-            <table class="table table-container" style="background: transparent">
+            <table class="table table-container" style="background: transparent;">
                 <tr>
-                    <th th:text="곡"></th>
-                    <th th:text="앨범"></th>
-                    <th th:text="가수"></th>
-
+                    <th th:text="곡" class="fw-bolder" style="font-size: 30px; width: 100px"></th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 <tr th:each="result : ${searchResult}">
-                    <th th:text="${result.value[0][0]}"></th>
-                    <th th:text="${result.value[1][0]}"></th>
-                    <th th:text="${result.value[2]}"></th>
+                    <td><img src="https://cdn.pixabay.com/photo/2023/08/30/17/59/snowflakes-8223860_1280.jpg" style="width: 50px; margin-top: 30%" height="50px"></td>
+                    <td><p class="fw-bolder" style="margin-top: 15px; font-size: 20px; color: black" th:text="${result.value[0][0]}"></p><p th:text="${result.value[2][0]}" style="color: rgb(0,0,0,0.5)"></p></td>
+                    <td><p class="fw-bolder" style="color: black; font-size: 17px; margin-top: 50%">3 &#58 33</p></td>
                 </tr>
             </table>
+        </div>
+    </div>
+            <div class="col-5">
+            <p class="fw-bolder" style="font-size: 30px; color: black; margin-top: 10px;margin-left: 50px">앨범</p>
+        </div>
         </div>
     </div>
 </div>
