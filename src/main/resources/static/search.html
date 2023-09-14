@@ -101,7 +101,6 @@
 
 </nav>
 <div class="container mt-3">
-
     <div row>
         <div class="mb-4 col-1"></div>
         <button id="gotoRoot" style="color: white; margin-bottom: 10px;" class="btn bt-bg-gradient" type="button">뒤로 가기</button>
@@ -114,25 +113,36 @@
     </div>
     <div class="container">
         <div class="row">
-    <div class="col-5 mt-2" style="width: 500px;">
-        <div th:if="${searchResult}">
-            <table class="table table-container" style="background: transparent;">
-                <tr>
-                    <th th:text="곡" class="fw-bolder" style="font-size: 30px; width: 100px"></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                <tr th:each="result : ${searchResult}">
-                    <td><img src="https://cdn.pixabay.com/photo/2023/08/30/17/59/snowflakes-8223860_1280.jpg" style="width: 50px; margin-top: 30%" height="50px"></td>
-                    <td><p class="fw-bolder" style="margin-top: 15px; font-size: 20px; color: black" th:text="${result.value[0][0]}"></p><p th:text="${result.value[2][0]}" style="color: rgb(0,0,0,0.5)"></p></td>
-                    <td><p class="fw-bolder" style="color: black; font-size: 17px; margin-top: 50%">3 &#58 33</p></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-            <div class="col-5">
-            <p class="fw-bolder" style="font-size: 30px; color: black; margin-top: 10px;margin-left: 50px">앨범</p>
-        </div>
+            <div class="col-5 mt-2" style="width: 500px;">
+                <div th:if="${tracks}">
+                    <table class="table table-container" style="background: transparent;">
+                        <tr>
+                            <th th:text="곡" class="fw-bolder" style="font-size: 30px; width: 100px"></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr th:each="track : ${tracks}">
+                            <td><img th:src="${track.img}" style="width: 50px; margin-top: 30%" height="50px"></td>
+                            <td><p class="fw-bolder" style="margin-top: 15px; font-size: 20px; color: black" th:text="${track.name}"></p><p th:text="${track.artist}" style="color: rgb(0,0,0,0.5)"></p></td>
+                            <td><p class="fw-bolder" style="color: black; font-size: 17px; margin-top: 50%" th:text="${track.duration}"></p></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-5" style="margin-left: 100px; margin-top: 11px">
+                <div class="container">
+                    <p class="fw-bolder" style="font-size: 27px; color: black;">앨범</p>
+                    <hr style="border: solid 1px white; opacity: 60%">
+                    <div th:each="album: ${albums}">
+                        <div class="card" style="width:130px; background: transparent; border: none">
+                            <img th:src="${album.img}" style="width: 130px; height: 130px" class="align-items-center card-img-top" alt="...">
+                            <div class="card-body">
+                                <p><span th:text="${album.name}" style="font-size:17px; color: black" class="fw-bold"></span><br><span th:text="${album.artist}" style="align-content: center;color: black"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

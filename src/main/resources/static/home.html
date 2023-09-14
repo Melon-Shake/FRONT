@@ -78,6 +78,26 @@
         .tab-btn:active {
             background: linear-gradient(to bottom, #9c9c9c 0%, #797979 100%);
         }
+        .chart-header{
+            --bs-btn-color: white;
+            --bs-btn-bg: black;
+            --bs-btn-focus-shadow-rgb: 49, 132, 253;
+            --bs-btn-active-color: #50d0bd;
+            --bs-btn-active-border-color: #50d0bd;
+            --bs-btn-active-bg: transparent;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+            --bs-btn-disabled-color: #fff;
+            border-bottom: none;
+        }
+        .chart-header{
+            background: linear-gradient(to bottom,#393939 0%,#555555 100%);
+        }
+        .chart-header:hover{
+            background: linear-gradient(to bottom, #797979 0%, #555555 100%);
+        }
+        .chart-header:active {
+            background: linear-gradient(to bottom, #9c9c9c 0%, #797979 100%);
+        }
 
         .table {
             width:400px;
@@ -162,7 +182,10 @@
 <div class="container">
     <div class="row">
             <div style="width:420px;">
-                <div class="container-lg table-container" style="width:420px; margin-top: 57px">
+                <div class="btn-group" style="margin-left: 12px; margin-top: 20px; width: 399px; height: 39px; color: white; text-align: center">
+                    <button class="btn chart-header fw-bold" style="border-bottom: 1px solid black; border-radius: 0.25rem 0.25rem 0 0">종합 차트</button>
+                </div>
+                <div class="container-lg table-container" style="width:420px; margin-top: 0!important">
                 <table class="table">
                     <tr>
                         <th th:class="fixed-column-rank" th:text="랭킹" style="width:50px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>

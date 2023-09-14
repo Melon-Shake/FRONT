@@ -88,8 +88,62 @@ public class SearchController {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
             System.out.println(response);
 //            System.out.println(response.body());
-            Map<String, List<List<String>>> searchResult = objectMapper.readValue(response.body(),new TypeReference<Map<String, List<List<String>>>>() {});
-            model.addAttribute("searchResult",searchResult);
+//            Map<String, List<List<String>>> searchResult = objectMapper.readValue(response.body(),new TypeReference<Map<String, List<List<String>>>>() {});
+            Map<String,List<Map<String,String>>> searchResult = objectMapper.readValue("{\n" +
+                    "    \"tracks\": [\n" +
+                    "      {\n" +
+                    "        \"name\": \"Secret Garden\",\n" +
+                    "        \"img\": \"https://i.scdn.co/image/ab67616d0000b273dbd063ae065db06970b022d7\",\n" +
+                    "        \"artist\": \"IU\",\n" +
+                    "        \"duration\": \"03:44\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"name\": \"People Pt.2 (feat. IU)\",\n" +
+                    "        \"img\": \"https://i.scdn.co/image/ab67616d0000b273bff049a2215c768b6432499f\",\n" +
+                    "        \"artist\": \"Agust D, IU\",\n" +
+                    "        \"duration\": \"03:33\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"name\": \"People Pt.2 (feat. IU)\",\n" +
+                    "        \"img\": \"https://i.scdn.co/image/ab67616d0000b273fa9247b68471b82d2125651e\",\n" +
+                    "        \"artist\": \"Agust D, IU\",\n" +
+                    "        \"duration\": \"03:33\"\n" +
+                    "      }\n" +
+                    "    ],\n" +
+                    "    \"albums\": [\n" +
+                    "      {\n" +
+                    "        \"name\": \"A flower bookmark\",\n" +
+                    "        \"img\": \"https://i.scdn.co/image/ab67616d0000b273dbd063ae065db06970b022d7\",\n" +
+                    "        \"artist\": \"IU\",\n" +
+                    "        \"release_year\": \"2017-09-22\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"name\": \"People Pt.2 (feat. IU)\",\n" +
+                    "        \"img\": \"https://i.scdn.co/image/ab67616d0000b273bff049a2215c768b6432499f\",\n" +
+                    "        \"artist\": \"Agust D, IU\",\n" +
+                    "        \"release_year\": \"2023-04-07\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"name\": \"D-DAY\",\n" +
+                    "        \"img\": \"https://i.scdn.co/image/ab67616d0000b273fa9247b68471b82d2125651e\",\n" +
+                    "        \"artist\": \"Agust D\",\n" +
+                    "        \"release_year\": \"2023-04-21\"\n" +
+                    "      }\n" +
+                    "    ],\n" +
+                    "    \"artists\": [\n" +
+                    "      {\n" +
+                    "        \"name\": \"IU\",\n" +
+                    "        \"img\": \"https://i.scdn.co/image/ab6761610000e5eb006ff3c0136a71bfb9928d34\"\n" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  }\n",new TypeReference<Map<String,List<Map<String,String>>>>() {});
+            List<Map<String,String>> tracks = searchResult.get("tracks");
+            List<Map<String,String>> albums = searchResult.get("albums");
+            List<Map<String,String>> artists = searchResult.get("artists");
+            System.out.println(searchResult);
+            model.addAttribute("tracks",tracks);
+            model.addAttribute("albums",albums);
+            model.addAttribute("artists",artists);
             if (searchResult.isEmpty()){
 
                 return "searchError";
