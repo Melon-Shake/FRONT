@@ -45,7 +45,12 @@ public class SearchController {
         model.addAttribute("searchInput",searchInput);
 
         SearchData searchData = new SearchData(searchInput);
-        SearchDataEmail searchDataEmail = new SearchDataEmail(searchInput,"");
+        SearchDataEmail searchDataEmail;
+        if (session.getAttribute("userEmail") == null) {
+            searchDataEmail = new SearchDataEmail(searchInput, "");
+        } else {
+            searchDataEmail = new SearchDataEmail(searchInput, (String) session.getAttribute("userEmail"));
+        }
         String jsonBody;
         String jsonBody2;
 
@@ -111,6 +116,9 @@ public class SearchController {
 
         return "search";
     }
-
+    @GetMapping("/svelte")
+    public String sveltePage(){
+        return "index.html";
+    }
 
 }

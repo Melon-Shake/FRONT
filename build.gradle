@@ -2,7 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.3'
 	id 'io.spring.dependency-management' version '1.1.3'
-	id 'com.github.node-gradle.node' version '3.2.1'
+//	id 'com.github.node-gradle.node' version '3.2.1'
 }
 
 group = 'com.melon-shake'
@@ -20,7 +20,7 @@ configurations {
 
 repositories {
 	mavenCentral()
-	gradlePluginPortal()
+//	gradlePluginPortal()
 }
 
 dependencies {
@@ -38,22 +38,22 @@ dependencies {
 	implementation group: 'org.postgresql', name: 'postgresql', version: '42.5.1' // 추가
 	runtimeOnly 'org.postgresql:postgresql'
 }
-node {
-	download = true
-	version = '18.12.1'
-	npmVersion = '9.2.0'
-	npmInstallCommand = 'install'
-	nodeProjectDir = file("${project.projectDir}/frontend")
-}
+//node {
+//	download = true
+//	version = '18.12.1'
+//	npmVersion = '9.2.0'
+//	npmInstallCommand = 'install'
+//	nodeProjectDir = file("${project.projectDir}/frontend")
+//}
+//
+//task deleteSvelteBuildFiles(type: Delete) {
+//	delete "src/main/resources/static/build", "${project.projectDir}/svelte/node_modules"
+//}
+//task npmBuild(type: NpmTask, dependsOn: ['deleteSvelteBuildFiles', 'npmInstall']) {
+//	args = ["run", "build"]
+//}
 
-task deleteSvelteBuildFiles(type: Delete) {
-	delete "src/main/resources/static/build", "${project.projectDir}/svelte/node_modules"
-}
-task npmBuild(type: NpmTask, dependsOn: ['deleteSvelteBuildFiles', 'npmInstall']) {
-	args = ["run", "build"]
-}
-
-processResources.dependsOn 'npmBuild'
+//processResources.dependsOn 'npmBuild'
 
 
 tasks.named('test') {
