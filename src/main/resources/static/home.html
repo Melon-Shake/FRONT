@@ -182,10 +182,10 @@
 <div class="container">
     <div class="row">
             <div style="width:420px;">
-                <div class="btn-group" style="margin-left: 12px; margin-top: 20px; width: 399px; height: 39px; color: white; text-align: center">
+                <div class="btn-group" style="margin-left: 12px; margin-top: 20px; width: 398px; height: 39px; color: white; text-align: center">
                     <button class="btn chart-header fw-bold" style="border-bottom: 1px solid black; border-radius: 0.25rem 0.25rem 0 0">종합 차트</button>
                 </div>
-                <div class="container-lg table-container" style="width:420px; margin-top: 0!important">
+                <div class="container-lg table-container" style="width:420px; margin-top: 0!important; border-top-left-radius: 0; border-top-right-radius: 0">
                 <table class="table">
                     <tr>
                         <th th:class="fixed-column-rank" th:text="랭킹" style="width:50px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
@@ -296,8 +296,11 @@
                     </table>
                 </div>
             </div>
-            <div style="width:250px">
-                <div class="container table-container ms-lg-5" style="height:600px; margin-top: 57px">
+            <div style="width:250px; margin-left:100px" >
+                <div class="btn-group" style="margin-left: 12px;margin-top: 20px; width: 228px; height: 39px; color: white; text-align: center">
+                    <button class="btn chart-header fw-bold" style="border-bottom: 1px solid black; border-radius: 0.25rem 0.25rem 0 0;">검색어 순위</button>
+                </div>
+                    <div class="container-lg table-container" style="width:250px; margin-top: 0!important; border-top-left-radius: 0; border-top-right-radius: 0">
                     <table class="table" style="width:250px">
                         <tr>
                             <th th:text="랭킹" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
