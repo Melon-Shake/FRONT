@@ -47,6 +47,7 @@ public class LoginController {
             else if (bCrypt.checkpw(userpw,user.getPassword())) {
 
                 session.setAttribute("userName",user.getName());
+                session.setAttribute("userEmail",user.getEmail());
                 String userName = (String) session.getAttribute("userName");
                 model.addAttribute("userName",userName);
                 System.out.println("로그인되었습니다.");
