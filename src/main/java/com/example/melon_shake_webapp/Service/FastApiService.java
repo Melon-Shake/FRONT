@@ -19,7 +19,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Service
 public class FastApiService {
-    public String PostRequest(Object sendData, Object returnData, String dataName,String endPoint, String returnUri, Model model){
+    public Object PostRequest(Object sendData, Object returnData,String endPoint){
 
         HttpClient client = HttpClient.newHttpClient();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -33,7 +33,7 @@ public class FastApiService {
         }
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(endPoint))
+                .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000"+endPoint))
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .header("Content-Type", "application/json")
                 .build();
@@ -48,16 +48,12 @@ public class FastApiService {
                 }
             };
             returnData = objectMapper.readValue(response.body(),typeReference);
-//            System.out.println(track_ranking_chart);
-            model.addAttribute(dataName,returnData);
-//            System.out.println(response.body());
+          return returnData;
             // 예외가 발생하지 않은 경우 이후의 로직을 작성
         } catch (IOException | InterruptedException e) {
             // 예외 처리 로직
             e.printStackTrace(); // 예외 정보 출력
-            return "redirect:/" + returnUri;
+            return "fail";
         }
-
-        return "redirect:" + returnUri;
     }
 }

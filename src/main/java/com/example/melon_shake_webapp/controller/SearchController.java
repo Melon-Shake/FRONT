@@ -86,7 +86,7 @@ public class SearchController {
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-            System.out.println(response);
+//            System.out.println(response);
 //            System.out.println(response.body());
 //            Map<String, List<List<String>>> searchResult = objectMapper.readValue(response.body(),new TypeReference<Map<String, List<List<String>>>>() {});
             Map<String,List<Map<String,String>>> searchResult = objectMapper.readValue("{\n" +
@@ -148,7 +148,7 @@ public class SearchController {
 
                 return "searchError";
             }
-            long end2_time = System.currentTimeMillis();
+//            long end2_time = System.currentTimeMillis();
 //            System.out.println(end2_time - start_time);
 
             // 예외가 발생하지 않은 경우 이후의 로직을 작성
@@ -171,8 +171,13 @@ public class SearchController {
         return "search";
     }
     @GetMapping("/svelte")
+
     public String sveltePage(){
         return "index.html";
+    }
+    @GetMapping("/search/{id}")
+    public String searchDetailPage(){
+        return "searchDetail";
     }
 
 }

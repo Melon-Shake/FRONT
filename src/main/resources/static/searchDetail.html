@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상세 검색 결과</title>
+
+
+    <link rel="stylesheet" href="/css/bootstrap.css">
+
+
+    <style>
+        body {
+            background: linear-gradient(to bottom, #00ffcc 0%, #009999 100%);
+        }
+        .table {
+            --bs-table-bg: rgba(255, 255, 255, 0);
+        }
+        .btn-primary {
+            --bs-btn-color: #fff;
+            --bs-btn-bg: transparent;
+            --bs-btn-border-color: #40a798;
+            --bs-btn-hover-color: #fff;
+            --bs-btn-hover-bg: #3a9688;
+            --bs-btn-hover-border-color: #3a9688;
+            --bs-btn-focus-shadow-rgb: 49, 132, 253;
+            --bs-btn-active-color: #fff;
+            --bs-btn-active-bg: #50d0bd;
+            --bs-btn-active-border-color: #50d0bd;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+            --bs-btn-disabled-color: #fff;
+        }
+        </style>
+</head>
+
+<body>
+<nav class="d-flex navbar navbar-expand-xl bg-gradient bg-dark navbar-dark" style="height: 70px">
+    <div class="col center_pos justify-content-start">
+        <a href="/Home">
+            <img src="/logo/transparent4.png">
+        </a>
+    </div>
+    <div class="col-6 search_pos justify-content-center">
+        <form class="d-flex" action="/search/in-process" method="post">
+            <label for="searchInput"></label>
+            <input type="text" class="form-control search_height" placeholder="검색어를 입력하세요" id="searchInput" name="searchInput">
+            <button class="ms-2 btn btn-primary button_width search_height"  type="submit" id="gotoSearch">검색</button>
+        </form>
+    </div>
+    <div style="width:350px" class="center_pos center">
+        <div th:if="${userName}">
+            <p class="fw-bolder" style="margin-top: 3px; margin-bottom: 3px">어서오세요 <span th:text="${userName}"></span>님!</p>
+            <a href="#" onClick="logout()" class="fw-bold" style="margin-top: 3px; margin-bottom: 3px">로그아웃</a>
+        </div>
+        <div style="margin-bottom: 5px" th:unless="${userName}">
+            <a href="/login" class="fw-bold">로그인</a>
+            <a href="/register" class="fw-bold">회원가입</a>
+        </div>
+    </div>
+
+</nav>
+
+</body>
+</html>

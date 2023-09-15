@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>멜론 쉐이크</title>
+    <title>전체 검색 결과</title>
 
 
     <link rel="stylesheet" href="/css/bootstrap.css">
@@ -29,6 +29,12 @@
             --bs-btn-active-border-color: #50d0bd;
             --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
             --bs-btn-disabled-color: #fff;
+        }
+
+        .card-container{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
         }
 
         .btn-primary:hover{
@@ -71,6 +77,18 @@
         .bt-bg-gradient:active {
             background: linear-gradient(to bottom, #9c9c9c 0%, #797979 100%);
         }
+        .card-text {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            display: block;
+        }
+        .box {
+            width: 150px;
+            height: 150px;
+            border-radius: 70%;
+            overflow: hidden;
+        }
 
     </style>
 </head>
@@ -100,7 +118,7 @@
     </div>
 
 </nav>
-<div class="container mt-3">
+<div style="height: 800px;" class="container mt-3">
     <div row>
         <div class="mb-4 col-1"></div>
         <button id="gotoRoot" style="color: white; margin-bottom: 10px;" class="btn bt-bg-gradient" type="button">뒤로 가기</button>
@@ -129,15 +147,31 @@
                     </table>
                 </div>
             </div>
-            <div class="col-5" style="margin-left: 100px; margin-top: 11px">
+            <div class="col-6" style="margin-left: 50px; margin-top: 11px">
                 <div class="container">
                     <p class="fw-bolder" style="font-size: 27px; color: black;">앨범</p>
                     <hr style="border: solid 1px white; opacity: 60%">
-                    <div th:each="album: ${albums}">
-                        <div class="card" style="width:130px; background: transparent; border: none">
-                            <img th:src="${album.img}" style="width: 130px; height: 130px" class="align-items-center card-img-top" alt="...">
-                            <div class="card-body">
-                                <p><span th:text="${album.name}" style="font-size:17px; color: black" class="fw-bold"></span><br><span th:text="${album.artist}" style="align-content: center;color: black"></span></p>
+                    <div class="card-container">
+                        <div style="margin-right:5px" th:each="album: ${albums}">
+                            <div class="card" style="width:130px; background: transparent; border: none">
+                                <img th:src="${album.img}" style="border-radius: 5px 5px 5px 5px;width: 130px; height: 130px" class="align-items-start card-img-top" alt="...">
+                                <div class="card-body" style="text-align: start;margin-top: 5px; padding: 10px;">
+                                    <p><span class="card-text fw-bold" th:text="${album.name}" style="font-size:18px; color: black"></span><span th:text="${album.artist}" style="color: black"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container" style="margin-top: 30px">
+                    <p class="fw-bolder" style="font-size: 27px; color: black;">아티스트</p>
+                    <hr style="border: solid 1px white; opacity: 60%">
+                    <div class="card-container">
+                        <div style="margin-right:5px" th:each="artist: ${artists}">
+                            <div class="card" style="width:130px; background: transparent; border: none">
+                                <img th:src="${artist.img}" style="width: 130px; height: 130px" class="align-items-center card-img-top box" alt="...">
+                                <div class="card-body" style="text-align: center;margin-top: 5px; padding: 10px; ">
+                                    <p><span th:text="${artist.name}" style="font-size:18px; color: black" class="fw-bold card-text"></span></p>
+                                </div>
                             </div>
                         </div>
                     </div>
