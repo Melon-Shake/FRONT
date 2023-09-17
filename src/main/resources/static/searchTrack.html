@@ -94,6 +94,12 @@
             border-radius: 70%;
             overflow: hidden;
         }
+        .box2 {
+            width: 150px;
+            height: 150px;
+            border-radius: 70%;
+            overflow: hidden;
+        }
         .table-container tr:not(:first-child) {
             transition: transform 0.1s ease-in-out;
         }
@@ -166,7 +172,7 @@
             <h3 style="color:rgb(255,255,255,0.7)">곡</h3>
             <br><br>
             <h1 th:text="${track_info[0].name}" class="d-flex" style="justify-content: start;font-size: 60px;font-weight: bold; color:white"></h1>
-            <br><br>
+            <br><br><br>
             <p style="color:rgb(255,255,255,0.7)"><span th:each="artist:${artists_info}"><img th:src="${artist.images_url}" class="box"><span></span> <span th:text="${artist.name}" ></span><span> </span></span><span> &#183 </span><span th:text="${album_info[0].name}"></span><span> &#183 </span><span th:text="${album_info[0].release_year}"></span><span> &#183 </span><span th:text="${track_info[0].duration}"></span>
             </p>
         </div>
@@ -191,31 +197,46 @@
         </div>
 
     </div>
-    <div class="row" style="margin-top:50px">
-        <div th:if="${tracksInAlbum}">
+<!--    <div th:each="artist:${artists_info}">-->
+        <div th:each="tracksWithA:${tracksWithArtist}" class="row" style="margin-top:50px">
             <table class="table table-container" style="background: transparent;">
                 <tr>
-                    <th><img th:src="${album_info[0].images_url}" style="width:150px; height:150px"></th>
-                    <th th:text="곡" class="fw-bolder" style="vertical-align:bottom ;font-size: 30px; color: rgb(255,255,255,0.9);"></th>
+                    <th><img th:src="${tracksWithA[0].imgUrl}" class="box2"></th>
+                    <th style="vertical-align: bottom"><h1 style="margin-left: 20px;color:white"th:text="${tracksWithA[0].artistName}"></h1><p class="fw-bolder" style="margin-left: 20px;font-size: 20px; color: rgb(255,255,255,0.9);">이 아티스트의 인기곡들</p></th>
                     <th></th>
                 </tr>
-                <tr th:each="trackAlbum,i : ${tracksInAlbum}" th:onclick="redirectToSearch([[${trackAlbum.id}]],[[${trackAlbum.album_id}]])" style="cursor:pointer; max-height: 30px;">
+                <tr th:each="trackArtist,i : ${tracksWithA}" th:onclick="redirectToSearch([[${trackArtist.id}]],[[${trackArtist.album_id}]])" style="cursor:pointer; max-height: 30px;">
                     <td th:text="${i.index+1}" style="color:rgb(255,255,255,0.6) ;width:20px; border-radius: 10px 0 0 10px; vertical-align: middle"></td>
-                    <td><p class="fw-bolder" style="margin-top:5px;margin-bottom:5px; width: 600px; font-size: 20px; color: white" th:text="${trackAlbum.name}"></p><p style="margin-bottom: 5px"><span th:each="artist : ${artists_info}"> <span th:text="${artist.name}" style="color: rgb(255,255,255,0.7)"></span></span></p></td>
-                    <td style="border-radius: 0 10px 10px 0; vertical-align: middle"><p class="fw-bolder" style="color: rgb(255,255,255,0.8); font-size: 17px;" th:text="${trackAlbum.duration}"></p></td>
+                    <td><p class="fw-bolder" style="margin-top:5px;margin-bottom:5px; width: 500px; font-size: 20px; color: white" th:text="${trackArtist.name}"></p><p style="margin-bottom: 5px"></p></td>
+                    <td style="border-radius: 0 10px 10px 0; vertical-align: middle">
+                        <p class="fw-bolder" style="color: rgb(255,255,255,0.8); font-size: 17px;" th:text="${trackArtist.duration}"></p>
+                    </td>
                 </tr>
-                <script>
-                    function redirectToSearch(track_id, album_id) {
-                        // trackName을 인자로 받아 URL을 생성합니다.
-                        const url = `/search/track/${track_id}/${album_id}`;
-
-                        // window.location.href를 사용하여 URL로 이동합니다.
-                        window.location.href = url;
-                    }
-                </script>
             </table>
         </div>
-<!--        <canvas id="trackFeature" width="400" height="400" aria-label="Hello ARIA World" role="img"></canvas>-->
+<!--    </div>-->
+    <div class="row" style="margin-top:50px">
+        <table class="table table-container" style="background: transparent;">
+            <tr>
+                <th><img th:src="${album_info[0].images_url}" style="width:150px; height:150px; border-radius: 10px"></th>
+                <th style="vertical-align: bottom"><h1 style="color:white ;margin-left: 20px" th:text="${album_info[0].name}"></h1><p class="fw-bolder" style="margin-left: 20px;font-size: 20px; color: rgb(255,255,255,0.9);">수록곡</p></th>
+                <th></th>
+            </tr>
+            <tr th:each="trackAlbum,i : ${tracksInAlbum}" th:onclick="redirectToSearch([[${trackAlbum.id}]],[[${trackAlbum.album_id}]])" style="cursor:pointer; max-height: 30px;">
+                <td th:text="${i.index+1}" style="color:rgb(255,255,255,0.6) ;width:20px; border-radius: 10px 0 0 10px; vertical-align: middle"></td>
+                <td><p class="fw-bolder" style="margin-top:5px;margin-bottom:5px; width: 500px; font-size: 20px; color: white" th:text="${trackAlbum.name}"></p><p style="margin-bottom: 5px"><span th:each="artist : ${artists_info}"> <span th:text="${artist.name}" style="color: rgb(255,255,255,0.7)"></span></span></p></td>
+                <td style="border-radius: 0 10px 10px 0; vertical-align: middle"><p class="fw-bolder" style="color: rgb(255,255,255,0.8); font-size: 17px;" th:text="${trackAlbum.duration}"></p></td>
+            </tr>
+            <script>
+                function redirectToSearch(track_id, album_id) {
+                    // trackName을 인자로 받아 URL을 생성합니다.
+                    const url = `/search/track/${track_id}/${album_id}`;
+
+                    // window.location.href를 사용하여 URL로 이동합니다.
+                    window.location.href = url;
+                }
+            </script>
+        </table>
     </div>
 </div>
 <script src="/node_modules/chart.js/dist/chart.js"></script>

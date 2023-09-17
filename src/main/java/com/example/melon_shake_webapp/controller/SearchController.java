@@ -22,11 +22,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.sql.Array;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.lang.Math.round;
 
@@ -195,7 +193,7 @@ public class SearchController {
             HttpSession session
     ) throws SQLException {
         List<Map<String,Object>> artists_info = new ArrayList<>();
-        List<Map<String,Object>> tracksWithArtist = new ArrayList<>();
+     List<List<Map<String,Object>>> tracksWithArtist = new ArrayList<>();
         model.addAttribute("userName",(String) session.getAttribute("userName"));
 
         List<Map<String,Object>> track_info = searchDetailService.getTrack(track_id,album_id);
@@ -205,8 +203,11 @@ public class SearchController {
         List<String> artists_id =Arrays.asList((String[]) pgArray.getArray());
         for (int i=0; i<artists_id.size();i++){
             artists_info.add(searchDetailService.getArtist(artists_id.get(i)).get(0));
-            tracksWithArtist.add(searchDetailService.getTracksWithArtist(artists_id.get(i)).get(0));
+            tracksWithArtist.add(searchDetailService.getTracksWithArtist(artists_id.get(i)));
         }
+//        System.out.println("================================");
+//        System.out.println(tracksWithArtist);
+
 
         List<Map<String, Object>> lyrics = searchDetailService.getLyrics(track_id);
         List<Map<String, Object>> features = searchDetailService.getFeatures(track_id);
@@ -225,11 +226,16 @@ public class SearchController {
         }
 //        아티스트의 다른 곡
         for(int i=0;i<tracksWithArtist.size();i++) {
-            Integer duration_m3 = (Integer) tracksWithArtist.get(i).get("duration_ms") / 60000;
-            Integer duration_s3 = (Integer) tracksWithArtist.get(i).get("duration_ms") % 60000 / 1000;
-            String duration3 = duration_m3 + ":" + duration_s3;
-            tracksWithArtist.get(i).put("duration3", duration3);
+            for(int j=0; j<tracksWithArtist.get(i).size();j++) {
+                tracksWithArtist.get(i).get(j).put("artistName",(String)artists_info.get(i).get("name"));
+                tracksWithArtist.get(i).get(j).put("imgUrl",(String)artists_info.get(i).get("images_url"));
+                Integer duration_m3 = (Integer) tracksWithArtist.get(i).get(j).get("duration_ms") / 60000;
+                Integer duration_s3 = (Integer) tracksWithArtist.get(i).get(j).get("duration_ms") % 60000 / 1000;
+                String duration3 = duration_m3 + ":" + duration_s3;
+                tracksWithArtist.get(i).get(j).put("duration", duration3);
+            }
         }
+
 //        발매 날짜를 발매 년도로 변환
         String release_date_str = (String)album_info.get(0).get("release_date");
         if (release_date_str != null) {

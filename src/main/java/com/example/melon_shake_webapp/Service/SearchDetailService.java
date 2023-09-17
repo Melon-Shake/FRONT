@@ -43,7 +43,7 @@ public class SearchDetailService {
     }
 
     public List<Map<String, Object>> getTracksWithArtist(String artist_id){
-        String sql = "SELECT DISTINCT id,name,duration_ms,popularity,artists_ids,album_id  FROM spotify_tracks WHERE ? = ANY(artists_ids) ORDER BY popularity DESC";
+        String sql = "SELECT DISTINCT id,name,duration_ms,popularity,artists_ids,album_id  FROM spotify_tracks WHERE ? = ANY(artists_ids) ORDER BY popularity DESC LIMIT 10";
         return jdbcTemplate.queryForList(sql, artist_id);
     }
 
