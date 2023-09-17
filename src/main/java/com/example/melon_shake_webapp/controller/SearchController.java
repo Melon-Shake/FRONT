@@ -1,14 +1,18 @@
 package com.example.melon_shake_webapp.controller;
 
+import com.example.melon_shake_webapp.Service.SearchDetailService;
 import com.example.melon_shake_webapp.data.SearchData;
 import com.example.melon_shake_webapp.data.SearchDataEmail;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.postgresql.jdbc.PgArray;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,8 +22,13 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import static java.lang.Math.round;
 
 @RequiredArgsConstructor
 @Controller
@@ -27,18 +36,15 @@ public class SearchController {
     private final HttpClient client = HttpClient.newHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    @Autowired
+    private SearchDetailService searchDetailService;
+
     @GetMapping("/search")
     public String search_page(){
         return "search";
     }
 
-    @PostMapping("/search/more_info/in-process")
-    public String search_more_info_page(){
-        return "search_more_info";
-    }
-
-
-    @PostMapping("/search/in-process")
+    @PostMapping("/search")
     public String show_search(@RequestParam("searchInput") String searchInput, Model model, HttpSession session){
 //        long start_time = System.currentTimeMillis();
         model.addAttribute("userName",(String) session.getAttribute("userName")); // 세션 정보 전달
@@ -86,24 +92,27 @@ public class SearchController {
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-//            System.out.println(response);
-//            System.out.println(response.body());
-//            Map<String, List<List<String>>> searchResult = objectMapper.readValue(response.body(),new TypeReference<Map<String, List<List<String>>>>() {});
             Map<String,List<Map<String,String>>> searchResult = objectMapper.readValue("{\n" +
                     "    \"tracks\": [\n" +
                     "      {\n" +
+                    "        \"id\": \"5F6nAnNIsRk9QbPOx9t11B\",\n"+
+                    "        \"album_id\": \"4B3UIkrohpUIxyVCCgLrEI\",\n"+
                     "        \"name\": \"Secret Garden\",\n" +
                     "        \"img\": \"https://i.scdn.co/image/ab67616d0000b273dbd063ae065db06970b022d7\",\n" +
                     "        \"artist\": \"IU\",\n" +
                     "        \"duration\": \"03:44\"\n" +
                     "      },\n" +
                     "      {\n" +
+                    "        \"id\": \"4EaQ0ouIydfeAgQUz284EF\",\n"+
+                    "        \"album_id\": \"1l12B55qdesQorPcQLJDRo\",\n"+
                     "        \"name\": \"People Pt.2 (feat. IU)\",\n" +
                     "        \"img\": \"https://i.scdn.co/image/ab67616d0000b273bff049a2215c768b6432499f\",\n" +
                     "        \"artist\": \"Agust D, IU\",\n" +
                     "        \"duration\": \"03:33\"\n" +
                     "      },\n" +
                     "      {\n" +
+                    "        \"id\": \"4EaQ0ouIydfeAgQUz284EF\",\n"+
+                    "        \"album_id\": \"446ROKmKfpEwkbi2SjELVX\",\n"+
                     "        \"name\": \"People Pt.2 (feat. IU)\",\n" +
                     "        \"img\": \"https://i.scdn.co/image/ab67616d0000b273fa9247b68471b82d2125651e\",\n" +
                     "        \"artist\": \"Agust D, IU\",\n" +
@@ -112,18 +121,21 @@ public class SearchController {
                     "    ],\n" +
                     "    \"albums\": [\n" +
                     "      {\n" +
+                    "        \"id\": \"4B3UIkrohpUIxyVCCgLrEI\",\n"+
                     "        \"name\": \"A flower bookmark\",\n" +
                     "        \"img\": \"https://i.scdn.co/image/ab67616d0000b273dbd063ae065db06970b022d7\",\n" +
                     "        \"artist\": \"IU\",\n" +
                     "        \"release_year\": \"2017-09-22\"\n" +
                     "      },\n" +
                     "      {\n" +
+                    "        \"id\": \"1l12B55qdesQorPcQLJDRo\",\n"+
                     "        \"name\": \"People Pt.2 (feat. IU)\",\n" +
                     "        \"img\": \"https://i.scdn.co/image/ab67616d0000b273bff049a2215c768b6432499f\",\n" +
                     "        \"artist\": \"Agust D, IU\",\n" +
                     "        \"release_year\": \"2023-04-07\"\n" +
                     "      },\n" +
                     "      {\n" +
+                    "        \"id\": \"446ROKmKfpEwkbi2SjELVX\",\n"+
                     "        \"name\": \"D-DAY\",\n" +
                     "        \"img\": \"https://i.scdn.co/image/ab67616d0000b273fa9247b68471b82d2125651e\",\n" +
                     "        \"artist\": \"Agust D\",\n" +
@@ -132,6 +144,7 @@ public class SearchController {
                     "    ],\n" +
                     "    \"artists\": [\n" +
                     "      {\n" +
+                    "        \"id\": \"3HqSLMAZ3g3d5poNaI7GOU\",\n"+
                     "        \"name\": \"IU\",\n" +
                     "        \"img\": \"https://i.scdn.co/image/ab6761610000e5eb006ff3c0136a71bfb9928d34\"\n" +
                     "      }\n" +
@@ -140,7 +153,7 @@ public class SearchController {
             List<Map<String,String>> tracks = searchResult.get("tracks");
             List<Map<String,String>> albums = searchResult.get("albums");
             List<Map<String,String>> artists = searchResult.get("artists");
-            System.out.println(searchResult);
+//            System.out.println(searchResult);
             model.addAttribute("tracks",tracks);
             model.addAttribute("albums",albums);
             model.addAttribute("artists",artists);
@@ -170,14 +183,75 @@ public class SearchController {
 
         return "search";
     }
-    @GetMapping("/svelte")
+//    @GetMapping("/svelte")
+//    public String sveltePage(){
+//        return "index.html";
+//    }
+    @GetMapping("/search/track/{track_id}/{album_id}")
+    public String searchDetailPage(
+            @PathVariable(value = "track_id") String track_id,
+            @PathVariable(value = "album_id") String album_id,
+            Model model,
+            HttpSession session
+    ) throws SQLException {
+        List<Map<String,Object>> artists_info = new ArrayList<>();
+        List<Map<String,Object>> tracksWithArtist = new ArrayList<>();
+        model.addAttribute("userName",(String) session.getAttribute("userName"));
 
-    public String sveltePage(){
-        return "index.html";
+        List<Map<String,Object>> track_info = searchDetailService.getTrack(track_id,album_id);
+        List<Map<String,Object>> album_info = searchDetailService.getAlbum(album_id);
+        List<Map<String, Object>> tracksInAlbum = searchDetailService.getTracksInAlbum(album_id);
+        PgArray pgArray = (PgArray) track_info.get(0).get("artists_ids");
+        List<String> artists_id =Arrays.asList((String[]) pgArray.getArray());
+        for (int i=0; i<artists_id.size();i++){
+            artists_info.add(searchDetailService.getArtist(artists_id.get(i)).get(0));
+            tracksWithArtist.add(searchDetailService.getTracksWithArtist(artists_id.get(i)).get(0));
+        }
+
+        List<Map<String, Object>> lyrics = searchDetailService.getLyrics(track_id);
+        List<Map<String, Object>> features = searchDetailService.getFeatures(track_id);
+//        곡 재생시간 m:ss 형태로 변환
+//        검색곡
+        Integer duration_m1 = (Integer)track_info.get(0).get("duration_ms")/60000;
+        Integer duration_s1 = (Integer)track_info.get(0).get("duration_ms")%60000/1000;
+        String duration1 = duration_m1 + ":" + duration_s1;
+        track_info.get(0).put("duration",duration1);
+//        앨범 수록곡
+        for(int i=0;i<tracksInAlbum.size();i++) {
+            Integer duration_m2 = (Integer) tracksInAlbum.get(i).get("duration_ms") / 60000;
+            Integer duration_s2 = (Integer) tracksInAlbum.get(i).get("duration_ms") % 60000 / 1000;
+            String duration2 = duration_m2 + ":" + duration_s2;
+            tracksInAlbum.get(i).put("duration", duration2);
+        }
+//        아티스트의 다른 곡
+        for(int i=0;i<tracksWithArtist.size();i++) {
+            Integer duration_m3 = (Integer) tracksWithArtist.get(i).get("duration_ms") / 60000;
+            Integer duration_s3 = (Integer) tracksWithArtist.get(i).get("duration_ms") % 60000 / 1000;
+            String duration3 = duration_m3 + ":" + duration_s3;
+            tracksWithArtist.get(i).put("duration3", duration3);
+        }
+//        발매 날짜를 발매 년도로 변환
+        String release_date_str = (String)album_info.get(0).get("release_date");
+        if (release_date_str != null) {
+            String[] release_date = release_date_str.split("-");
+            String release_year = release_date[0];
+            album_info.get(0).put("release_year",release_year);
+        }
+        else{
+            System.out.println("발매일 데이터가 없습니다.");
+        }
+
+        model.addAttribute("track_info",track_info);
+        model.addAttribute("album_info",album_info);
+        model.addAttribute("artists_info",artists_info);
+        model.addAttribute("lyrics",lyrics);
+        model.addAttribute("features",features);
+        model.addAttribute("tracksInAlbum",tracksInAlbum);
+        model.addAttribute("tracksWithArtist",tracksWithArtist);
+
+
+        return "searchTrack";
     }
-    @GetMapping("/search/{id}")
-    public String searchDetailPage(){
-        return "searchDetail";
-    }
+
 
 }

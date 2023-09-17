@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전체 검색 결과</title>
+
+
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+
+
+    <style>
+        body {
+            background: #1c1c1c;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+        .table {
+            --bs-table-bg: rgba(255, 255, 255, 0);
+        }
+        .btn-primary {
+            --bs-btn-color: #fff;
+            --bs-btn-bg: transparent;
+            --bs-btn-border-color: #40a798;
+            --bs-btn-hover-color: #fff;
+            --bs-btn-hover-bg: #3a9688;
+            --bs-btn-hover-border-color: #3a9688;
+            --bs-btn-focus-shadow-rgb: 49, 132, 253;
+            --bs-btn-active-color: #fff;
+            --bs-btn-active-bg: #50d0bd;
+            --bs-btn-active-border-color: #50d0bd;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+            --bs-btn-disabled-color: #fff;
+        }
+
+        .card-container{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .btn-primary:hover{
+            background: linear-gradient(to bottom, #40a798 0%, #009999 100%);
+        }
+        .btn-primary:active {
+            background: linear-gradient(to bottom, #50d0bd 0%, #40a798 100%);
+        }
+        .center_pos {
+            text-align: center;
+        }
+        .search_height{
+            max-height: 40px;
+        }
+        .button_width{
+            width: 100px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #40a798;
+            margin-left:10px;
+        }
+
+        nav a:hover {
+            color: #50d0bd;
+            text-decoration: underline;
+
+        }
+        nav a:active {
+            color: #00ffcc;
+        }
+        p{
+            color: #50d0bd;
+        }
+        .bt-bg-gradient{
+            background: linear-gradient(to bottom,#555555 0%,#393939 100%);
+        }
+        .bt-bg-gradient:hover{
+            background: linear-gradient(to bottom, #797979 0%, #555555 100%);
+        }
+        .bt-bg-gradient:active {
+            background: linear-gradient(to bottom, #9c9c9c 0%, #797979 100%);
+        }
+        .card-text {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            display: block;
+        }
+        .box {
+            width: 30px;
+            height: 30px;
+            border-radius: 70%;
+            overflow: hidden;
+        }
+        .table-container tr:not(:first-child) {
+            transition: transform 0.1s ease-in-out;
+        }
+        .table-container tr:not(:first-child):hover {
+            transform: scale(1.1); /* 원하는 확대 비율로 조정 */
+            background-color: rgb(255,255,255,0.3);
+        }
+        .card-container .card {
+            transition: transform 0.1s ease-in-out;
+        }
+
+        .card-container .card:hover {
+            transform: scale(1.1); /* 호버 시 카드를 확대합니다. */
+        }
+
+        a {
+            text-decoration: none;
+            color: rgb(255,255,255,0.4);
+            margin-left:10px;
+        }
+
+        a:hover {
+            color: rgb(255,255,255,0.6);
+            font-weight: bold;
+        }
+        a:active {
+            color: rgb(255,255,255);
+            font-weight: bolder;
+        }
+    </style>
+</head>
+<body>
+<nav class="d-flex navbar navbar-expand-xl bg-gradient bg-dark navbar-dark" style="height: 70px">
+    <div class="col center_pos justify-content-start">
+        <a href="/Home">
+            <img src="/logo/transparent4.png">
+        </a>
+    </div>
+    <div class="col-6 search_pos justify-content-center">
+        <form class="d-flex" action="/search" method="post">
+            <label for="searchInput"></label>
+            <input type="text" class="form-control search_height" placeholder="검색어를 입력하세요" id="searchInput" name="searchInput">
+            <button class="ms-2 btn btn-primary button_width search_height"  type="submit" id="gotoSearch">검색</button>
+        </form>
+    </div>
+    <div style="width:350px" class="center_pos center">
+        <div th:if="${userName}">
+            <p class="fw-bolder" style="margin-top: 3px; margin-bottom: 3px">어서오세요 <span th:text="${userName}"></span>님!</p>
+            <a href="#" onClick="logout()" class="fw-bold" style="margin-top: 3px; margin-bottom: 3px">로그아웃</a>
+        </div>
+        <div style="margin-bottom: 5px" th:unless="${userName}">
+            <a href="/login" class="fw-bold">로그인</a>
+            <a href="/register" class="fw-bold">회원가입</a>
+        </div>
+    </div>
+
+</nav>
+<div class="row" style="background:linear-gradient(to bottom,#969696 0%, #1c1c1c 100%)">
+    <div class="mb-4"></div>
+    <a class="col-1 text-start" onclick="history.back()" style="margin-left:50px;font-size: 50px; cursor:pointer"><</a>
+    <div class = col-9></div>
+    <a class="col-1 text-end" onclick="history.forward()" style="font-size: 50px; cursor:pointer">></a>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <img th:src="${album_info[0].images_url}" style="width: 300px; height:300px; border-radius: 10px">
+        </div>
+        <div class="col-7">
+            <h3 style="color:rgb(255,255,255,0.7)">곡</h3>
+            <br><br>
+            <h1 th:text="${track_info[0].name}" class="d-flex" style="justify-content: start;font-size: 60px;font-weight: bold; color:white"></h1>
+            <br><br>
+            <p style="color:rgb(255,255,255,0.7)"><span th:each="artist:${artists_info}"><img th:src="${artist.images_url}" class="box"><span></span> <span th:text="${artist.name}" ></span><span> </span></span><span> &#183 </span><span th:text="${album_info[0].name}"></span><span> &#183 </span><span th:text="${album_info[0].release_year}"></span><span> &#183 </span><span th:text="${track_info[0].duration}"></span>
+            </p>
+        </div>
+        <div class="col-2">
+<!--            <canvas id="TrackFeature"></canvas>-->
+
+        </div>
+    </div>
+    <div class="row">
+        <h3 style="margin-top: 50px; color: rgb(255,255,255,0.7); margin-left:10px"> 아티스트</h3>
+        <div class="col-3">
+            <div class="card-container">
+                <div style="margin-right:5px" th:each="artist: ${artists_info}">
+                    <div class="card" style="margin-top:50px; width:130px; background: transparent; border: none; cursor:pointer">
+                        <img th:src="${artist.images_url}" style="width: 130px; height: 130px" class="align-items-center card-img-top box" alt="...">
+                        <div class="card-body" style="text-align: center;margin-top: 5px; padding: 10px; ">
+                            <p><span th:text="${artist.name}" style="font-size:18px; color: rgb(255,255,255,0.8)" class="fw-bold card-text"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row" style="margin-top:50px">
+        <div th:if="${tracksInAlbum}">
+            <table class="table table-container" style="background: transparent;">
+                <tr>
+                    <th><img th:src="${album_info[0].images_url}" style="width:150px; height:150px"></th>
+                    <th th:text="곡" class="fw-bolder" style="vertical-align:bottom ;font-size: 30px; color: rgb(255,255,255,0.9);"></th>
+                    <th></th>
+                </tr>
+                <tr th:each="trackAlbum,i : ${tracksInAlbum}" th:onclick="redirectToSearch([[${trackAlbum.id}]],[[${trackAlbum.album_id}]])" style="cursor:pointer; max-height: 30px;">
+                    <td th:text="${i.index+1}" style="color:rgb(255,255,255,0.6) ;width:20px; border-radius: 10px 0 0 10px; vertical-align: middle"></td>
+                    <td><p class="fw-bolder" style="margin-top:5px;margin-bottom:5px; width: 600px; font-size: 20px; color: white" th:text="${trackAlbum.name}"></p><p style="margin-bottom: 5px"><span th:each="artist : ${artists_info}"> <span th:text="${artist.name}" style="color: rgb(255,255,255,0.7)"></span></span></p></td>
+                    <td style="border-radius: 0 10px 10px 0; vertical-align: middle"><p class="fw-bolder" style="color: rgb(255,255,255,0.8); font-size: 17px;" th:text="${trackAlbum.duration}"></p></td>
+                </tr>
+                <script>
+                    function redirectToSearch(track_id, album_id) {
+                        // trackName을 인자로 받아 URL을 생성합니다.
+                        const url = `/search/track/${track_id}/${album_id}`;
+
+                        // window.location.href를 사용하여 URL로 이동합니다.
+                        window.location.href = url;
+                    }
+                </script>
+            </table>
+        </div>
+<!--        <canvas id="trackFeature" width="400" height="400" aria-label="Hello ARIA World" role="img"></canvas>-->
+    </div>
+</div>
+<script src="/node_modules/chart.js/dist/chart.js"></script>
+<script>
+    // 데이터 및 차트 옵션 설정
+    // import {Chart} from "chart.js";
+    //
+    // const data = {
+    //     labels: [
+    //         'Eating',
+    //         'Drinking',
+    //         'Sleeping',
+    //         'Designing',
+    //         'Coding',
+    //         'Cycling',
+    //         'Running'
+    //     ],
+    //     datasets: [{
+    //         label: 'My First Dataset',
+    //         data: [65, 59, 90, 81, 56, 55, 40],
+    //         fill: true,
+    //         backgroundColor: 'rgba(255, 99, 132, 0.2)',
+    //         borderColor: 'rgb(255, 99, 132)',
+    //         pointBackgroundColor: 'rgb(255, 99, 132)',
+    //         pointBorderColor: '#fff',
+    //         pointHoverBackgroundColor: '#fff',
+    //         pointHoverBorderColor: 'rgb(255, 99, 132)'
+    //     }, {
+    //         label: 'My Second Dataset',
+    //         data: [28, 48, 40, 19, 96, 27, 100],
+    //         fill: true,
+    //         backgroundColor: 'rgba(54, 162, 235, 0.2)',
+    //         borderColor: 'rgb(54, 162, 235)',
+    //         pointBackgroundColor: 'rgb(54, 162, 235)',
+    //         pointBorderColor: '#fff',
+    //         pointHoverBackgroundColor: '#fff',
+    //         pointHoverBorderColor: 'rgb(54, 162, 235)'
+    //     }]
+    // };
+    //
+    // const config = {
+    //     type: 'radar',
+    //     data: data,
+    //     options: {
+    //         elements: {
+    //             line: {
+    //                 borderWidth: 3
+    //             }
+    //         }
+    //     }
+    // };
+    //
+    // // 차트를 그릴 canvas 요소 가져오기
+    //
+    // // 차트 생성
+    //
+    // const ctx = document.getElementById("trackFeature").getContext('2d');
+    // const trackFeature = new Chart(ctx, config);
+</script>
+
+</body>
+</html>

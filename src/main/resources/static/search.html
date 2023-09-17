@@ -7,11 +7,15 @@
 
 
     <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 
 
     <style>
         body {
-            background: linear-gradient(to bottom, #00ffcc 0%, #009999 100%);
+            background: #1c1c1c;
+            font-family: 'Nanum Gothic', sans-serif;
         }
         .table {
             --bs-table-bg: rgba(255, 255, 255, 0);
@@ -52,17 +56,18 @@
         .button_width{
             width: 100px;
         }
-        a {
+        nav a {
             text-decoration: none;
             color: #40a798;
             margin-left:10px;
         }
-        a:hover {
+
+        nav a:hover {
             color: #50d0bd;
             text-decoration: underline;
 
         }
-        a:active {
+        nav a:active {
             color: #00ffcc;
         }
         p{
@@ -89,18 +94,46 @@
             border-radius: 70%;
             overflow: hidden;
         }
+        .table-container tr:not(:first-child) {
+            transition: transform 0.1s ease-in-out;
+        }
+        .table-container tr:not(:first-child):hover {
+            transform: scale(1.1); /* 원하는 확대 비율로 조정 */
+            background-color: rgb(255,255,255,0.3);
+        }
+        .card-container .card {
+            transition: transform 0.1s ease-in-out;
+        }
 
+        .card-container .card:hover {
+            transform: scale(1.1); /* 호버 시 카드를 확대합니다. */
+        }
+
+        a {
+            text-decoration: none;
+            color: rgb(255,255,255,0.4);
+            margin-left:10px;
+        }
+
+        a:hover {
+            color: rgb(255,255,255,0.6);
+            font-weight: bold;
+        }
+        a:active {
+            color: rgb(255,255,255);
+            font-weight: bolder;
+        }
     </style>
 </head>
 <body>
-<nav class="d-flex navbar navbar-expand-xl bg-gradient bg-dark navbar-dark" style="height: 70px">
+<nav class="d-flex navbar navbar-expand-xl  bg-gradient bg-dark navbar-dark" style="height: 70px">
     <div class="col center_pos justify-content-start">
         <a href="/Home">
             <img src="/logo/transparent4.png">
         </a>
     </div>
     <div class="col-6 search_pos justify-content-center">
-        <form class="d-flex" action="/search/in-process" method="post">
+        <form class="d-flex" action="/search" method="post">
             <label for="searchInput"></label>
             <input type="text" class="form-control search_height" placeholder="검색어를 입력하세요" id="searchInput" name="searchInput">
             <button class="ms-2 btn btn-primary button_width search_height"  type="submit" id="gotoSearch">검색</button>
@@ -118,59 +151,62 @@
     </div>
 
 </nav>
+<div class="row" style="background:linear-gradient(to bottom,#969696 0%, #1c1c1c 100%)">
+    <div class="mb-4"></div>
+    <a class="col-1 text-start" onclick="history.back()" style="margin-left:50px;font-size: 50px; cursor:pointer"><</a>
+    <div class = col-9></div>
+    <a class="col-1 text-end" onclick="history.forward()" style="font-size: 50px; cursor:pointer">></a>
+</div>
 <div style="height: 800px;" class="container mt-3">
-    <div row>
-        <div class="mb-4 col-1"></div>
-        <button id="gotoRoot" style="color: white; margin-bottom: 10px;" class="btn bt-bg-gradient" type="button">뒤로 가기</button>
-        <script>
-            // 버튼 클릭 시 루트 디렉토리로 이동하는 함수
-            document.getElementById("gotoRoot").addEventListener("click", function() {
-                window.location.href = "/";
-            });
-        </script>
-    </div>
     <div class="container">
         <div class="row">
             <div class="col-5 mt-2" style="width: 500px;">
                 <div th:if="${tracks}">
                     <table class="table table-container" style="background: transparent;">
                         <tr>
-                            <th th:text="곡" class="fw-bolder" style="font-size: 30px; width: 100px"></th>
+                            <th th:text="곡" class="fw-bolder" style="font-size: 30px; width: 100px; color: rgb(255,255,255,0.9)"></th>
                             <th></th>
                             <th></th>
                         </tr>
-                        <tr th:each="track : ${tracks}">
-                            <td><img th:src="${track.img}" style="width: 50px; margin-top: 30%" height="50px"></td>
-                            <td><p class="fw-bolder" style="margin-top: 15px; font-size: 20px; color: black" th:text="${track.name}"></p><p th:text="${track.artist}" style="color: rgb(0,0,0,0.5)"></p></td>
-                            <td><p class="fw-bolder" style="color: black; font-size: 17px; margin-top: 50%" th:text="${track.duration}"></p></td>
+                        <tr th:each="track : ${tracks}" th:onclick="redirectToSearch([[${track.id}]],[[${track.album_id}]])" style="cursor:pointer">
+                            <td style="border-radius: 10px 0 0 10px"><img th:src="${track.img}" style="width: 50px; margin-top: 30%" height="50px"></td>
+                            <td><p class="fw-bolder" style="margin-top: 15px; font-size: 20px; color: white" th:text="${track.name}"></p><p th:text="${track.artist}" style="color: rgb(255,255,255,0.7)"></p></td>
+                            <td style="border-radius: 0 10px 10px 0"><p class="fw-bolder" style="color: rgb(255,255,255,0.8); font-size: 17px; margin-top: 50%" th:text="${track.duration}"></p></td>
                         </tr>
+                        <script>
+                            function redirectToSearch(track_id, album_id) {
+                                // trackName을 인자로 받아 URL을 생성합니다.
+                                const url = `/search/track/${track_id}/${album_id}`;
+
+                                // window.location.href를 사용하여 URL로 이동합니다.
+                                window.location.href = url;
+                            }
+                        </script>
                     </table>
                 </div>
             </div>
             <div class="col-6" style="margin-left: 50px; margin-top: 11px">
                 <div class="container">
-                    <p class="fw-bolder" style="font-size: 27px; color: black;">앨범</p>
-                    <hr style="border: solid 1px white; opacity: 60%">
+                    <p class="fw-bolder" style="font-size: 27px; color: white;">앨범</p>
                     <div class="card-container">
                         <div style="margin-right:5px" th:each="album: ${albums}">
-                            <div class="card" style="width:130px; background: transparent; border: none">
+                            <div class="card" style="width:130px; background: transparent; border: none; cursor:pointer">
                                 <img th:src="${album.img}" style="border-radius: 5px 5px 5px 5px;width: 130px; height: 130px" class="align-items-start card-img-top" alt="...">
                                 <div class="card-body" style="text-align: start;margin-top: 5px; padding: 10px;">
-                                    <p><span class="card-text fw-bold" th:text="${album.name}" style="font-size:18px; color: black"></span><span th:text="${album.artist}" style="color: black"></span></p>
+                                    <p><span class="card-text fw-bold" th:text="${album.name}" style="font-size:18px; color: white"></span><span th:text="${album.artist}" style="color: rgb(255,255,255,0.7)"></span></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="container" style="margin-top: 30px">
-                    <p class="fw-bolder" style="font-size: 27px; color: black;">아티스트</p>
-                    <hr style="border: solid 1px white; opacity: 60%">
+                    <p class="fw-bolder" style="font-size: 27px; color: white;">아티스트</p>
                     <div class="card-container">
                         <div style="margin-right:5px" th:each="artist: ${artists}">
-                            <div class="card" style="width:130px; background: transparent; border: none">
+                            <div class="card" style="width:130px; background: transparent; border: none; cursor:pointer">
                                 <img th:src="${artist.img}" style="width: 130px; height: 130px" class="align-items-center card-img-top box" alt="...">
                                 <div class="card-body" style="text-align: center;margin-top: 5px; padding: 10px; ">
-                                    <p><span th:text="${artist.name}" style="font-size:18px; color: black" class="fw-bold card-text"></span></p>
+                                    <p><span th:text="${artist.name}" style="font-size:18px; color: white" class="fw-bold card-text"></span></p>
                                 </div>
                             </div>
                         </div>

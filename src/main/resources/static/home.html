@@ -7,6 +7,9 @@
 
 
     <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
     <style>
         .table-container {
             max-height: 730px;/* 테이블의 최대 높이 설정 */
@@ -36,7 +39,9 @@
             z-index: 1; /* 다른 내용 위에 표시 */
         }
         body {
-            background: linear-gradient(to bottom, #00ffcc 0%, #009999 100%);
+            background: #1c1c1c;
+            font-family: 'Nanum Gothic', sans-serif;
+            font-weight: bold;
         }
         .btn-primary {
             --bs-btn-color: #fff;
@@ -129,17 +134,18 @@
         .table{
             --bs-table-bg: transparent;
         }
-        a {
-           text-decoration: none;
+        nav a {
+            text-decoration: none;
             color: #40a798;
             margin-left:10px;
         }
-        a:hover {
+
+        nav a:hover {
             color: #50d0bd;
             text-decoration: underline;
 
         }
-        a:active {
+        nav a:active {
             color: #00ffcc;
         }
         p{
@@ -155,6 +161,20 @@
             overflow: hidden;
             text-overflow: ellipsis; /* ...으로 처리 */
         }
+        a {
+            text-decoration: none;
+            color: rgb(255,255,255,0.4);
+            margin-left:10px;
+        }
+
+        a:hover {
+            color: rgb(255,255,255,0.6);
+            font-weight: bold;
+        }
+        a:active {
+            color: rgb(255,255,255);
+            font-weight: bolder;
+        }
 
     </style>
 </head>
@@ -167,7 +187,7 @@
         </a>
     </div>
     <div class="col-6 search_pos justify-content-center">
-        <form class="d-flex" action="/search/in-process" method="post">
+        <form class="d-flex" action="/search" method="post">
             <label for="searchInput"></label>
             <input type="text" class="form-control search_height" placeholder="검색어를 입력하세요" id="searchInput" name="searchInput">
             <button class="ms-2 btn btn-primary button_width search_height"  type="submit" id="gotoSearch">검색</button>
@@ -184,6 +204,12 @@
         </div>
     </div>
 </nav>
+<div class="row" style="background:linear-gradient(to bottom,#969696 0%, #1c1c1c 100%)">
+    <div class="mb-4"></div>
+    <a class="col-1 text-start" onclick="history.back()" style="margin-left:50px;font-size: 50px; cursor:pointer"><</a>
+    <div class = col-9></div>
+    <a class="col-1 text-end" onclick="history.forward()" style="font-size: 50px; cursor:pointer">></a>
+</div>
 <div class="container">
     <div class="row">
             <div style="width:420px;">

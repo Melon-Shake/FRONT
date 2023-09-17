@@ -13,7 +13,7 @@
 
     <style>
         body {
-            background: linear-gradient(to bottom, #00ffcc 0%, #009999 100%);
+            background: #1c1c1c;
         }
         .input-form {
             max-width: 680px;
@@ -55,16 +55,17 @@
         }
         a {
             text-decoration: none;
-            color: #40a798;
+            color: rgb(255,255,255,0.4);
             margin-left:10px;
         }
-        a:hover {
-            color: #50d0bd;
-            text-decoration: underline;
 
+        a:hover {
+            color: rgb(255,255,255,0.6);
+            font-weight: bold;
         }
         a:active {
-            color: #00ffcc;
+            color: rgb(255,255,255);
+            font-weight: bolder;
         }
         p{
             color: #50d0bd;
@@ -96,6 +97,12 @@
         </div>
     </div>
 </nav>
+<div class="row" style="background:linear-gradient(to bottom,#969696 0%, #1c1c1c 100%)">
+    <div class="mb-4"></div>
+    <a class="col-1 text-start" onclick="history.back()" style="margin-left:50px;font-size: 50px; cursor:pointer"><</a>
+    <div class = col-9></div>
+    <a class="col-1 text-end" onclick="history.forward()" style="font-size: 50px; cursor:pointer">></a>
+</div>
 <div style="height: 720px">
 <p style="margin-left: 30px;font-size: 60px; font-family: 'Orbit', sans-serif; color: black"> 검색 결과가 없습니다.<br> 다시 검색해주세요.</p>
 </div>

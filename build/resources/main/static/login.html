@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 부트스트랩 CSS 추가 -->
     <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
     <style>
         .input-form {
             width: 300px;
             height: 500px;
-            margin-top: 80px;
+            margin-top: 0;
             padding: 32px;
 
             background: #fff;
@@ -37,7 +40,9 @@
 
         }
         body {
-            background: linear-gradient(to bottom, #00ffcc 0%, #009999 100%);
+            background: #1c1c1c;
+            font-family: 'Nanum Gothic', sans-serif;
+            height: 1000px;
         }
         btn-width{
             width:200px;
@@ -49,29 +54,50 @@
             width: 200px;
             height: 200px;
         }
+
+        a {
+            text-decoration: none;
+            color: rgb(255,255,255,0.4);
+            margin-left:10px;
+        }
+
+        a:hover {
+            color: rgb(255,255,255,0.6);
+            font-weight: bold;
+        }
+        a:active {
+            color: rgb(255,255,255);
+            font-weight: bolder;
+        }
     </style>
 </head>
 
 <body>
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <form action="/login/in-process" method="post">
-        <div class="input-form form-group">
-            <div style="text-align: center">
-                <a href="/Home">
-                    <img class="logo_size" src="/logo/login2.png" style="width:200px;height:200px;">
-                </a>
+<div class="row" style="background:linear-gradient(to bottom,#969696 0%, #1c1c1c 100%)">
+    <div class="mb-4"></div>
+    <a class="col-1 text-start" onclick="history.back()" style="margin-left:50px;font-size: 50px; cursor:pointer"><</a>
+    <div class = col-9></div>
+    <a class="col-1 text-end" onclick="history.forward()" style="font-size: 50px; cursor:pointer">></a>
+</div>
+<div class="container">
+    <div class="d-flex justify-content-center align-items-center">
+        <form action="/login/in-process" method="post">
+            <div class="input-form form-group" style="margin-top:50px; height: 530px">
+                <div style="text-align: center">
+                    <a href="/Home">
+                        <img class="logo_size" src="/logo/login2.png" style="width:200px;height:200px;">
+                    </a>
+                </div>
+                <label for="userid" style="margin-left: 10px; margin-top: 25px; font-family: 'Nanum Gothic', sans-serif; font-size: 20px; font-weight: bold; margin-bottom: 5px">이메일</label>
+                <input type="email" class="form-control" id="userid" name="userid" placeholder="아이디(email)을 입력하세요" required>
+                <label for="userpw" style="margin-left: 10px; margin-top: 15px; font-size: 20px; font-weight: bold; margin-bottom: 5px; font-family: 'Nanum Gothic', sans-serif">비밀번호</label>
+                <input type="password" style="margin-top: 1px" class="form-control" id="userpw" name="userpw" placeholder="비밀번호를 입력하세요" required>
+                <div style="text-align: center">
+                    <button type="submit" style="width: 100%;margin-top: 30px;" class="btn btn-primary">로그인</button>
+                </div>
             </div>
-            <div row></div>
-            <div row></div>
-            <label for="userid"></label>
-            <input type="email" style="margin-top: 25px" class="form-control" id="userid" name="userid" placeholder="아이디(email)을 입력하세요" required>
-            <label for="userpw"></label>
-            <input type="password" style="margin-top: 1px" class="form-control" id="userpw" name="userpw" placeholder="비밀번호를 입력하세요" required>
-            <div style="text-align: center">
-                <button type="submit" style="width: 100%;margin-top: 30px;" class="btn btn-primary">로그인</button>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 </body>
 </html>

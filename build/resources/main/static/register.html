@@ -9,11 +9,16 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
     <style>
         body {
             min-height: 100vh;
-
-            background: linear-gradient(to bottom, #00ffcc 0%, #009999 100%);
+            font-family: 'Nanum Gothic', sans-serif;
+            font-weight: bold;
+            background: #1c1c1c;
         }
 
         .input-form {
@@ -47,14 +52,56 @@
 
 
         }
+        a {
+            text-decoration: none;
+            color: rgb(255,255,255,0.4);
+            margin-left:10px;
+        }
+
+        a:hover {
+            color: rgb(255,255,255,0.6);
+            font-weight: bold;
+        }
+        a:active {
+            color: rgb(255,255,255);
+            font-weight: bolder;
+        }
+        .input-form a {
+            text-decoration: none;
+            color: #40a798;
+            margin-left:10px;
+        }
+        .input-form a:hover {
+            color: #50d0bd;
+            text-decoration: underline;
+
+        }
+        .input-form a:active {
+            color: #00ffcc;
+        }
+        p{
+            color: #50d0bd;
+        }
     </style>
 </head>
 
 <body>
+<div class="row" style="background:linear-gradient(to bottom,#969696 0%, #1c1c1c 100%)">
+    <div class="mb-4"></div>
+    <a class="col-1 text-start" onclick="history.back()" style="margin-left:50px;font-size: 50px; cursor:pointer"><</a>
+    <div class = col-9></div>
+    <a class="col-1 text-end" onclick="history.forward()" style="font-size: 50px; cursor:pointer">></a>
+</div>
 <div class="container">
+
     <div class="input-form-background row">
         <div class="input-form col-md-12 mx-auto">
-            <h4 class="mb-3">회원가입</h4>
+            <div>
+                <a href="/Home">
+                    <img class="justify-content-center align-items-center" src="/logo/transparent3.png">
+                </a>
+            </div>
+            <h4 class="mb-3" style="font-weight: bold; margin-top:20px;">회원가입</h4>
             <form action="/register/new_register" method="post" class="validation-form" novalidate>
                 <div class="mb-3">
                     <label for="email">이메일(로그인 시 ID로 사용됩니다.)</label>
@@ -108,7 +155,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="mbti">MBTI</label>
-                    <select name = "mbti"class="form-select" id="MBTI" aria-label="Select mbti" required >MBTI
+                    <select name = "mbti" class="form-select" id="MBTI" aria-label="Select mbti" style="margin-bottom: 10px" required >MBTI
                         <option selected value="">MBTI를 선택하세요</option>
                         <option value="ESFJ">ESFJ</option>
                         <option value="ESFP">ESFP</option>
@@ -127,6 +174,7 @@
                         <option value="INTJ">INTJ</option>
                         <option value="INTP">INTP</option>
                     </select>
+                    <a href="https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC">자신의 MBTI를 모르시나요? 여기서 알아보세요!</a>
                 </div>
                 <hr class="mb-4">
                 <div class="custom-control custom-checkbox">
@@ -135,13 +183,6 @@
                 </div>
                 <div row>
                     <div class="mb-4"></div>
-                    <button id="gotoRoot" class="btn btn-primary btn-lg btn-block" type="button">뒤로 가기</button>
-                    <script>
-                        // 버튼 클릭 시 루트 디렉토리로 이동하는 함수
-                        document.getElementById("gotoRoot").addEventListener("click", function() {
-                            window.location.href = "/";
-                        });
-                    </script>
                     <button class="btn btn-primary btn-lg btn-block" type="submit">가입 완료</button>
                 </div>
             </form>
