@@ -175,6 +175,13 @@
             color: rgb(255,255,255);
             font-weight: bolder;
         }
+        .table-container tr:not(:first-child) {
+            transition: transform 0.1s ease-in-out;
+        }
+        .table-container tr:not(:first-child):hover {
+            transform: scale(1.1); /* 원하는 확대 비율로 조정 */
+            background-color: rgb(255,255,255,0.3);
+        }
 
     </style>
 </head>
@@ -225,7 +232,7 @@
                         <th th:class="fixed-column-album" th:text="앨범" style="width: 64px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
                     </tr>
 
-                    <tr th:each="total,i : ${totalChart}" style="background: rgba(255,255,255,0.65);">
+                    <tr th:each="total,i : ${totalChart}" style="background: rgba(255,255,255,0.65); cursor:pointer" th:onclick="searchTrack([[${total.trackId}]],[[${total.albumId}]])">
                         <td th:text="${i.index+1}" style="min-width:50px; vertical-align: middle;"></td>
                         <td th:text="${total.trackName}" style="vertical-align: middle;max-width: 150px"></td>
                         <td th:text="${total.artistNames}" style="vertical-align: middle;max-width: 120px"></td>
@@ -426,6 +433,13 @@
             $("#btn_5").removeClass("border-bottom");
         })
     })
+    function searchTrack(track_id, album_id) {
+        // trackName을 인자로 받아 URL을 생성합니다.
+        const url = `/search/track/${track_id}/${album_id}`;
+
+        // window.location.href를 사용하여 URL로 이동합니다.
+        window.location.href = url;
+    }
 
 </script>
 </body>

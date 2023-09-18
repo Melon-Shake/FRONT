@@ -44,4 +44,6 @@ public class ChartGenie {
     @Column(name = "created_datetime")
     private LocalDateTime createdDatetime;
 
+
+
 }

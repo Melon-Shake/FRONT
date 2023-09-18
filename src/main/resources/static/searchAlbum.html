@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>트랙 검색 결과</title>
+    <title>앨범 검색 결과</title>
 
 
     <link rel="stylesheet" href="/css/bootstrap.css">
@@ -213,7 +213,7 @@
                     isVisible = false;
                     showButton.textContent = "가사 보기";
                 } else {
-                    hiddenElement.style.display = 'block'; // 보임4
+                    hiddenElement.style.display = 'block'; // 보임
                     isVisible = true;
                     showButton.textContent = "가사 숨기기";
 
@@ -232,7 +232,7 @@
             <div class="card-container" style="max-height:500px">
                 <div style="margin-right:5px" th:each="artist: ${artists_info}">
                     <div style="display: flex">
-                    <div class="card" style="margin-top:50px; width:130px; background: transparent; border: none; cursor:pointer" th:onclick="searchArtist([[${artist.id}]])">
+                    <div class="card" style="margin-top:50px; width:130px; background: transparent; border: none; cursor:pointer">
                         <img th:src="${artist.images_url}" style="width: 130px; height: 130px" class="align-items-center card-img-top box" alt="...">
                         <div class="card-body" style="text-align: center;margin-top: 5px; padding: 10px; ;">
                             <p><span th:text="${artist.name}" style="font-size:18px; color: rgb(255,255,255,0.8)" class="fw-bold card-text"></span></p>
@@ -272,7 +272,7 @@
             <div class="card-container">
                 <div class="col-12">
                     <div class="row">
-                        <div th:each="album:${albums}" class="card m-4" style="margin-top: 20px; width: 130px; background: transparent; border: none; cursor:pointer;" th:onclick="searchAlbum([[${album.id}]])">
+                        <div th:each="album:${albums}" class="card m-4" style="margin-top: 20px; width: 130px; background: transparent; border: none; cursor:pointer;">
                             <img th:src="${album.album_image}" style="width: 130px; height: 130px; vertical-align: middle; border-radius: 10px;" class="align-items-center card-img-top" alt="...">
                             <div class="card-body" style="text-align: center; margin-top: 5px; padding: 10px;">
                                 <p><span th:text="${album.album_name}" style="font-size: 18px; color: rgb(255, 255, 255, 0.8);" class="fw-bold card-text"></span></p>
@@ -304,66 +304,24 @@
                     // window.location.href를 사용하여 URL로 이동합니다.
                     window.location.href = url;
                 }
+                function searchAlbum(album_id) {
+                    // trackName을 인자로 받아 URL을 생성합니다.
+                    const url2 = `/search/album/${album_id}`;
+
+                    // window.location.href를 사용하여 URL로 이동합니다.
+                    window.location.href = url2;
+                }
+                function searchArtist(artist_id){
+                    const url3 = `/search/artist/${artist_id}`
+                    window.location.href = url3;
+                }
+
             </script>
         </table>
     </div>
 </div>
 <script src="/node_modules/chart.js/dist/chart.js"></script>
 <script>
-    // 데이터 및 차트 옵션 설정
-    // import {Chart} from "chart.js";
-    //
-    // const data = {
-    //     labels: [
-    //         'Eating',
-    //         'Drinking',
-    //         'Sleeping',
-    //         'Designing',
-    //         'Coding',
-    //         'Cycling',
-    //         'Running'
-    //     ],
-    //     datasets: [{
-    //         label: 'My First Dataset',
-    //         data: [65, 59, 90, 81, 56, 55, 40],
-    //         fill: true,
-    //         backgroundColor: 'rgba(255, 99, 132, 0.2)',
-    //         borderColor: 'rgb(255, 99, 132)',
-    //         pointBackgroundColor: 'rgb(255, 99, 132)',
-    //         pointBorderColor: '#fff',
-    //         pointHoverBackgroundColor: '#fff',
-    //         pointHoverBorderColor: 'rgb(255, 99, 132)'
-    //     }, {
-    //         label: 'My Second Dataset',
-    //         data: [28, 48, 40, 19, 96, 27, 100],
-    //         fill: true,
-    //         backgroundColor: 'rgba(54, 162, 235, 0.2)',
-    //         borderColor: 'rgb(54, 162, 235)',
-    //         pointBackgroundColor: 'rgb(54, 162, 235)',
-    //         pointBorderColor: '#fff',
-    //         pointHoverBackgroundColor: '#fff',
-    //         pointHoverBorderColor: 'rgb(54, 162, 235)'
-    //     }]
-    // };
-    //
-    // const config = {
-    //     type: 'radar',
-    //     data: data,
-    //     options: {
-    //         elements: {
-    //             line: {
-    //                 borderWidth: 3
-    //             }
-    //         }
-    //     }
-    // };
-    //
-    // // 차트를 그릴 canvas 요소 가져오기
-    //
-    // // 차트 생성
-    //
-    // const ctx = document.getElementById("trackFeature").getContext('2d');
-    // const trackFeature = new Chart(ctx, config);
 </script>
 
 </body>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:width="http://xmlns.jcp.org/xml/ns/persistence/orm">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>챠트</title>
+
+</head>
+<body>
+
+<canvas id="myRadarChart" width="400" height="100" aria-label="Hello ARIA World" role="img"></canvas>
+
+<script src="node_modules/chart.js/dist/chart.js"></script>
+<script>
+
+    // document.getElementById("gotoRegister").addEventListener("click", function() {
+    //     window.location.href = "/register";
+    // });
+    // document.getElementById("gotoLogin").addEventListener("click", function() {
+    //     window.location.href = "/login";
+    // });
+
+    import {Chart} from "chart.js";
+
+    var data = {
+        labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
+        datasets: [{
+            label: 'My Dataset',
+            data: [65, 59, 90, 81, 56, 55, 40], // 각 항목의 데이터 배열
+            backgroundColor: 'rgba(255, 99, 132, 0.2)', // 영역의 배경색
+            borderColor: 'rgb(255, 99, 132)', // 영역의 테두리 색
+            borderWidth: 2 // 테두리 두께
+        }]
+    };
+
+    const config = {
+        type: 'radar',
+        data: data,
+        options: {
+            elements: {
+                line: {
+                    borderWidth: 3
+                }
+            }
+        },
+    };
+    // 레이더 차트를 그릴 canvas 요소 선택
+    var ctx = document.getElementById('myRadarChart').getContext('2d');
+
+    // 데이터 설정
+
+    // 레이더 차트 생성
+    var myRadarChart = new Chart(ctx, {
+        type: 'radar',
+        data: data,
+        options: {
+            elements: {
+                line: {
+                    borderWidth: 3
+                }
+            }
+        }
+    });
+
+
+    function logout(){
+        let f = document.createElement('form');
+        f.setAttribute('method', 'post');
+        f.setAttribute('action', '/logout');
+        document.body.appendChild(f);
+        f.submit();
+    }
+
+
+    // buttons.forEach(function (button) {
+    //     if (button.classList.contains("active")) {
+    //         button.style.borderStyle = "2px solid white";
+    //         button.style.borderBottomStyle = "none";
+    //     } else {
+    //         button.style.border = "none";
+    //         button.style.borderBottom = "2px solid white";
+    //     }
+
+    window.onload = function() {
+        $(".tab-table").hide();
+        $("#table1").show();
+        $(".tab-btn").removeClass("active");
+        $(".tab-btn").addClass("border-bottom");
+        $("#btn_1").addClass("active");
+        $("#btn_1").removeClass("border-bottom");
+    }
+    $(document).ready(function() {
+        $("#btn_1").click(function() {
+            $(".tab-table").hide(); // 모든 테이블 숨기기
+            $("#table1").show(); // 선택한 테이블 표시
+            $(".tab-btn").removeClass("active");
+            $(".tab-btn").addClass("border-bottom");
+            $("#btn_1").addClass("active");
+            $("#btn_1").removeClass("border-bottom");
+        })
+        $("#btn_2").click(function() {
+            $(".tab-table").hide();
+            $("#table2").show();
+            $(".tab-btn").removeClass("active");
+            $(".tab-btn").addClass("border-bottom");
+            $("#btn_2").addClass("active");
+            $("#btn_2").removeClass("border-bottom");
+        })
+        $("#btn_3").click(function() {
+            $(".tab-table").hide();
+            $("#table3").show();
+            $(".tab-btn").removeClass("active");
+            $(".tab-btn").addClass("border-bottom");
+            $("#btn_3").addClass("active");
+            $("#btn_3").removeClass("border-bottom");
+        })
+        $("#btn_4").click(function() {
+            $(".tab-table").hide();
+            $("#table4").show();
+            $(".tab-btn").removeClass("active");
+            $(".tab-btn").addClass("border-bottom");
+            $("#btn_4").addClass("active");
+            $("#btn_4").removeClass("border-bottom");
+        })
+        $("#btn_5").click(function() {
+            $(".tab-table").hide();
+            $("#table5").show();
+            $(".tab-btn").removeClass("active");
+            $(".tab-btn").addClass("border-bottom");
+            $("#btn_5").addClass("active");
+            $("#btn_5").removeClass("border-bottom");
+        })
+    })
+    function searchTrack(track_id, album_id) {
+        // trackName을 인자로 받아 URL을 생성합니다.
+        const url = `/search/track/${track_id}/${album_id}`;
+
+        // window.location.href를 사용하여 URL로 이동합니다.
+        window.location.href = url;
+    }
+
+</script>
+</body>
+</html>

@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,18 +69,53 @@ public class HomeController {
                 .build();
 
 
-        try {
-            HttpResponse<String> response2 = client.send(request2, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-            System.out.println(response2);
-            Map<String,String> keyword_ranking_chart = objectMapper.readValue(response2.body(),new TypeReference<Map<String,String>>() {});
-            model.addAttribute("keyword_ranking_chart",keyword_ranking_chart);
-            // 예외가 발생하지 않은 경우 이후의 로직을 작성
-        } catch (IOException | InterruptedException e) {
-            // 예외 처리 로직
-            e.printStackTrace(); // 예외 정보 출력
-            return "redirect:/Home";
-        }
+//        try {
+//            HttpResponse<String> response2 = client.send(request2, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+//            System.out.println(response2);
+//            Map<String,String> keyword_ranking_chart = objectMapper.readValue(response2.body(),new TypeReference<Map<String,String>>() {});
+//            model.addAttribute("keyword_ranking_chart",keyword_ranking_chart);
+//            // 예외가 발생하지 않은 경우 이후의 로직을 작성
+//        } catch (IOException | InterruptedException e) {
+//            // 예외 처리 로직
+//            e.printStackTrace(); // 예외 정보 출력
+//            return "redirect:/Home";
+//        }
+
+//        ====================================================
+//        PlaylistData playlistData = new PlaylistData((String) session.getAttribute("userEmail"));
+//        String jsonBody;
+//
+//        try {
+//            jsonBody = objectMapper.writeValueAsString(playlistData);
+//            System.out.println(jsonBody);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return "error";
+//        }
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(URI.create("http://192.168.70.61:8000/playlist/"))
+////                .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/daily_search_ranking/"))
+//                .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
+//                .header("Content-Type", "application/json")
+//                .build();
+//
+//        try {
+//            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+//            System.out.println(response.body());
+//            // 예외가 발생하지 않은 경우 이후의 로직을 작성
+//        } catch (IOException | InterruptedException e) {
+//            // 예외 처리 로직
+//            e.printStackTrace(); // 예외 정보 출력
+//            return "redirect:/Home";
+//        }
+
+
         return "home";
+    }
+
+    @GetMapping("/radar")
+    public String RadarChart(){
+        return "chart";
     }
 
 }

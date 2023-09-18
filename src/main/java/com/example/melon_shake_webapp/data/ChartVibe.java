@@ -45,4 +45,6 @@ public class ChartVibe {
     @Column(name = "created_datetime")
     private LocalDateTime createdDatetime;
 
+
+
 }

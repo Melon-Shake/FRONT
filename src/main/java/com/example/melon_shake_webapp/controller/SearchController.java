@@ -3,6 +3,7 @@ package com.example.melon_shake_webapp.controller;
 import com.example.melon_shake_webapp.Service.SearchDetailService;
 import com.example.melon_shake_webapp.data.SearchData;
 import com.example.melon_shake_webapp.data.SearchDataEmail;
+import com.example.melon_shake_webapp.data.SearchLogEmail;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
@@ -22,7 +23,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.sql.Array;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -186,16 +186,17 @@ public class SearchController {
 //        return "index.html";
 //    }
     @GetMapping("/search/track/{track_id}/{album_id}")
-    public String searchDetailPage(
+    public String searchTrack(
             @PathVariable(value = "track_id") String track_id,
             @PathVariable(value = "album_id") String album_id,
             Model model,
             HttpSession session
     ) throws SQLException {
         List<Map<String,Object>> artists_info = new ArrayList<>();
-     List<List<Map<String,Object>>> tracksWithArtist = new ArrayList<>();
+        List<List<Map<String,Object>>> tracksWithArtist = new ArrayList<>();
+        List<List<Map<String, Object>>> albumsWithArtist = new ArrayList<>();
         model.addAttribute("userName",(String) session.getAttribute("userName"));
-
+        List<Map<String, Object>> tracksInAlbumWOArtists = searchDetailService.getTracksInAlbumWOArtist(album_id);
         List<Map<String,Object>> track_info = searchDetailService.getTrack(track_id,album_id);
         List<Map<String,Object>> album_info = searchDetailService.getAlbum(album_id);
         List<Map<String, Object>> tracksInAlbum = searchDetailService.getTracksInAlbum(album_id);
@@ -204,6 +205,7 @@ public class SearchController {
         for (int i=0; i<artists_id.size();i++){
             artists_info.add(searchDetailService.getArtist(artists_id.get(i)).get(0));
             tracksWithArtist.add(searchDetailService.getTracksWithArtist(artists_id.get(i)));
+            albumsWithArtist.add(searchDetailService.getAlbumsWithArtist(artists_id.get(i)));
         }
 //        System.out.println("================================");
 //        System.out.println(tracksWithArtist);
@@ -215,23 +217,27 @@ public class SearchController {
 //        검색곡
         Integer duration_m1 = (Integer)track_info.get(0).get("duration_ms")/60000;
         Integer duration_s1 = (Integer)track_info.get(0).get("duration_ms")%60000/1000;
-        String duration1 = duration_m1 + ":" + duration_s1;
+        String duration1 = duration_m1 + ":" + String.format("%02d",duration_s1);
         track_info.get(0).put("duration",duration1);
+        for (int i=0;i<tracksInAlbumWOArtists.size();i++) {
+            Integer duration_m4 = (Integer) tracksInAlbumWOArtists.get(i).get("duration_ms") / 60000;
+            Integer duration_s4 = (Integer) tracksInAlbumWOArtists.get(i).get("duration_ms") % 60000 / 1000;
+            String duration4 = duration_m4 + ":" + String.format("%02d", duration_s4);
+            tracksInAlbumWOArtists.get(i).put("duration", duration4);
+        }
 //        앨범 수록곡
         for(int i=0;i<tracksInAlbum.size();i++) {
             Integer duration_m2 = (Integer) tracksInAlbum.get(i).get("duration_ms") / 60000;
             Integer duration_s2 = (Integer) tracksInAlbum.get(i).get("duration_ms") % 60000 / 1000;
-            String duration2 = duration_m2 + ":" + duration_s2;
+            String duration2 = duration_m2 + ":" + String.format("%02d",duration_s2);
             tracksInAlbum.get(i).put("duration", duration2);
         }
 //        아티스트의 다른 곡
         for(int i=0;i<tracksWithArtist.size();i++) {
             for(int j=0; j<tracksWithArtist.get(i).size();j++) {
-                tracksWithArtist.get(i).get(j).put("artistName",(String)artists_info.get(i).get("name"));
-                tracksWithArtist.get(i).get(j).put("imgUrl",(String)artists_info.get(i).get("images_url"));
                 Integer duration_m3 = (Integer) tracksWithArtist.get(i).get(j).get("duration_ms") / 60000;
                 Integer duration_s3 = (Integer) tracksWithArtist.get(i).get(j).get("duration_ms") % 60000 / 1000;
-                String duration3 = duration_m3 + ":" + duration_s3;
+                String duration3 = duration_m3 + ":" + String.format("%02d",duration_s3);
                 tracksWithArtist.get(i).get(j).put("duration", duration3);
             }
         }
@@ -247,6 +253,10 @@ public class SearchController {
             System.out.println("발매일 데이터가 없습니다.");
         }
 
+        System.out.println("===============");
+        System.out.println(albumsWithArtist);
+        model.addAttribute("albumsWithArtist",albumsWithArtist);
+        model.addAttribute("tracksInAlbumWOArtists",tracksInAlbumWOArtists);
         model.addAttribute("track_info",track_info);
         model.addAttribute("album_info",album_info);
         model.addAttribute("artists_info",artists_info);
@@ -255,8 +265,64 @@ public class SearchController {
         model.addAttribute("tracksInAlbum",tracksInAlbum);
         model.addAttribute("tracksWithArtist",tracksWithArtist);
 
+        String track_title = (String)track_info.get(0).get("name");
+        SearchLogEmail searchLogEmail;
+        if (session.getAttribute("userEmail") != null) {
+            searchLogEmail = new SearchLogEmail((String) session.getAttribute("userEmail"),track_title);
+            String jsonBody;
+            System.out.println(searchLogEmail);
+
+            try {
+                jsonBody = objectMapper.writeValueAsString(searchLogEmail);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "error";
+            }
+
+//            HttpRequest request = HttpRequest.newBuilder()
+////                .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/search/track/"))
+//                    .uri(URI.create("http://192.168.70.61:8000/get_use_data/"))
+//                    .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
+//                    .header("Content-Type", "application/json")
+//               ㅋ     .build();
+//            try {
+//                HttpResponse<String> response2 = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+//                System.out.println(response2);
+//                // 예외가 발생하지 않은 경우 이후의 로직을 작성
+//            } catch (IOException | InterruptedException e) {
+//                // 예외 처리 로직
+//                e.printStackTrace(); // 예외 정보 출력
+//
+//            }
+
+        }
+
+
 
         return "searchTrack";
+    }
+
+    @GetMapping("/search/album/{album_id}")
+    public String searchAlbum(
+            @PathVariable(value = "album_id") String album_id,
+            Model model,
+            HttpSession session) throws SQLException {
+        model.addAttribute("userName",(String) session.getAttribute("userName"));
+
+        List<Map<String,Object>> trackAlbum = searchDetailService.getTracksInAlbumWOArtist(album_id);
+
+
+        return "searchAlbum";
+
+    }
+
+    @GetMapping("/search/artist/{artist_id}")
+    public String searchArtist(
+            @PathVariable(value = "artist_id") String artist_id,
+            Model model,
+            HttpSession session) throws SQLException {
+
+        return "searchArtist";
     }
 
 

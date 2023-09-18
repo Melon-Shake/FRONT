@@ -42,4 +42,5 @@ public class ChartFlo {
     @Column(name = "created_datetime")
     private LocalDateTime createdDatetime;
 
+
 }

@@ -59,4 +59,6 @@ public class ChartBugs {
     @Column(name = "created_datetime")
     private LocalDateTime createdDatetime;
 
+
+
 }

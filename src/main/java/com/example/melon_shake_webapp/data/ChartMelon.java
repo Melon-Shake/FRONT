@@ -49,4 +49,6 @@ public class ChartMelon {
     @Column(name = "created_datetime")
     private LocalDateTime createdDatetime;
 
+
+
 }

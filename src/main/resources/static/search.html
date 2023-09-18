@@ -168,20 +168,11 @@
                             <th></th>
                             <th></th>
                         </tr>
-                        <tr th:each="track : ${tracks}" th:onclick="redirectToSearch([[${track.id}]],[[${track.album_id}]])" style="cursor:pointer">
+                        <tr th:each="track : ${tracks}" th:onclick="searchTrack([[${track.id}]],[[${track.album_id}]])" style="cursor:pointer">
                             <td style="border-radius: 10px 0 0 10px"><img th:src="${track.img}" style="width: 50px; margin-top: 30%" height="50px"></td>
                             <td><p class="fw-bolder" style="margin-top: 15px; font-size: 20px; color: white" th:text="${track.name}"></p><p th:text="${track.artist}" style="color: rgb(255,255,255,0.7)"></p></td>
                             <td style="border-radius: 0 10px 10px 0"><p class="fw-bolder" style="color: rgb(255,255,255,0.8); font-size: 17px; margin-top: 50%" th:text="${track.duration}"></p></td>
                         </tr>
-                        <script>
-                            function redirectToSearch(track_id, album_id) {
-                                // trackName을 인자로 받아 URL을 생성합니다.
-                                const url = `/search/track/${track_id}/${album_id}`;
-
-                                // window.location.href를 사용하여 URL로 이동합니다.
-                                window.location.href = url;
-                            }
-                        </script>
                     </table>
                 </div>
             </div>
@@ -190,7 +181,7 @@
                     <p class="fw-bolder" style="font-size: 27px; color: white;">앨범</p>
                     <div class="card-container">
                         <div style="margin-right:5px" th:each="album: ${albums}">
-                            <div class="card" style="width:130px; background: transparent; border: none; cursor:pointer">
+                            <div class="card" style="width:130px; background: transparent; border: none; cursor:pointer" th:onclick="searchAlbum([[${album.id}]])">
                                 <img th:src="${album.img}" style="border-radius: 5px 5px 5px 5px;width: 130px; height: 130px" class="align-items-start card-img-top" alt="...">
                                 <div class="card-body" style="text-align: start;margin-top: 5px; padding: 10px;">
                                     <p><span class="card-text fw-bold" th:text="${album.name}" style="font-size:18px; color: white"></span><span th:text="${album.artist}" style="color: rgb(255,255,255,0.7)"></span></p>
@@ -203,7 +194,7 @@
                     <p class="fw-bolder" style="font-size: 27px; color: white;">아티스트</p>
                     <div class="card-container">
                         <div style="margin-right:5px" th:each="artist: ${artists}">
-                            <div class="card" style="width:130px; background: transparent; border: none; cursor:pointer">
+                            <div class="card" style="width:130px; background: transparent; border: none; cursor:pointer" th:onclick="searchArtist([[${artist.id}]])">
                                 <img th:src="${artist.img}" style="width: 130px; height: 130px" class="align-items-center card-img-top box" alt="...">
                                 <div class="card-body" style="text-align: center;margin-top: 5px; padding: 10px; ">
                                     <p><span th:text="${artist.name}" style="font-size:18px; color: white" class="fw-bold card-text"></span></p>
@@ -227,6 +218,25 @@
         document.body.appendChild(f);
         f.submit();
     }
+    function searchTrack(track_id, album_id) {
+        // trackName을 인자로 받아 URL을 생성합니다.
+        const url = `/search/track/${track_id}/${album_id}`;
+
+        // window.location.href를 사용하여 URL로 이동합니다.
+        window.location.href = url;
+    }
+    function searchAlbum(album_id) {
+        // trackName을 인자로 받아 URL을 생성합니다.
+        const url2 = `/search/album/${album_id}`;
+
+        // window.location.href를 사용하여 URL로 이동합니다.
+        window.location.href = url2;
+    }
+    function searchArtist(artist_id){
+        const url3 = `/search/artist/${artist_id}`
+        window.location.href = url3;
+    }
+
 
 </script>
 </body>

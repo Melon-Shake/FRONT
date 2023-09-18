@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>트랙 검색 결과</title>
+    <title>아티스트 검색 결과</title>
 
 
     <link rel="stylesheet" href="/css/bootstrap.css">
@@ -213,7 +213,7 @@
                     isVisible = false;
                     showButton.textContent = "가사 보기";
                 } else {
-                    hiddenElement.style.display = 'block'; // 보임4
+                    hiddenElement.style.display = 'block'; // 보임
                     isVisible = true;
                     showButton.textContent = "가사 숨기기";
 
@@ -232,7 +232,7 @@
             <div class="card-container" style="max-height:500px">
                 <div style="margin-right:5px" th:each="artist: ${artists_info}">
                     <div style="display: flex">
-                    <div class="card" style="margin-top:50px; width:130px; background: transparent; border: none; cursor:pointer" th:onclick="searchArtist([[${artist.id}]])">
+                    <div class="card" style="margin-top:50px; width:130px; background: transparent; border: none; cursor:pointer">
                         <img th:src="${artist.images_url}" style="width: 130px; height: 130px" class="align-items-center card-img-top box" alt="...">
                         <div class="card-body" style="text-align: center;margin-top: 5px; padding: 10px; ;">
                             <p><span th:text="${artist.name}" style="font-size:18px; color: rgb(255,255,255,0.8)" class="fw-bold card-text"></span></p>
@@ -252,7 +252,7 @@
                     <th style="vertical-align: bottom"><h1 style="margin-left: 20px;color:white"th:text="${tracksWithA[0].artist_name}"></h1><p class="fw-bolder" style="margin-left: 20px;font-size: 20px; color: rgb(255,255,255,0.9);">이 아티스트의 트랙들</p></th>
                     <th></th>
                 </tr>
-                <tr th:each="trackArtist,i : ${tracksWithA}" th:onclick="searchTrack([[${trackArtist.id}]],[[${trackArtist.album_id}]])" style="cursor:pointer; max-height: 30px;">
+                <tr th:each="trackArtist,i : ${tracksWithA}" th:onclick="redirectToSearch([[${trackArtist.id}]],[[${trackArtist.album_id}]])" style="cursor:pointer; max-height: 30px;">
                     <td style="border-radius: 10px 0 0 10px;">
                         <div class="row">
                             <p th:text="${i.index+1}" style=";margin-left: 10px; color:rgb(255,255,255,0.6) ;width:50px;margin-bottom:0px;padding:20px"></p><img th:src="${trackArtist.album_image}" style=" padding: 0;margin-left:20px;width:50px; height: 50px">
@@ -272,7 +272,7 @@
             <div class="card-container">
                 <div class="col-12">
                     <div class="row">
-                        <div th:each="album:${albums}" class="card m-4" style="margin-top: 20px; width: 130px; background: transparent; border: none; cursor:pointer;" th:onclick="searchAlbum([[${album.id}]])">
+                        <div th:each="album:${albums}" class="card m-4" style="margin-top: 20px; width: 130px; background: transparent; border: none; cursor:pointer;">
                             <img th:src="${album.album_image}" style="width: 130px; height: 130px; vertical-align: middle; border-radius: 10px;" class="align-items-center card-img-top" alt="...">
                             <div class="card-body" style="text-align: center; margin-top: 5px; padding: 10px;">
                                 <p><span th:text="${album.album_name}" style="font-size: 18px; color: rgb(255, 255, 255, 0.8);" class="fw-bold card-text"></span></p>
@@ -291,13 +291,13 @@
                 <th style="vertical-align: bottom"><h1 style="color:white ;margin-left: 20px" th:text="${album_info[0].name}"></h1><p class="fw-bolder" style="margin-left: 20px;font-size: 20px; color: rgb(255,255,255,0.9);">수록곡</p></th>
                 <th></th>
             </tr>
-            <tr th:each="trackAlbum,i : ${tracksInAlbumWOArtists}" th:onclick="searchTrack([[${trackAlbum.id}]],[[${trackAlbum.album_id}]])" style="cursor:pointer; max-height: 30px;">
+            <tr th:each="trackAlbum,i : ${tracksInAlbumWOArtists}" th:onclick="redirectToSearch([[${trackAlbum.id}]],[[${trackAlbum.album_id}]])" style="cursor:pointer; max-height: 30px;">
                 <td th:text="${i.index+1}" style="color:rgb(255,255,255,0.6) ;width:20px; border-radius: 10px 0 0 10px; vertical-align: middle; padding-right:100px;text-align: center;"></td>
                 <td><p class="fw-bolder" style="width: 500px; font-size: 20px; color: white" th:text="${trackAlbum.name}"></p><p style="margin-bottom: 5px"><span th:each="artist : ${artists_info}"> <span th:text="${artist.name}" style="color: rgb(255,255,255,0.7)"></span></span></p></td>
                 <td style="border-radius: 0 10px 10px 0; vertical-align: middle"><p class="fw-bolder" style="color: rgb(255,255,255,0.8); font-size: 17px;" th:text="${trackAlbum.duration}"></p></td>
             </tr>
             <script>
-                function searchTrack(track_id, album_id) {
+                function redirectToSearch(track_id, album_id) {
                     // trackName을 인자로 받아 URL을 생성합니다.
                     const url = `/search/track/${track_id}/${album_id}`;
 
