@@ -248,8 +248,8 @@
         <div th:each="tracksWithA:${tracksWithArtist}" class="row" style="margin-top:50px">
             <table class="table table-container" style="background: transparent;">
                 <tr>
-                    <th><img th:src="${tracksWithA[0].artist_image}" class="box3"></th>
-                    <th style="vertical-align: bottom"><h1 style="margin-left: 20px;color:white"th:text="${tracksWithA[0].artist_name}"></h1><p class="fw-bolder" style="margin-left: 20px;font-size: 20px; color: rgb(255,255,255,0.9);">이 아티스트의 트랙들</p></th>
+                    <th><h1 th:text="${tracksWithA[0].artist_name}" style="color:rgb(255,255,255,0.8)"></h1></th>
+                    <th style="vertical-align: bottom"><h1 style="margin-left: 20px;"></h1><p class="fw-bolder" style="margin-left: 0;font-size: 20px; color: rgb(255,255,255,0.9);">이 아티스트의 트랙들</p></th>
                     <th></th>
                 </tr>
                 <tr th:each="trackArtist,i : ${tracksWithA}" th:onclick="searchTrack([[${trackArtist.id}]],[[${trackArtist.album_id}]])" style="cursor:pointer; max-height: 30px;">
@@ -272,7 +272,7 @@
             <div class="card-container">
                 <div class="col-12">
                     <div class="row">
-                        <div th:each="album:${albums}" class="card m-4" style="margin-top: 20px; width: 130px; background: transparent; border: none; cursor:pointer;" th:onclick="searchAlbum([[${album.id}]])">
+                        <div th:each="album:${albums}" class="card m-4" style="margin-top: 20px; width: 130px; background: transparent; border: none; cursor:pointer;" th:onclick="searchAlbum([[${album.album_id}]])">
                             <img th:src="${album.album_image}" style="width: 130px; height: 130px; vertical-align: middle; border-radius: 10px;" class="align-items-center card-img-top" alt="...">
                             <div class="card-body" style="text-align: center; margin-top: 5px; padding: 10px;">
                                 <p><span th:text="${album.album_name}" style="font-size: 18px; color: rgb(255, 255, 255, 0.8);" class="fw-bold card-text"></span></p>
@@ -296,20 +296,29 @@
                 <td><p class="fw-bolder" style="width: 500px; font-size: 20px; color: white" th:text="${trackAlbum.name}"></p><p style="margin-bottom: 5px"><span th:each="artist : ${artists_info}"> <span th:text="${artist.name}" style="color: rgb(255,255,255,0.7)"></span></span></p></td>
                 <td style="border-radius: 0 10px 10px 0; vertical-align: middle"><p class="fw-bolder" style="color: rgb(255,255,255,0.8); font-size: 17px;" th:text="${trackAlbum.duration}"></p></td>
             </tr>
-            <script>
-                function searchTrack(track_id, album_id) {
-                    // trackName을 인자로 받아 URL을 생성합니다.
-                    const url = `/search/track/${track_id}/${album_id}`;
-
-                    // window.location.href를 사용하여 URL로 이동합니다.
-                    window.location.href = url;
-                }
-            </script>
         </table>
     </div>
 </div>
 <script src="/node_modules/chart.js/dist/chart.js"></script>
 <script>
+    function searchTrack(track_id, album_id) {
+        // trackName을 인자로 받아 URL을 생성합니다.
+        const url = `/search/track/${track_id}/${album_id}`;
+
+        // window.location.href를 사용하여 URL로 이동합니다.
+        window.location.href = url;
+    }
+    function searchAlbum(album_id) {
+        // trackName을 인자로 받아 URL을 생성합니다.
+        const url2 = `/search/album/${album_id}`;
+
+        // window.location.href를 사용하여 URL로 이동합니다.
+        window.location.href = url2;
+    }
+    function searchArtist(artist_id){
+        const url3 = `/search/artist/${artist_id}`
+        window.location.href = url3;
+    }
     // 데이터 및 차트 옵션 설정
     // import {Chart} from "chart.js";
     //

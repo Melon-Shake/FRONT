@@ -179,80 +179,23 @@
 <div class="container">
     <div class="row">
         <div class="col-3">
-            <img th:src="${album_info[0].images_url}" style="width: 300px; height:300px; border-radius: 10px">
+            <img th:src="${artist[0].images_url}" style="width: 300px; height:300px; border-radius: 70%;overflow: hidden">
         </div>
         <div class="col-7">
-            <h3 style="color:rgb(255,255,255,0.7)">곡</h3>
+            <h3 style="color:rgb(255,255,255,0.7)">가수</h3>
             <br><br>
-            <h1 th:text="${track_info[0].name}" class="d-flex" style="justify-content: start;font-size: 60px;font-weight: bold; color:white"></h1>
-            <br><br><br>
-            <p style="color:rgb(255,255,255,0.7)"><span th:each="artist:${artists_info}"><img th:src="${artist.images_url}" class="box"><span></span> <span th:text="${artist.name}" ></span><span> </span></span><span> &#183 </span><span th:text="${album_info[0].name}"></span><span> &#183 </span><span th:text="${album_info[0].release_year}"></span><span> &#183 </span><span th:text="${track_info[0].duration}"></span>
-            </p>
+            <h1 th:text="${artist[0].name}" class="d-flex" style="justify-content: start;font-size: 60px;font-weight: bold; color:white"></h1>
         </div>
         <div class="col-2">
-<!--            <canvas id="TrackFeature"></canvas>-->
-
         </div>
-    </div>
-    <div class="col" style="margin-top: 30px"></div>
-    <button class="btn btn-primary"id="showLyrics" style="width: 300px">가사 보기</button>
-    <div class="col-8 hidden-lyrics" style="margin-top: 30px" id="lyrics">
-        <p th:text="${lyrics[0].content}" style="word-wrap: normal; font-size: 30px"></p>
-        <script>
-            // 버튼 요소와 숨겨진 요소의 참조를 얻습니다.
-            const showButton = document.getElementById('showLyrics');
-            const hiddenElement = document.getElementById('lyrics');
-
-            // 버튼을 클릭했을 때 숨겨진 요소를 보이게 만듭니다.
-            let isVisible = false; // 초기에는 숨겨진 상태
-
-            // 토글 함수
-            function toggleVisibility() {
-                if (isVisible) {
-                    hiddenElement.style.display = 'none'; // 숨김
-                    isVisible = false;
-                    showButton.textContent = "가사 보기";
-                } else {
-                    hiddenElement.style.display = 'block'; // 보임
-                    isVisible = true;
-                    showButton.textContent = "가사 숨기기";
-
-                }
-            }
-
-            // 토글 버튼을 클릭하여 토글 함수를 호출합니다.
-            showButton.addEventListener('click', toggleVisibility);
-        </script>
-    </div>
-
-    <div class="col"></div>
-    <div class="row" style="max-height: 300px">
-        <h3 style="margin-top: 50px; color: rgb(255,255,255,0.7); margin-left:10px"> 아티스트</h3>
-        <div class="col-3">
-            <div class="card-container" style="max-height:500px">
-                <div style="margin-right:5px" th:each="artist: ${artists_info}">
-                    <div style="display: flex">
-                    <div class="card" style="margin-top:50px; width:130px; background: transparent; border: none; cursor:pointer">
-                        <img th:src="${artist.images_url}" style="width: 130px; height: 130px" class="align-items-center card-img-top box" alt="...">
-                        <div class="card-body" style="text-align: center;margin-top: 5px; padding: 10px; ;">
-                            <p><span th:text="${artist.name}" style="font-size:18px; color: rgb(255,255,255,0.8)" class="fw-bold card-text"></span></p>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-<!--    <div th:each="artist:${artists_info}">-->
-        <div th:each="tracksWithA:${tracksWithArtist}" class="row" style="margin-top:50px">
+        <div class="row" style="margin-top:50px">
             <table class="table table-container" style="background: transparent;">
                 <tr>
-                    <th><img th:src="${tracksWithA[0].artist_image}" class="box3"></th>
-                    <th style="vertical-align: bottom"><h1 style="margin-left: 20px;color:white"th:text="${tracksWithA[0].artist_name}"></h1><p class="fw-bolder" style="margin-left: 20px;font-size: 20px; color: rgb(255,255,255,0.9);">이 아티스트의 트랙들</p></th>
+                    <th><h1 th:text="${tracksWithArtist[0].artist_name}" style=" margin-left:10px;color:rgb(255,255,255,0.8);font-size: 50px;"></h1></th>
+                    <th style="vertical-align: bottom"><p class="fw-bolder" style="margin-left: 20px;font-size: 20px; color: rgb(255,255,255,0.9);">이 아티스트의 트랙들</p></th>
                     <th></th>
                 </tr>
-                <tr th:each="trackArtist,i : ${tracksWithA}" th:onclick="redirectToSearch([[${trackArtist.id}]],[[${trackArtist.album_id}]])" style="cursor:pointer; max-height: 30px;">
+                <tr th:each="trackArtist,i : ${tracksWithArtist}" th:onclick="searchTrack([[${trackArtist.id}]],[[${trackArtist.album_id}]])" style="cursor:pointer; max-height: 30px;">
                     <td style="border-radius: 10px 0 0 10px;">
                         <div class="row">
                             <p th:text="${i.index+1}" style=";margin-left: 10px; color:rgb(255,255,255,0.6) ;width:50px;margin-bottom:0px;padding:20px"></p><img th:src="${trackArtist.album_image}" style=" padding: 0;margin-left:20px;width:50px; height: 50px">
@@ -265,105 +208,52 @@
                 </tr>
             </table>
         </div>
-    <div class="row">
-        <br><br>
-        <h1 style="color:white; margin-left:40px">이 아티스트와 관련된 앨범</h1>
-        <div th:each="albums: ${albumsWithArtist}">
-            <div class="card-container">
-                <div class="col-12">
-                    <div class="row">
-                        <div th:each="album:${albums}" class="card m-4" style="margin-top: 20px; width: 130px; background: transparent; border: none; cursor:pointer;">
-                            <img th:src="${album.album_image}" style="width: 130px; height: 130px; vertical-align: middle; border-radius: 10px;" class="align-items-center card-img-top" alt="...">
-                            <div class="card-body" style="text-align: center; margin-top: 5px; padding: 10px;">
-                                <p><span th:text="${album.album_name}" style="font-size: 18px; color: rgb(255, 255, 255, 0.8);" class="fw-bold card-text"></span></p>
+        <div class="row">
+            <br><br>
+            <h1 style="color:white; margin-left:40px">이 아티스트의 앨범</h1>
+                <div class="card-container">
+                    <div class="col-12">
+                        <div class="row">
+                            <div th:each="album:${albumWithArtist}" class="card m-4" style="margin-top: 20px; width: 130px; background: transparent; border: none; cursor:pointer;" th:onclick="searchAlbum([[${album.album_id}]])">
+                                <img th:src="${album.album_image}" style="width: 130px; height: 130px; vertical-align: middle; border-radius: 10px;" class="align-items-center card-img-top" alt="...">
+                                <div class="card-body" style="text-align: center; margin-top: 5px; padding: 10px; color:rgb(255,255,255,0.4)">
+                                    <p><span th:text="${album.album_name}" style="font-size: 18px; color: rgb(255, 255, 255, 0.8);" class="fw-bold card-text"></span><p><span style="color:rgb(255,255,255,0.5)" th:text="${album.release_year}"></span></span><br></span><span th:text="${album.album_type}" style="color: rgb(255,255,255,0.5"></span></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
-    </div>
-<!--    </div>-->
-    <div class="row" style="margin-top:50px">
-        <table class="table table-container" style="background: transparent;">
-            <tr>
-                <th><img th:src="${album_info[0].images_url}" style="width:150px; height:150px; border-radius: 10px"></th>
-                <th style="vertical-align: bottom"><h1 style="color:white ;margin-left: 20px" th:text="${album_info[0].name}"></h1><p class="fw-bolder" style="margin-left: 20px;font-size: 20px; color: rgb(255,255,255,0.9);">수록곡</p></th>
-                <th></th>
-            </tr>
-            <tr th:each="trackAlbum,i : ${tracksInAlbumWOArtists}" th:onclick="redirectToSearch([[${trackAlbum.id}]],[[${trackAlbum.album_id}]])" style="cursor:pointer; max-height: 30px;">
-                <td th:text="${i.index+1}" style="color:rgb(255,255,255,0.6) ;width:20px; border-radius: 10px 0 0 10px; vertical-align: middle; padding-right:100px;text-align: center;"></td>
-                <td><p class="fw-bolder" style="width: 500px; font-size: 20px; color: white" th:text="${trackAlbum.name}"></p><p style="margin-bottom: 5px"><span th:each="artist : ${artists_info}"> <span th:text="${artist.name}" style="color: rgb(255,255,255,0.7)"></span></span></p></td>
-                <td style="border-radius: 0 10px 10px 0; vertical-align: middle"><p class="fw-bolder" style="color: rgb(255,255,255,0.8); font-size: 17px;" th:text="${trackAlbum.duration}"></p></td>
-            </tr>
-            <script>
-                function redirectToSearch(track_id, album_id) {
-                    // trackName을 인자로 받아 URL을 생성합니다.
-                    const url = `/search/track/${track_id}/${album_id}`;
 
-                    // window.location.href를 사용하여 URL로 이동합니다.
-                    window.location.href = url;
-                }
-            </script>
-        </table>
-    </div>
+    <div class="col"></div>
+
+
+
+
+
+
 </div>
-<script src="/node_modules/chart.js/dist/chart.js"></script>
+
 <script>
-    // 데이터 및 차트 옵션 설정
-    // import {Chart} from "chart.js";
-    //
-    // const data = {
-    //     labels: [
-    //         'Eating',
-    //         'Drinking',
-    //         'Sleeping',
-    //         'Designing',
-    //         'Coding',
-    //         'Cycling',
-    //         'Running'
-    //     ],
-    //     datasets: [{
-    //         label: 'My First Dataset',
-    //         data: [65, 59, 90, 81, 56, 55, 40],
-    //         fill: true,
-    //         backgroundColor: 'rgba(255, 99, 132, 0.2)',
-    //         borderColor: 'rgb(255, 99, 132)',
-    //         pointBackgroundColor: 'rgb(255, 99, 132)',
-    //         pointBorderColor: '#fff',
-    //         pointHoverBackgroundColor: '#fff',
-    //         pointHoverBorderColor: 'rgb(255, 99, 132)'
-    //     }, {
-    //         label: 'My Second Dataset',
-    //         data: [28, 48, 40, 19, 96, 27, 100],
-    //         fill: true,
-    //         backgroundColor: 'rgba(54, 162, 235, 0.2)',
-    //         borderColor: 'rgb(54, 162, 235)',
-    //         pointBackgroundColor: 'rgb(54, 162, 235)',
-    //         pointBorderColor: '#fff',
-    //         pointHoverBackgroundColor: '#fff',
-    //         pointHoverBorderColor: 'rgb(54, 162, 235)'
-    //     }]
-    // };
-    //
-    // const config = {
-    //     type: 'radar',
-    //     data: data,
-    //     options: {
-    //         elements: {
-    //             line: {
-    //                 borderWidth: 3
-    //             }
-    //         }
-    //     }
-    // };
-    //
-    // // 차트를 그릴 canvas 요소 가져오기
-    //
-    // // 차트 생성
-    //
-    // const ctx = document.getElementById("trackFeature").getContext('2d');
-    // const trackFeature = new Chart(ctx, config);
+    function searchTrack(track_id, album_id) {
+        // trackName을 인자로 받아 URL을 생성합니다.
+        const url = `/search/track/${track_id}/${album_id}`;
+
+        // window.location.href를 사용하여 URL로 이동합니다.
+        window.location.href = url;
+    }
+    function searchAlbum(album_id) {
+        // trackName을 인자로 받아 URL을 생성합니다.
+        const url2 = `/search/album/${album_id}`;
+
+        // window.location.href를 사용하여 URL로 이동합니다.
+        window.location.href = url2;
+    }
+    function searchArtist(artist_id){
+        const url3 = `/search/artist/${artist_id}`
+        window.location.href = url3;
+    }
+
 </script>
 
 </body>
