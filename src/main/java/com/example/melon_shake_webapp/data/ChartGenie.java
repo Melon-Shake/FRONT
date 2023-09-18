@@ -44,6 +44,14 @@ public class ChartGenie {
     @Column(name = "created_datetime")
     private LocalDateTime createdDatetime;
 
+    @Column(name = "track_id")
+    private String trackId;
+
+    @Column(name = "album_id")
+    private String albumId;
+
+    @Column(name = "artist_ids")
+    private String artistIds;
 
 
 }

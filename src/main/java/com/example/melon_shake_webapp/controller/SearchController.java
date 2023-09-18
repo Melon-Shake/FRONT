@@ -309,8 +309,28 @@ public class SearchController {
             HttpSession session) throws SQLException {
         model.addAttribute("userName",(String) session.getAttribute("userName"));
 
-        List<Map<String,Object>> trackAlbum = searchDetailService.getTracksInAlbumWOArtist(album_id);
+        List<Map<String,Object>> tracksInAlbumWOArtists= searchDetailService.getTracksInAlbumWOArtist(album_id);
+        List<Map<String,Object>> artistWithAlbum = searchDetailService.getArtistWithAlbum(album_id);
+        for (int i=0;i<tracksInAlbumWOArtists.size();i++) {
+            Integer duration_m = (Integer) tracksInAlbumWOArtists.get(i).get("duration_ms") / 60000;
+            Integer duration_s = (Integer) tracksInAlbumWOArtists.get(i).get("duration_ms") % 60000 / 1000;
+            String duration4 = duration_m + ":" + String.format("%02d", duration_s);
+            tracksInAlbumWOArtists.get(i).put("duration", duration4);
+        }
+        List<List<Map<String,Object>>> tracksWithArtist = new ArrayList<>();
+        for (int i=0; i<artistWithAlbum.size();i++){
+            tracksWithArtist.add(searchDetailService.getTracksWithArtist((String)artistWithAlbum.get(i).get("artist_id")));
+        }
+        String release_date_str = (String) tracksInAlbumWOArtists.get(0).get("release_date");
+        String[] release_date = release_date_str.split("-");
+        String release_year = release_date[0];
+        tracksInAlbumWOArtists.get(0).put("release_year",release_year);
 
+        System.out.println(tracksWithArtist);
+        System.out.println("===============================");
+        model.addAttribute("tracksWithArtist",tracksWithArtist);
+        model.addAttribute("tracksInAlbumWOArtists",tracksInAlbumWOArtists);
+        model.addAttribute("artistWithAlbum",artistWithAlbum);
 
         return "searchAlbum";
 
@@ -322,7 +342,29 @@ public class SearchController {
             Model model,
             HttpSession session) throws SQLException {
 
+        model.addAttribute("userName",(String) session.getAttribute("userName"));
+        List<Map<String,Object>> artist = searchDetailService.getArtist(artist_id);
+        List<Map<String,Object>> tracksWithArtist = searchDetailService.getTracksWithArtist(artist_id);
+        List<Map<String,Object>> albumWithArtist = searchDetailService.getAlbumsWithArtist(artist_id);
+        for (int i=0;i<tracksWithArtist.size();i++) {
+            Integer duration_m = (Integer) tracksWithArtist.get(i).get("duration_ms") / 60000;
+            Integer duration_s = (Integer) tracksWithArtist.get(i).get("duration_ms") % 60000 / 1000;
+            String duration = duration_m + ":" + String.format("%02d", duration_s);
+            tracksWithArtist.get(i).put("duration", duration);
+        }
+        for (int i=0; i<albumWithArtist.size();i++) {
+            String release_date_str = (String) albumWithArtist.get(i).get("release_date");
+            String[] release_date = release_date_str.split("-");
+            String release_year = release_date[0];
+            albumWithArtist.get(i).put("release_year", release_year);
+        }
+
+        model.addAttribute("artist",artist);
+        model.addAttribute("tracksWithArtist",tracksWithArtist);
+        model.addAttribute("albumWithArtist",albumWithArtist);
+
         return "searchArtist";
+
     }
 
 

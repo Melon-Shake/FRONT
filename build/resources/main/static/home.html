@@ -232,11 +232,11 @@
                         <th th:class="fixed-column-album" th:text="앨범" style="width: 64px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
                     </tr>
 
-                    <tr th:each="total,i : ${totalChart}" style="background: rgba(255,255,255,0.65); cursor:pointer" th:onclick="searchTrack([[${total.trackId}]],[[${total.albumId}]])">
+                    <tr th:each="total,i : ${totalChart}" style="background: rgba(255,255,255,0.65); cursor:pointer;" th:onclick="searchTrack([[${total.trackId}]],[[${total.albumId}]])">
                         <td th:text="${i.index+1}" style="min-width:50px; vertical-align: middle;"></td>
-                        <td th:text="${total.trackName}" style="vertical-align: middle;max-width: 150px"></td>
-                        <td th:text="${total.artistNames}" style="vertical-align: middle;max-width: 120px"></td>
-                        <td><img th:src="${total.imgUrl}" style="width:64px"></td>
+                        <td th:text="${total.trackName}" style="vertical-align: middle;max-width: 140px"></td>
+                        <td th:text="${total.artistNames}" style="vertical-align: middle;max-width: 110px"></td>
+                        <td><img th:src="${total.imgUrl}" style="width:64px;padding-right:20px"></td>
                     <script>
 
 
@@ -263,9 +263,9 @@
                         </tr>
                         <tr th:each="melon,i : ${chartMelon}" style="background: rgba(255,255,255,0.65)">
                             <td th:text="${i.index+1}" style="min-width:50px; vertical-align: middle;"></td>
-                            <td th:text="${melon.trackName}" style="max-width: 150px; vertical-align: middle;"></td>
-                            <td th:text="${melon.artistNames}" style="max-width: 120px; vertical-align: middle;"></td>
-                            <td><img th:src="${melon.imgUrl}" style="width:64px"></td>
+                            <td th:text="${melon.trackName}" style="max-width: 140px; vertical-align: middle;"></td>
+                            <td th:text="${melon.artistNames}" style="max-width: 110px; vertical-align: middle;"></td>
+                            <td><img th:src="${melon.imgUrl}" style="width:64px; padding-right:20px"></td>
                         </tr>
                     </table>
                 </div>
@@ -279,9 +279,9 @@
                         </tr>
                         <tr th:each="genie,i : ${chartGenie}" style="background: rgba(255,255,255,0.65)">
                             <td th:text="${i.index+1}" style="min-width:50px; vertical-align: middle;"></td>
-                            <td th:text="${genie.trackName}" style="max-width: 150px; vertical-align: middle;"></td>
-                            <td th:text="${genie.artistNames}" style="max-width: 120px; vertical-align: middle;"></td>
-                            <td><img th:src="${genie.imgUrl}" style="width:64px"></td>
+                            <td th:text="${genie.trackName}" style="max-width: 140px; vertical-align: middle;"></td>
+                            <td th:text="${genie.artistNames}" style="max-width: 110px; vertical-align: middle;"></td>
+                            <td><img th:src="${genie.imgUrl}" style="width:64px;padding-right:20px"></td>
                         </tr>
                     </table>
                 </div>
@@ -295,9 +295,9 @@
                         </tr>
                         <tr th:each="bugs,i : ${chartBugs}" style="background: rgba(255,255,255,0.65)">
                             <td th:text="${i.index+1}" style="min-width:50px; vertical-align: middle;"></td>
-                            <td th:text="${bugs.trackName}" style="max-width: 150px; vertical-align: middle;"></td>
-                            <td th:text="${bugs.artistNames}" style="max-width: 120px; vertical-align: middle;"></td>
-                            <td><img th:src="${bugs.imgUrl}" style="width:64px"></td>
+                            <td th:text="${bugs.trackName}" style="max-width: 140px; vertical-align: middle;"></td>
+                            <td th:text="${bugs.artistNames}" style="max-width: 110px; vertical-align: middle;"></td>
+                            <td><img th:src="${bugs.imgUrl}" style="width:64px; padding-right:20px"></td>
                         </tr>
                     </table>
                 </div>
@@ -311,9 +311,9 @@
                         </tr>
                         <tr th:each="flo,i : ${chartFlo}" style="background: rgba(255,255,255,0.65)">
                             <td th:text="${i.index+1}" style="min-width:50px; vertical-align: middle;"></td>
-                            <td th:text="${flo.trackName}" style="max-width: 150px; vertical-align: middle;"></td>
-                            <td th:text="${flo.artistNames}" style="max-width: 120px; vertical-align: middle;"></td>
-                            <td><img th:src="${flo.imgUrl}" style="width:64px"></td>
+                            <td th:text="${flo.trackName}" style="max-width: 140px; vertical-align: middle;"></td>
+                            <td th:text="${flo.artistNames}" style="max-width: 110px; vertical-align: middle;"></td>
+                            <td><img th:src="${flo.imgUrl}" style="width:64px; padding-right: 20px"></td>
                         </tr>
                     </table>
                 </div>
@@ -327,9 +327,9 @@
                         </tr>
                         <tr th:each="vibe,i : ${chartVibe}" style="background: rgba(255,255,255,0.65)">
                             <td th:text="${i.index+1}" style="min-width:50px; vertical-align: middle;"></td>
-                            <td th:text="${vibe.trackName}" style="max-width: 150px; vertical-align: middle;"></td>
-                            <td th:text="${vibe.artistNames}" style="max-width: 120px; vertical-align: middle;"></td>
-                            <td><img th:src="${vibe.imgUrl}"style="width:64px"></td>
+                            <td th:text="${vibe.trackName}" style="max-width: 140px; vertical-align: middle;"></td>
+                            <td th:text="${vibe.artistNames}" style="max-width: 110px; vertical-align: middle;"></td>
+                            <td><img th:src="${vibe.imgUrl}"style="width:64px; padding-right:20px"></td>
                         </tr>
                     </table>
                 </div>
