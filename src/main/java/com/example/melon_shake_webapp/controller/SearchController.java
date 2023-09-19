@@ -227,7 +227,7 @@ public class SearchController {
             }
 
             HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/search/track/"))
+                .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/search/"))
 //                    .uri(URI.create("http://192.168.70.61:8000/get_use_data/"))
                     .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                     .header("Content-Type", "application/json")

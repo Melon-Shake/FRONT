@@ -100,7 +100,7 @@ public class HomeController {
                 return "error";
             }
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("http://192.168.70.61:8000/playlist/"))
+                    .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/playlist/"))
 //                .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/daily_search_ranking/"))
                     .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                     .header("Content-Type", "application/json")
@@ -144,7 +144,7 @@ public class HomeController {
             } catch (IOException | InterruptedException e) {
                 // 예외 처리 로직
                 e.printStackTrace(); // 예외 정보 출력
-                return "redirect:/Home";
+                return "home";
             }
 //        List<Map<String,Object>> albumImage = searchDetailService.getAlbumImage();
 
