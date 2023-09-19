@@ -131,6 +131,7 @@ public class SearchController {
 
         return "search";
     }
+<<<<<<< HEAD
 
     @GetMapping("/search/track/{track_id}/{album_id}")
     public String searchTrack(
@@ -314,5 +315,11 @@ public class SearchController {
 
     }
 
+=======
+    @GetMapping("/svelte")
+    public String sveltePage(){
+        return "index.html";
+    }
+>>>>>>> v0.3.0/dev
 
 }

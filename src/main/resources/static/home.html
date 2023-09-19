@@ -74,7 +74,10 @@
             --bs-btn-disabled-color: #fff;
             border-bottom: none;
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> v0.3.0/dev
         .tab-btn{
             background: linear-gradient(to bottom,#393939 0%,#555555 100%);
         }
@@ -84,6 +87,7 @@
         .tab-btn:active {
             background: linear-gradient(to bottom, #9c9c9c 0%, #797979 100%);
         }
+<<<<<<< HEAD
         .chart-header{
             --bs-btn-color: white;
             --bs-btn-bg: black;
@@ -104,6 +108,8 @@
         .chart-header:active {
             background: linear-gradient(to bottom, #9c9c9c 0%, #797979 100%);
         }
+=======
+>>>>>>> v0.3.0/dev
 
         .table {
             width:400px;
@@ -157,6 +163,7 @@
             border-bottom-color: #50d0bd !important;
         }
 
+<<<<<<< HEAD
         td {
             white-space: nowrap; /* 줄바꿈 방지 */
             overflow: hidden;
@@ -191,6 +198,8 @@
             transform: scale(1.1); /* 호버 시 카드를 확대합니다. */
         }
 
+=======
+>>>>>>> v0.3.0/dev
     </style>
 </head>
 <body>
@@ -227,6 +236,7 @@
 </div>
 <div class="container">
     <div class="row">
+<<<<<<< HEAD
         <div style="width:420px;">
             <div class="btn-group" style="margin-left: 12px; margin-top: 20px; width: 398px; height: 39px; color: white; text-align: center">
                 <button class="btn chart-header fw-bold" style="border-bottom: 1px solid black; border-radius: 0.25rem 0.25rem 0 0">종합 차트</button>
@@ -239,6 +249,133 @@
                     <th th:class="fixed-column-artist" th:text="가수" style=";width: 130px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
                     <th th:class="fixed-column-album" th:text="앨범" style="width: 64px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
                 </tr>
+=======
+            <div style="width:420px;">
+                <div class="container-lg table-container" style="width:420px; margin-top: 57px">
+                <table class="table">
+                    <tr>
+                        <th th:class="fixed-column-rank" th:text="랭킹" style="width:50px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                        <th th:class="fixed-column-track" th:text="곡" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                        <th th:class="fixed-column-artist" th:text="가수" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                        <th th:class="fixed-column-album" th:text="앨범" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                    </tr>
+
+                    <tr th:each="track,i : ${track_ranking_chart}" style="background: rgba(255,255,255,0.65)">
+                        <td th:text="${i.index+1}"></td>
+                        <td th:text="${track.value[0]}"></td>
+                        <td th:text="${track.value[1]}"></td>
+                        <td><img th:src="${track.value[2]}" width="64px"></td>
+                    <script>
+
+
+                    </script>
+                    </tr>
+                </table>
+                </div>
+            </div>
+            <div style="width:420px;">
+                <div class="btn-group" style="margin-left: 12px; margin-top: 20px; width: 399px">
+                    <button class="btn tab-btn" type="button" id="btn_1" style="border-radius: 0.25rem 0 0 0">Melon</button>
+                    <button class="btn tab-btn" type="button" id="btn_2">Genie</button>
+                    <button class="btn tab-btn" type="button" id="btn_3">Bugs</button>
+                    <button class="btn tab-btn" type="button" id="btn_4">Flo</button>
+                    <button class="btn tab-btn" type="button" id="btn_5"style="border-radius: 0 0.25rem 0 0">Vibe</button>
+                </div>
+                <div class="container-lg table-container tab-table" id="table1" style="width:420px;border-top-left-radius: 0; border-top-right-radius: 0">
+                    <table class="table">
+                        <tr>
+                            <th th:class="fixed-column-rank" th:text="랭킹" style="width:50px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                            <th th:class="fixed-column-track" th:text="곡" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                            <th th:class="fixed-column-artist" th:text="가수" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                            <th th:class="fixed-column-album" th:text="앨범" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                        </tr>
+                        <tr th:each="track,i : ${track_ranking_chart}" style="background: rgba(255,255,255,0.65)">
+                            <td th:text="${i.index+1}"></td>
+                            <td th:text="${track.value[0]}"></td>
+                            <td th:text="${track.value[1]}"></td>
+                            <td><img th:src="${track.value[2]}" width="64px"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="container-lg table-container tab-table" id="table2" style="width:420px; border-top-left-radius: 0; border-top-right-radius: 0">
+                    <table class="table">
+                        <tr>
+                            <th th:class="fixed-column-rank" th:text="랭킹" style="width:50px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                            <th th:class="fixed-column-track" th:text="곡" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                            <th th:class="fixed-column-artist" th:text="가수" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                            <th th:class="fixed-column-album" th:text="앨범" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                        </tr>
+                        <tr th:each="track,i : ${track_ranking_chart}" style="background: rgba(255,255,255,0.65)">
+                            <td th:text="${i.index+1}"></td>
+                            <td th:text="${track.value[0]}"></td>
+                            <td th:text="${track.value[1]}"></td>
+                            <td><img th:src="${track.value[2]}" width="64px"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="container-lg table-container tab-table" id="table3" style="width:420px; border-top-left-radius: 0; border-top-right-radius: 0">
+                    <table class="table">
+                        <tr>
+                            <th th:class="fixed-column-rank" th:text="랭킹" style="width:50px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                            <th th:class="fixed-column-track" th:text="곡" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                            <th th:class="fixed-column-artist" th:text="가수" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                            <th th:class="fixed-column-album" th:text="앨범" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                        </tr>
+                        <tr th:each="track,i : ${track_ranking_chart}" style="background: rgba(255,255,255,0.65)">
+                            <td th:text="${i.index+1}"></td>
+                            <td th:text="${track.value[0]}"></td>
+                            <td th:text="${track.value[1]}"></td>
+                            <td><img th:src="${track.value[2]}" width="64px"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="container-lg table-container tab-table" id="table4" style="width:420px; border-top-left-radius: 0; border-top-right-radius: 0">
+                    <table class="table">
+                        <tr>
+                            <th th:class="fixed-column-rank" th:text="랭킹" style="width:50px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                            <th th:class="fixed-column-track" th:text="곡" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                            <th th:class="fixed-column-artist" th:text="가수" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                            <th th:class="fixed-column-album" th:text="앨범" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                        </tr>
+                        <tr th:each="track,i : ${track_ranking_chart}" style="background: rgba(255,255,255,0.65)">
+                            <td th:text="${i.index+1}"></td>
+                            <td th:text="${track.value[0]}"></td>
+                            <td th:text="${track.value[1]}"></td>
+                            <td><img th:src="${track.value[2]}" width="64px"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="container-lg table-container tab-table" id="table5" style="width:420px;border-top-left-radius: 0; border-top-right-radius: 0">
+                    <table class="table">
+                        <tr>
+                            <th th:class="fixed-column-rank" th:text="랭킹" style="width:50px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                            <th th:class="fixed-column-track" th:text="곡" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                            <th th:class="fixed-column-artist" th:text="가수" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                            <th th:class="fixed-column-album" th:text="앨범" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                        </tr>
+                        <tr th:each="track,i : ${track_ranking_chart}" style="background: rgba(255,255,255,0.65)">
+                            <td th:text="${i.index+1}"></td>
+                            <td th:text="${track.value[0]}"></td>
+                            <td th:text="${track.value[1]}"></td>
+                            <td><img th:src="${track.value[2]}" width="64px"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div style="width:250px">
+                <div class="container table-container ms-lg-5" style="height:600px; margin-top: 57px">
+                    <table class="table" style="width:250px">
+                        <tr>
+                            <th th:text="랭킹" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                            <th th:text="검색어" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
+                        </tr>
+                        <tr th:each="keyword : ${keyword_ranking_chart}" style="background: rgba(255,255,255,0.65)">
+                            <td th:text="${keyword.key}"></td>
+                            <td th:text="${keyword.value}"></td>
+                        </tr>
+                    </table>
+                </div>
+>>>>>>> v0.3.0/dev
 
                 <tr th:each="total,i : ${totalChart}" style="background: rgba(255,255,255,0.65); cursor:pointer;" th:onclick="searchTrack([[${total.trackId}]],[[${total.albumId}]])">
                     <td th:text="${i.index+1}" style="min-width:50px; vertical-align: middle;"></td>
@@ -253,6 +390,7 @@
             </table>
             </div>
         </div>
+<<<<<<< HEAD
         <div style="width:420px;">
             <div class="btn-group" style="margin-left: 12px; margin-top: 20px; width: 399px">
                 <button class="btn tab-btn" type="button" id="btn_1" style="border-radius: 0.25rem 0 0 0">Melon</button>
@@ -377,6 +515,8 @@
         </div>
 
         </div>
+=======
+>>>>>>> v0.3.0/dev
     </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -398,6 +538,10 @@
     }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> v0.3.0/dev
     // buttons.forEach(function (button) {
     //     if (button.classList.contains("active")) {
     //         button.style.borderStyle = "2px solid white";
@@ -457,6 +601,7 @@
             $("#btn_5").removeClass("border-bottom");
         })
     })
+<<<<<<< HEAD
     function searchTrack(track_id, album_id) {
         // trackName을 인자로 받아 URL을 생성합니다.
         const url = `/search/track/${track_id}/${album_id}`;
@@ -464,6 +609,8 @@
         // window.location.href를 사용하여 URL로 이동합니다.
         window.location.href = url;
     }
+=======
+>>>>>>> v0.3.0/dev
 
 </script>
 </body>

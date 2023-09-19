@@ -64,18 +64,30 @@
             background: linear-gradient(to bottom, #50d0bd 0%, #40a798 100%);
         }
         .tab-btn{
+<<<<<<< HEAD
             --bs-btn-color: white;
             --bs-btn-bg: black;
             --bs-btn-focus-shadow-rgb: 49, 132, 253;
             --bs-btn-active-color: #50d0bd;
             --bs-btn-active-border-color: #50d0bd;
             --bs-btn-active-bg: transparent;
+=======
+            --bs-btn-color: black;
+            --bs-btn-focus-shadow-rgb: 49, 132, 253;
+            --bs-btn-active-color: #40a798;
+            --bs-btn-active-border-color: white;
+            --bs-btn-active-bg: #50d0bd;
+>>>>>>> v0.3.0/dev
             --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
             --bs-btn-disabled-color: #fff;
             border-bottom: none;
         }
         .tab-btn{
+<<<<<<< HEAD
             background: linear-gradient(to bottom,#393939 0%,#555555 100%);
+=======
+            background: linear-gradient(to bottom,#555555 0%,#393939 100%);
+>>>>>>> v0.3.0/dev
         }
         .tab-btn:hover{
             background: linear-gradient(to bottom, #797979 0%, #555555 100%);
@@ -83,6 +95,7 @@
         .tab-btn:active {
             background: linear-gradient(to bottom, #9c9c9c 0%, #797979 100%);
         }
+<<<<<<< HEAD
         .chart-header{
             --bs-btn-color: white;
             --bs-btn-bg: black;
@@ -104,6 +117,19 @@
             background: linear-gradient(to bottom, #9c9c9c 0%, #797979 100%);
         }
 
+=======
+        .bt-bg-gradient{
+            background: linear-gradient(to bottom,#555555 0%,#393939 100%);
+        }
+        .bt-bg-gradient:hover{
+            background: linear-gradient(to bottom, #797979 0%, #555555 100%);
+        }
+        .bt-bg-gradient:active {
+            background: linear-gradient(to bottom, #9c9c9c 0%, #797979 100%);
+        }
+
+        /*tab-btn:{}*/
+>>>>>>> v0.3.0/dev
         .table {
             width:400px;
         }
@@ -152,6 +178,7 @@
             color: #50d0bd;
         }
 
+<<<<<<< HEAD
         .border-bottom {
             border-bottom-color: #50d0bd !important;
         }
@@ -183,11 +210,14 @@
             background-color: rgb(255,255,255,0.3);
         }
 
+=======
+>>>>>>> v0.3.0/dev
     </style>
 </head>
 <body>
 
 <nav class="d-flex navbar navbar-expand-xl bg-gradient bg-dark navbar-dark" style="height: 70px;">
+<<<<<<< HEAD
     <div class="col center_pos justify-content-start">
         <a href="/Home">
             <img src="/logo/transparent4.png">
@@ -208,6 +238,29 @@
         <div style="margin-bottom: 5px" th:unless="${userName}">
             <a href="/login" class="fw-bold">로그인</a>
             <a href="/register" class="fw-bold">회원가입</a>
+=======
+        <div class="col center_pos justify-content-start">
+            <a href="/Home">
+                <img src="/logo/transparent4.png">
+            </a>
+        </div>
+        <div class="col-6 search_pos justify-content-center">
+            <form class="d-flex" action="/search/in-process" method="post">
+                <label for="searchInput"></label>
+                <input type="text" class="form-control search_height" placeholder="검색어를 입력하세요" id="searchInput" name="searchInput">
+                <button class="ms-2 btn btn-primary button_width search_height"  type="submit" id="gotoSearch">검색</button>
+            </form>
+        </div>
+        <div style="width:350px" class="center_pos center">
+            <div th:if="${userName}">
+                <p class="fw-bolder" style="margin-top: 3px; margin-bottom: 3px">어서오세요 <span th:text="${userName}"></span>님!</p>
+                <a href="#" onClick="logout()" class="fw-bold" style="margin-top: 3px; margin-bottom: 3px">로그아웃</a>
+            </div>
+            <div style="margin-bottom: 5px" th:unless="${userName}">
+                <a href="/login" class="fw-bold">로그인</a>
+                <a href="/register" class="fw-bold">회원가입</a>
+            </div>
+>>>>>>> v0.3.0/dev
         </div>
     </div>
 </nav>
@@ -220,6 +273,7 @@
 <div class="container">
     <div class="row">
             <div style="width:420px;">
+<<<<<<< HEAD
                 <div class="btn-group" style="margin-left: 12px; margin-top: 20px; width: 398px; height: 39px; color: white; text-align: center">
                     <button class="btn chart-header fw-bold" style="border-bottom: 1px solid black; border-radius: 0.25rem 0.25rem 0 0">종합 차트</button>
                 </div>
@@ -237,6 +291,22 @@
                         <td th:text="${total.trackName}" style="vertical-align: middle;max-width: 140px"></td>
                         <td th:text="${total.artistNames}" style="vertical-align: middle;max-width: 110px"></td>
                         <td><img th:src="${total.imgUrl}" style="width:64px;padding-right:20px"></td>
+=======
+                <div class="container-lg table-container" style="width:420px; margin-top: 57px">
+                <table class="table">
+                    <tr class="table-dark">
+                        <th th:class="fixed-column-rank" th:text="랭킹" style="width:50px;"></th>
+                        <th th:class="fixed-column-track" th:text="곡"></th>
+                        <th th:class="fixed-column-artist" th:text="가수"></th>
+                        <th th:class="fixed-column-album" th:text="앨범"></th>
+                    </tr>
+
+                    <tr th:each="track,i : ${track_ranking_chart}">
+                        <td th:text="${i.index+1}"></td>
+                        <td th:text="${track.value[0]}"></td>
+                        <td th:text="${track.value[1]}"></td>
+                        <td><img th:src="${track.value[2]}" width="64px"></td>
+>>>>>>> v0.3.0/dev
                     <script>
 
 
@@ -246,6 +316,7 @@
                 </div>
             </div>
             <div style="width:420px;">
+<<<<<<< HEAD
                 <div class="btn-group" style="margin-left: 12px; margin-top: 20px; width: 399px">
                     <button class="btn tab-btn" type="button" id="btn_1" style="border-radius: 0.25rem 0 0 0">Melon</button>
                     <button class="btn tab-btn" type="button" id="btn_2">Genie</button>
@@ -330,10 +401,80 @@
                             <td th:text="${vibe.trackName}" style="max-width: 140px; vertical-align: middle;"></td>
                             <td th:text="${vibe.artistNames}" style="max-width: 110px; vertical-align: middle;"></td>
                             <td><img th:src="${vibe.imgUrl}"style="width:64px; padding-right:20px"></td>
+=======
+                <div class="btn-group" style="margin-left: 12px; margin-top: 20px;">
+                    <button class="btn tab-btn" type="button" id="btn_1">Melon</button>
+                    <button class="btn tab-btn" type="button" id="btn_2">Genie</button>
+                    <button class="btn tab-btn" type="button" id="btn_3">Bugs</button>
+                    <button class="btn tab-btn" type="button" id="btn_4">Flo</button>
+                </div>
+                <div class="container-lg table-container tab-table" id="table1" style="width:420px;">
+                    <table class="table">
+                        <tr class="table-dark">
+                            <th th:class="fixed-column-rank" th:text="랭킹" style="width:50px;"></th>
+                            <th th:class="fixed-column-track" th:text="곡"></th>
+                            <th th:class="fixed-column-artist" th:text="가수"></th>
+                            <th th:class="fixed-column-album" th:text="앨범"></th>
+>>>>>>> v0.3.0/dev
+                        </tr>
+                        <tr th:each="track,i : ${track_ranking_chart}">
+                            <td th:text="${i.index+1}"></td>
+                            <td th:text="${track.value[0]}"></td>
+                            <td th:text="${track.value[1]}"></td>
+                            <td><img th:src="${track.value[2]}" width="64px"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="container-lg table-container tab-table" id="table2" style="width:420px;">
+                    <table class="table">
+                        <tr class="table-dark">
+                            <th th:class="fixed-column-rank" th:text="랭킹" style="width:50px;"></th>
+                            <th th:class="fixed-column-track" th:text="곡"></th>
+                            <th th:class="fixed-column-artist" th:text="가수"></th>
+                            <th th:class="fixed-column-album" th:text="앨범"></th>
+                        </tr>
+                        <tr th:each="track,i : ${track_ranking_chart}">
+                            <td th:text="${i.index+1}"></td>
+                            <td th:text="${track.value[0]}"></td>
+                            <td th:text="${track.value[1]}"></td>
+                            <td><img th:src="${track.value[2]}" width="64px"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="container-lg table-container tab-table" id="table3" style="width:420px;">
+                    <table class="table">
+                        <tr class="table-dark">
+                            <th th:class="fixed-column-rank" th:text="랭킹" style="width:50px;"></th>
+                            <th th:class="fixed-column-track" th:text="곡"></th>
+                            <th th:class="fixed-column-artist" th:text="가수"></th>
+                            <th th:class="fixed-column-album" th:text="앨범"></th>
+                        </tr>
+                        <tr th:each="track,i : ${track_ranking_chart}">
+                            <td th:text="${i.index+1}"></td>
+                            <td th:text="${track.value[0]}"></td>
+                            <td th:text="${track.value[1]}"></td>
+                            <td><img th:src="${track.value[2]}" width="64px"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="container-lg table-container tab-table" id="table4" style="width:420px;">
+                    <table class="table">
+                        <tr class="table-dark">
+                            <th th:class="fixed-column-rank" th:text="랭킹" style="width:50px;"></th>
+                            <th th:class="fixed-column-track" th:text="곡"></th>
+                            <th th:class="fixed-column-artist" th:text="가수"></th>
+                            <th th:class="fixed-column-album" th:text="앨범"></th>
+                        </tr>
+                        <tr th:each="track,i : ${track_ranking_chart}">
+                            <td th:text="${i.index+1}"></td>
+                            <td th:text="${track.value[0]}"></td>
+                            <td th:text="${track.value[1]}"></td>
+                            <td><img th:src="${track.value[2]}" width="64px"></td>
                         </tr>
                     </table>
                 </div>
             </div>
+<<<<<<< HEAD
             <div style="width:250px; margin-left:100px" >
                 <div class="btn-group" style="margin-left: 12px;margin-top: 20px; width: 228px; height: 39px; color: white; text-align: center">
                     <button class="btn chart-header fw-bold" style="border-bottom: 1px solid black; border-radius: 0.25rem 0.25rem 0 0;">검색어 순위</button>
@@ -345,6 +486,16 @@
                             <th th:text="검색어" style="background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
                         </tr>
                         <tr th:each="keyword : ${keyword_ranking_chart}" style="background: rgba(255,255,255,0.65)">
+=======
+            <div style="width:250px">
+                <div class="container table-container ms-lg-5" style="height:600px; margin-top: 57px">
+                    <table class="table" style="width:250px">
+                        <tr class="table-dark">
+                            <th th:text="랭킹"></th>
+                            <th th:text="검색어"></th>
+                        </tr>
+                        <tr th:each="keyword : ${keyword_ranking_chart}">
+>>>>>>> v0.3.0/dev
                             <td th:text="${keyword.key}"></td>
                             <td th:text="${keyword.value}"></td>
                         </tr>
@@ -353,6 +504,7 @@
 
             </div>
         </div>
+<<<<<<< HEAD
         <h1 style>야임마</h1>
         <div th:each="track_P,i : ${track_Ps}" th:with="albumImg=${albumImgs[i.index]}">
             <h1 style="color:white" th:text="${track_P[0].name}"></h1>
@@ -361,6 +513,8 @@
 
 
         </div>
+=======
+>>>>>>> v0.3.0/dev
     </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -382,6 +536,10 @@
     }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> v0.3.0/dev
     // buttons.forEach(function (button) {
     //     if (button.classList.contains("active")) {
     //         button.style.borderStyle = "2px solid white";
@@ -395,39 +553,57 @@
         $(".tab-table").hide();
         $("#table1").show();
         $(".tab-btn").removeClass("active");
+<<<<<<< HEAD
         $(".tab-btn").addClass("border-bottom");
         $("#btn_1").addClass("active");
         $("#btn_1").removeClass("border-bottom");
+=======
+        $("#btn_1").addClass("active");
+
+>>>>>>> v0.3.0/dev
     }
     $(document).ready(function() {
         $("#btn_1").click(function() {
             $(".tab-table").hide(); // 모든 테이블 숨기기
             $("#table1").show(); // 선택한 테이블 표시
             $(".tab-btn").removeClass("active");
+<<<<<<< HEAD
             $(".tab-btn").addClass("border-bottom");
             $("#btn_1").addClass("active");
             $("#btn_1").removeClass("border-bottom");
+=======
+            $("#btn_1").addClass("active");
+>>>>>>> v0.3.0/dev
         })
         $("#btn_2").click(function() {
             $(".tab-table").hide();
             $("#table2").show();
             $(".tab-btn").removeClass("active");
+<<<<<<< HEAD
             $(".tab-btn").addClass("border-bottom");
             $("#btn_2").addClass("active");
             $("#btn_2").removeClass("border-bottom");
+=======
+            $("#btn_2").addClass("active");
+>>>>>>> v0.3.0/dev
         })
         $("#btn_3").click(function() {
             $(".tab-table").hide();
             $("#table3").show();
             $(".tab-btn").removeClass("active");
+<<<<<<< HEAD
             $(".tab-btn").addClass("border-bottom");
             $("#btn_3").addClass("active");
             $("#btn_3").removeClass("border-bottom");
+=======
+            $("#btn_3").addClass("active");
+>>>>>>> v0.3.0/dev
         })
         $("#btn_4").click(function() {
             $(".tab-table").hide();
             $("#table4").show();
             $(".tab-btn").removeClass("active");
+<<<<<<< HEAD
             $(".tab-btn").addClass("border-bottom");
             $("#btn_4").addClass("active");
             $("#btn_4").removeClass("border-bottom");
@@ -448,6 +624,11 @@
         // window.location.href를 사용하여 URL로 이동합니다.
         window.location.href = url;
     }
+=======
+            $("#btn_4").addClass("active");
+        })
+    })
+>>>>>>> v0.3.0/dev
 
 </script>
 </body>

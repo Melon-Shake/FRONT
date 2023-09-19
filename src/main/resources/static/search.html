@@ -35,12 +35,15 @@
             --bs-btn-disabled-color: #fff;
         }
 
+<<<<<<< HEAD
         .card-container{
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
         }
 
+=======
+>>>>>>> v0.3.0/dev
         .btn-primary:hover{
             background: linear-gradient(to bottom, #40a798 0%, #009999 100%);
         }
@@ -82,6 +85,7 @@
         .bt-bg-gradient:active {
             background: linear-gradient(to bottom, #9c9c9c 0%, #797979 100%);
         }
+<<<<<<< HEAD
         .card-text {
             text-overflow: ellipsis;
             overflow: hidden;
@@ -123,6 +127,9 @@
             color: rgb(255,255,255);
             font-weight: bolder;
         }
+=======
+
+>>>>>>> v0.3.0/dev
     </style>
 </head>
 <body>
@@ -151,6 +158,7 @@
     </div>
 
 </nav>
+<<<<<<< HEAD
 <div class="row" style="background:linear-gradient(to bottom,#969696 0%, #1c1c1c 100%)">
     <div class="mb-4"></div>
     <a class="col-1 text-start" onclick="history.back()" style="margin-left:50px;font-size: 50px; cursor:pointer"><</a>
@@ -204,6 +212,41 @@
                     </div>
                 </div>
             </div>
+=======
+<div class="container mt-3">
+
+    <div row>
+        <div class="mb-4 col-1"></div>
+        <button id="gotoRoot" style="color: white; margin-bottom: 10px;" class="btn bt-bg-gradient" type="button">뒤로 가기</button>
+        <script>
+            // 버튼 클릭 시 루트 디렉토리로 이동하는 함수
+            document.getElementById("gotoRoot").addEventListener("click", function() {
+                window.location.href = "/";
+            });
+        </script>
+    </div>
+    <div class="container">
+        <div class="row">
+    <div class="col-5 mt-2" style="width: 500px;">
+        <div th:if="${searchResult}">
+            <table class="table table-container" style="background: transparent;">
+                <tr>
+                    <th th:text="곡" class="fw-bolder" style="font-size: 30px; width: 100px"></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr th:each="result : ${searchResult}">
+                    <td><img src="https://cdn.pixabay.com/photo/2023/08/30/17/59/snowflakes-8223860_1280.jpg" style="width: 50px; margin-top: 30%" height="50px"></td>
+                    <td><p class="fw-bolder" style="margin-top: 15px; font-size: 20px; color: black" th:text="${result.value[0][0]}"></p><p th:text="${result.value[2][0]}" style="color: rgb(0,0,0,0.5)"></p></td>
+                    <td><p class="fw-bolder" style="color: black; font-size: 17px; margin-top: 50%">3 &#58 33</p></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+            <div class="col-5">
+            <p class="fw-bolder" style="font-size: 30px; color: black; margin-top: 10px;margin-left: 50px">앨범</p>
+        </div>
+>>>>>>> v0.3.0/dev
         </div>
     </div>
 </div>
@@ -218,6 +261,7 @@
         document.body.appendChild(f);
         f.submit();
     }
+<<<<<<< HEAD
     function searchTrack(track_id, album_id) {
         // trackName을 인자로 받아 URL을 생성합니다.
         const url = `/search/track/${track_id}/${album_id}`;
@@ -237,6 +281,8 @@
         window.location.href = url3;
     }
 
+=======
+>>>>>>> v0.3.0/dev
 
 </script>
 </body>
