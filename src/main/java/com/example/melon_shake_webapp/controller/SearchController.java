@@ -75,8 +75,14 @@ public class SearchController {
 //        long end_time = System.currentTimeMillis();
 //        System.out.println(end_time - start_time);
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/search/track/"))
+                .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/search/"))
 //                .uri(URI.create("http://192.168.70.60:8000/search/track/"))
+                .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
+                .header("Content-Type", "application/json")
+                .build();
+        HttpRequest request3 = HttpRequest.newBuilder()
+                .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/load/"))
+//                .uri(URI.create("http://192.168.70.60:8000/get_keyword_data/"))
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .header("Content-Type", "application/json")
                 .build();
@@ -90,64 +96,8 @@ public class SearchController {
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-            Map<String,List<Map<String,String>>> searchResult = objectMapper.readValue("{\n" +
-                    "    \"tracks\": [\n" +
-                    "      {\n" +
-                    "        \"id\": \"5F6nAnNIsRk9QbPOx9t11B\",\n"+
-                    "        \"album_id\": \"4B3UIkrohpUIxyVCCgLrEI\",\n"+
-                    "        \"name\": \"Secret Garden\",\n" +
-                    "        \"img\": \"https://i.scdn.co/image/ab67616d0000b273dbd063ae065db06970b022d7\",\n" +
-                    "        \"artist\": \"IU\",\n" +
-                    "        \"duration\": \"03:44\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"id\": \"4EaQ0ouIydfeAgQUz284EF\",\n"+
-                    "        \"album_id\": \"1l12B55qdesQorPcQLJDRo\",\n"+
-                    "        \"name\": \"People Pt.2 (feat. IU)\",\n" +
-                    "        \"img\": \"https://i.scdn.co/image/ab67616d0000b273bff049a2215c768b6432499f\",\n" +
-                    "        \"artist\": \"Agust D, IU\",\n" +
-                    "        \"duration\": \"03:33\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"id\": \"4EaQ0ouIydfeAgQUz284EF\",\n"+
-                    "        \"album_id\": \"446ROKmKfpEwkbi2SjELVX\",\n"+
-                    "        \"name\": \"People Pt.2 (feat. IU)\",\n" +
-                    "        \"img\": \"https://i.scdn.co/image/ab67616d0000b273fa9247b68471b82d2125651e\",\n" +
-                    "        \"artist\": \"Agust D, IU\",\n" +
-                    "        \"duration\": \"03:33\"\n" +
-                    "      }\n" +
-                    "    ],\n" +
-                    "    \"albums\": [\n" +
-                    "      {\n" +
-                    "        \"id\": \"4B3UIkrohpUIxyVCCgLrEI\",\n"+
-                    "        \"name\": \"A flower bookmark\",\n" +
-                    "        \"img\": \"https://i.scdn.co/image/ab67616d0000b273dbd063ae065db06970b022d7\",\n" +
-                    "        \"artist\": \"IU\",\n" +
-                    "        \"release_year\": \"2017-09-22\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"id\": \"1l12B55qdesQorPcQLJDRo\",\n"+
-                    "        \"name\": \"People Pt.2 (feat. IU)\",\n" +
-                    "        \"img\": \"https://i.scdn.co/image/ab67616d0000b273bff049a2215c768b6432499f\",\n" +
-                    "        \"artist\": \"Agust D, IU\",\n" +
-                    "        \"release_year\": \"2023-04-07\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"id\": \"446ROKmKfpEwkbi2SjELVX\",\n"+
-                    "        \"name\": \"D-DAY\",\n" +
-                    "        \"img\": \"https://i.scdn.co/image/ab67616d0000b273fa9247b68471b82d2125651e\",\n" +
-                    "        \"artist\": \"Agust D\",\n" +
-                    "        \"release_year\": \"2023-04-21\"\n" +
-                    "      }\n" +
-                    "    ],\n" +
-                    "    \"artists\": [\n" +
-                    "      {\n" +
-                    "        \"id\": \"3HqSLMAZ3g3d5poNaI7GOU\",\n"+
-                    "        \"name\": \"IU\",\n" +
-                    "        \"img\": \"https://i.scdn.co/image/ab6761610000e5eb006ff3c0136a71bfb9928d34\"\n" +
-                    "      }\n" +
-                    "    ]\n" +
-                    "  }\n",new TypeReference<Map<String,List<Map<String,String>>>>() {});
+            client.send(request3, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            Map<String,List<Map<String,String>>> searchResult = objectMapper.readValue(response.body(),new TypeReference<Map<String,List<Map<String,String>>>>() {});
             List<Map<String,String>> tracks = searchResult.get("tracks");
             List<Map<String,String>> albums = searchResult.get("albums");
             List<Map<String,String>> artists = searchResult.get("artists");
@@ -181,10 +131,7 @@ public class SearchController {
 
         return "search";
     }
-//    @GetMapping("/svelte")
-//    public String sveltePage(){
-//        return "index.html";
-//    }
+
     @GetMapping("/search/track/{track_id}/{album_id}")
     public String searchTrack(
             @PathVariable(value = "track_id") String track_id,
@@ -279,21 +226,21 @@ public class SearchController {
                 return "error";
             }
 
-//            HttpRequest request = HttpRequest.newBuilder()
-////                .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/search/track/"))
+            HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/search/track/"))
 //                    .uri(URI.create("http://192.168.70.61:8000/get_use_data/"))
-//                    .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
-//                    .header("Content-Type", "application/json")
-//               ㅋ     .build();
-//            try {
-//                HttpResponse<String> response2 = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-//                System.out.println(response2);
-//                // 예외가 발생하지 않은 경우 이후의 로직을 작성
-//            } catch (IOException | InterruptedException e) {
-//                // 예외 처리 로직
-//                e.printStackTrace(); // 예외 정보 출력
-//
-//            }
+                    .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
+                    .header("Content-Type", "application/json")
+                    .build();
+            try {
+                HttpResponse<String> response2 = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+                System.out.println(response2);
+                // 예외가 발생하지 않은 경우 이후의 로직을 작성
+            } catch (IOException | InterruptedException e) {
+                // 예외 처리 로직
+                e.printStackTrace(); // 예외 정보 출력
+
+            }
 
         }
 

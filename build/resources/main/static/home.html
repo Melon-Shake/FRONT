@@ -261,7 +261,7 @@
                             <th th:class="fixed-column-artist" th:text="가수" style="width: 130px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
                             <th th:class="fixed-column-album" th:text="앨범" style="width: 64px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
                         </tr>
-                        <tr th:each="melon,i : ${chartMelon}" style="background: rgba(255,255,255,0.65)">
+                        <tr th:each="melon,i : ${chartMelon}" style="background: rgba(255,255,255,0.65); cursor:pointer;" th:onclick="searchTrack([[${melon.trackId}]],[[${melon.albumId}]])">
                             <td th:text="${i.index+1}" style="min-width:50px; vertical-align: middle;"></td>
                             <td th:text="${melon.trackName}" style="max-width: 140px; vertical-align: middle;"></td>
                             <td th:text="${melon.artistNames}" style="max-width: 110px; vertical-align: middle;"></td>
@@ -277,7 +277,7 @@
                             <th th:class="fixed-column-artist" th:text="가수" style="width: 130px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
                             <th th:class="fixed-column-album" th:text="앨범" style="width: 64px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
                         </tr>
-                        <tr th:each="genie,i : ${chartGenie}" style="background: rgba(255,255,255,0.65)">
+                        <tr th:each="genie,i : ${chartGenie}" style="background: rgba(255,255,255,0.65); cursor:pointer;" th:onclick="searchTrack([[${genie.trackId}]],[[${genie.albumId}]])">
                             <td th:text="${i.index+1}" style="min-width:50px; vertical-align: middle;"></td>
                             <td th:text="${genie.trackName}" style="max-width: 140px; vertical-align: middle;"></td>
                             <td th:text="${genie.artistNames}" style="max-width: 110px; vertical-align: middle;"></td>
@@ -293,7 +293,7 @@
                             <th th:class="fixed-column-artist" th:text="가수" style="width: 130px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
                             <th th:class="fixed-column-album" th:text="앨범" style="width: 64px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
                         </tr>
-                        <tr th:each="bugs,i : ${chartBugs}" style="background: rgba(255,255,255,0.65)">
+                        <tr th:each="bugs,i : ${chartBugs}" style="background: rgba(255,255,255,0.65); cursor:pointer;" th:onclick="searchTrack([[${bugs.trackId}]],[[${bugs.albumId}]])">
                             <td th:text="${i.index+1}" style="min-width:50px; vertical-align: middle;"></td>
                             <td th:text="${bugs.trackName}" style="max-width: 140px; vertical-align: middle;"></td>
                             <td th:text="${bugs.artistNames}" style="max-width: 110px; vertical-align: middle;"></td>
@@ -309,7 +309,7 @@
                             <th th:class="fixed-column-artist" th:text="가수" style="width: 130px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
                             <th th:class="fixed-column-album" th:text="앨범" style="width: 64px; background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
                         </tr>
-                        <tr th:each="flo,i : ${chartFlo}" style="background: rgba(255,255,255,0.65)">
+                        <tr th:each="flo,i : ${chartFlo}" style="background: rgba(255,255,255,0.65); cursor:pointer;" th:onclick="searchTrack([[${flo.trackId}]],[[${flo.albumId}]])">
                             <td th:text="${i.index+1}" style="min-width:50px; vertical-align: middle;"></td>
                             <td th:text="${flo.trackName}" style="max-width: 140px; vertical-align: middle;"></td>
                             <td th:text="${flo.artistNames}" style="max-width: 110px; vertical-align: middle;"></td>
@@ -325,7 +325,7 @@
                             <th th:class="fixed-column-artist" th:text="가수" style="width: 130px;background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
                             <th th:class="fixed-column-album" th:text="앨범" style="width: 64px;background: linear-gradient(to bottom,#555555 0%,#393939 100%); color: white"></th>
                         </tr>
-                        <tr th:each="vibe,i : ${chartVibe}" style="background: rgba(255,255,255,0.65)">
+                        <tr th:each="vibe,i : ${chartVibe}" style="background: rgba(255,255,255,0.65); cursor:pointer;" th:onclick="searchTrack([[${vibe.trackId}]],[[${vibe.albumId}]])">
                             <td th:text="${i.index+1}" style="min-width:50px; vertical-align: middle;"></td>
                             <td th:text="${vibe.trackName}" style="max-width: 140px; vertical-align: middle;"></td>
                             <td th:text="${vibe.artistNames}" style="max-width: 110px; vertical-align: middle;"></td>
@@ -352,6 +352,14 @@
                 </div>
 
             </div>
+        </div>
+        <h1 style>야임마</h1>
+        <div th:each="track_P,i : ${track_Ps}" th:with="albumImg=${albumImgs[i.index]}">
+            <h1 style="color:white" th:text="${track_P[0].name}"></h1>
+            <img th:src="${albumImg[0].album_image}">
+            <h1 style="color:white" th:text="${i.index}"></h1>
+
+
         </div>
     </div>
 

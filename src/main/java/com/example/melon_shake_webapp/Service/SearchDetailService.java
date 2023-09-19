@@ -19,6 +19,28 @@ public class SearchDetailService {
         return jdbcTemplate.queryForList(sql, track_id, album_id);
     }
 
+    public List<Map<String, Object>> getAlbumImage(String track_id){
+        String sql = "SELECT images_url as album_image, id FROM spotify_albums WHERE id = (SELECT album_id FROM spotify_tracks WHERE id = ? LIMIT 1)";
+        return jdbcTemplate.queryForList(sql,track_id);
+    }
+    public List<Map<String, Object>> getArtistsName(String track_id){
+        String sql = "SELECT artists_ids as artist_id ,ar.name, ar.images_url AS artist_image FROM\n" +
+                "(SELECT unnest(a.artists_ids) AS artists_ids\n" +
+                "FROM\n" +
+                "    (SELECT *\n" +
+                "     FROM spotify_tracks\n" +
+                "     WHERE id = ?\n" +
+                "     LIMIT 1)a)b\n" +
+                "     JOIN spotify_artists ar ON ar.id = b.artists_ids";
+        return jdbcTemplate.queryForList(sql,track_id);
+    }
+    public List<Map<String, Object>> getTrack_P(String track_id){
+        String sql = "SELECT id,name,duration_ms FROM spotify_tracks WHERE id = ? LIMIT 1";
+        return jdbcTemplate.queryForList(sql, track_id);
+    }
+
+
+
     public List<Map<String,Object>> getAlbum(String album_id){
         String sql = "SELECT * FROM spotify_albums WHERE id = ? LIMIT 1";
         return jdbcTemplate.queryForList(sql,album_id);
@@ -79,7 +101,7 @@ public class SearchDetailService {
     }
 //    =====================album search===========================
     public List<Map<String, Object>> getArtistWithAlbum(String album_id){
-        String sql = "SELECT artists_ids as artist_id ,ar.name, ar.images_url AS artist_image FROM\n" +
+        String sql = "SELECT DISTINCT artists_ids as artist_id ,ar.name, ar.images_url AS artist_image FROM\n" +
                 "(SELECT unnest(a.artists_ids) AS artists_ids\n" +
                 "FROM\n" +
                 "    (SELECT *\n" +
@@ -88,5 +110,19 @@ public class SearchDetailService {
                 "     LIMIT 1)a)b\n" +
                 "     JOIN spotify_artists ar ON ar.id = b.artists_ids";
         return jdbcTemplate.queryForList(sql, album_id);
+    }
+
+    public List<Map<String, Object>> getAllByTrack(String track_id){
+        String sql = "SELECT tr.id as id, tr.name as name, tr.duration_ms as duration \n" +
+                "\t, al.id as album_id, al.name as album_name, al.images_url as album_image \n" +
+                "\t, ARRAY_AGG(DISTINCT ta.id) as artists_id\n" +
+                "\t, ARRAY_AGG(DISTINCT ta.\"name\") as artists_name\n" +
+                "\t, ARRAY_AGG(DISTINCT ta.images_url) as artists_image\n" +
+                "FROM spotify_artists ta \n" +
+                "LEFT JOIN spotify_tracks tr ON ta.id = any(tr.artists_ids)\n" +
+                "LEFT JOIN spotify_albums al ON al.id = tr.album_id \n" +
+                " WHERE tr.id = ? GROUP BY tr.id, tr.name, tr.duration_ms \n" +
+                ", al.id, al.name, al.images_url";
+        return jdbcTemplate.queryForList(sql, track_id);
     }
 }
