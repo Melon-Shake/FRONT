@@ -12,6 +12,7 @@ on:
     branches :
       - main
       - "test-release"
+      - v0.3.0/dev
   release:
     types: [created]
 
