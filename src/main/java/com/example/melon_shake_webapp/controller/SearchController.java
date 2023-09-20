@@ -76,19 +76,19 @@ public class SearchController {
 //        System.out.println(end_time - start_time);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/search/"))
-//                .uri(URI.create("http://192.168.70.60:8000/search/track/"))
+//                .uri(URI.create("http://192.168.70.41:8000/search/track/"))
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .header("Content-Type", "application/json")
                 .build();
         HttpRequest request3 = HttpRequest.newBuilder()
                 .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/load/"))
-//                .uri(URI.create("http://192.168.70.60:8000/get_keyword_data/"))
+//                .uri(URI.create("http://192.168.70.41:8000/get_keyword_data/"))
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .header("Content-Type", "application/json")
                 .build();
         HttpRequest request2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/get_keyword_data/"))
-//                .uri(URI.create("http://192.168.70.60:8000/get_keyword_data/"))
+//                .uri(URI.create("http://192.168.70.41:8000/get_keyword_data/"))
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody2))
                 .header("Content-Type", "application/json")
                 .build();
@@ -228,7 +228,7 @@ public class SearchController {
 
             HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/search/"))
-//                    .uri(URI.create("http://192.168.70.61:8000/get_use_data/"))
+//                    .uri(URI.create("http://192.168.70.41:8000/search/"))
                     .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                     .header("Content-Type", "application/json")
                     .build();

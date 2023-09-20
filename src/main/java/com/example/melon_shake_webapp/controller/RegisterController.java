@@ -55,7 +55,7 @@ public class RegisterController {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/get_user_data/"))
-//                .uri(URI.create("http://192.168.70.60:8000/get_user_data/"))
+//                .uri(URI.create("http://192.168.70.41:8000/get_user_data/"))
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .header("Content-Type", "application/json")
                 .build();

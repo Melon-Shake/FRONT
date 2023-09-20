@@ -69,7 +69,7 @@ public class HomeController {
         model.addAttribute("totalChart", totalChart);
 
         HttpRequest request2 = HttpRequest.newBuilder()
-//                .uri(URI.create("http://192.168.70.60:8000/daily_search_ranking/"))
+//                .uri(URI.create("http://192.168.70.42:8000/daily_search_ranking/"))
                 .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/daily_search_ranking/"))
                 .POST(HttpRequest.BodyPublishers.ofString(""))
                 .build();
@@ -101,7 +101,7 @@ public class HomeController {
             }
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/playlist/"))
-//                .uri(URI.create("http://ec2-3-114-214-196.ap-northeast-1.compute.amazonaws.com:8000/daily_search_ranking/"))
+//                .uri(URI.create("http://192.168.70.41:8000/playlist/"))
                     .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                     .header("Content-Type", "application/json")
                     .build();
